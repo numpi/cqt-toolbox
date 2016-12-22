@@ -33,7 +33,7 @@ classdef cqt
 	    		end
 	    		if size(varargin{3},2) == size(varargin{4},2)
             			obj.n = varargin{1};
-            			obj.p = varargin{2};
+                        obj.p = varargin{2};
             			obj.U = varargin{3};
             			obj.V = varargin{4};
 	    		else
