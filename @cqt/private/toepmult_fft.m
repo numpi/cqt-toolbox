@@ -8,7 +8,8 @@ function u = toepmult_fft(am, ap, m, n, v)
 
 realflag = isreal(am) && isreal(ap) && isreal(v);
 
-n1=length(am);n2=length(ap);
+n1=length(am);
+n2=length(ap);
 
 if (size(v, 1) == n)    
     mn1 = min(n1,m);
@@ -27,8 +28,15 @@ if (size(v, 1) == n)
     u = zeros(length(af), size(wf, 2));
     af = reshape(af, length(af), 1);
     
-    for i = 1 : size(wf, 1)
-        u(i,:) = af(i) .* wf(i,:);
+    % Choose the fastest possible way to perform the multiplication
+    if size(wf, 1) > size(wf, 2)
+        for i = 1 : size(wf, 2)
+            u(:,i) = af .* wf(:,i);
+        end
+    else
+        for i = 1 : size(wf, 1)
+            u(i,:) = af(i) * wf(i,:);
+        end
     end
     
     u = ifft(u);
