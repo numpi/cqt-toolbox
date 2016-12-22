@@ -5,7 +5,7 @@ function TestCqtGeneric
 
 [ssn1, ssp1] = symbol(T1);
 res = norm(sn1 - ssn1) + norm(sp1 - ssp1);
-fprintf('TestCqtGeneric: Residue on the retrieve symbols: %e\n', res);
+fprintf('TestCqtGeneric: Residue on the retrieved symbols: %e\n', res);
 assert(res < eps);
 
 [U, V] = correction(T1);
