@@ -4,9 +4,20 @@ function T = plus(T1, T2)
 %     T = PLUS(T1, T2) adds two CQT matrices and produces a new CQT matrix T. 
 
 if isa(T1, 'cqt') && isa(T2, 'cqt')
-    [ cm, cp, cu, cv ] = qt_add(T1.n, T1.p, T1.U, T1.V, ...
-        T2.n, T2.p, T2.U, T2.V);
-    T = cqt(cm, cp, cu, cv);
+	if ~prod(T1.sz == T2.sz)
+		error('Incompatible dimensions in the addition')
+	end
+	if T1.sz(1) == inf
+    		[ cm, cp, cu, cv ] = qt_add(T1.n, T1.p, T1.U, T1.V, ...
+        		T2.n, T2.p, T2.U, T2.V);
+    		T = cqt(cm, cp, cu, cv);
+	else
+		[ cm, cp, cu, cv, cw, cz ] = fqt_add2(T1.n, T1.p,  ...
+        		T1.U, T1.V, T1.W, T1.Z, T2.n, T2.p, T2.U, ...
+			T2.V, T2.W, T2.Z);
+    		T = cqt(cm, cp, cu, cv);
+ 		T.W = cw; T.Z = cz; T.sz = T1.sz;
+	end
 elseif ~isa(T1, 'cqt')
     error('Incompatible types addition. \nIf you wan to add a matrix of %s with a cqt matrix T you can use cqt(A) + T',class(T1));
 elseif ~isa(T2, 'cqt')

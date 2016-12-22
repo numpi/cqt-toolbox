@@ -85,6 +85,9 @@ classdef cqt
 				if varargin{1}(1) ~= varargin{2}(1)
 					error('The coefficients of degree 0 does not coincide');
 	    			end
+				if length(varargin{1}) > varargin{5} || length(varargin{2}) > varargin{6}
+					error('Size of the symbol bigger than the size of the matrix');
+	    			end
 				if max(size(varargin{3},1),size(varargin{4},1)) > varargin{5} ||...
 			 		max(size(varargin{3},2),size(varargin{4},2)) > varargin{6}
 					error('Size of the corrections bigger than the size of the matrix');
@@ -96,13 +99,17 @@ classdef cqt
             			obj.p = varargin{2};
             			obj.U = varargin{3};
             			obj.V = eye(size(varargin{3},2));
-				obj.W = varargin{4};
+				obj.W = varargin{4}(end:-1:1,end:-1:1);
 				obj.Z = eye(size(varargin{4},2));
 				obj.sz = [varargin{5},varargin{6}];
 			case 8
 				if varargin{1}(1) ~= varargin{2}(1)
 					error('The coefficients of degree 0 do not coincide');
 	    			end
+				if max(size(varargin{3},1),size(varargin{4},1)) > varargin{7} ||...
+			 		max(size(varargin{3},2),size(varargin{4},2)) > varargin{8}
+					error('Size of the corrections bigger than the size of the matrix');
+				end
 				if max(size(varargin{3},1),size(varargin{5},1)) > varargin{7} ||...
 			 		max(size(varargin{4},1),size(varargin{6},1)) > varargin{8}
 					error('Size of the corrections bigger than the size of the matrix');
@@ -117,8 +124,8 @@ classdef cqt
             			obj.p = varargin{2};
             			obj.U = varargin{3};
             			obj.V = varargin{4};
-				obj.W = varargin{5};
-				obj.Z = varargin{6};
+				obj.W = varargin{5}(end:-1:1,end:-1:1);
+				obj.Z = varargin{6}(end:-1:1,end:-1:1);
 				obj.sz = [varargin{7},varargin{8}];
 			otherwise
 				error('Invalid number of parameters');
