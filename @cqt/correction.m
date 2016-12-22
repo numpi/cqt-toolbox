@@ -22,7 +22,7 @@ function [varargout] = correction(T)
 % factorization of E, whilst when T is finite the two outputs are assigned
 % the dense corrections to the Toeplitz part.
 
-switch size(T, 1)
+switch T.sz(1)
     case inf
         if nargout <= 1
             varargout{1} = T.U * T.V.';
