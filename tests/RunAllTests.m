@@ -6,7 +6,7 @@ addpath ../
 TestCqtGeneric;
 TestCqtPlus;
 TestCqtMtimes;
-
+TestCqtInv;
 rmpath ../
 
 end
