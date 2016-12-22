@@ -3,6 +3,7 @@ function RunAllTests
 
 addpath ../
 
+TestCqtGeneric;
 TestCqtPlus;
 TestCqtMtimes;
 

@@ -16,6 +16,7 @@ res = norm(XS(1:10,1:10) - XT12(1:10,1:10));
 fprintf('TestCqtMtimes: Residue on CQT multiplication: %e\n', res);
 assert(res < 100 * eps);
 
+% TODO: Test the multiplication by scalar.
 % Ssr = T1 * 2.0;
 % Ssl = 2.0 * T1;
 
