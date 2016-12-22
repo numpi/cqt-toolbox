@@ -1,4 +1,4 @@
-function TestCqtMtimes
+function TestCqtInv
 %TESTCQTINV Check the implementation of cqt/inv
 
 n=randn(1,6); p=randn(1,4); n(1)=sum(abs([n,p])); p(1)=n(1);
@@ -17,6 +17,6 @@ fprintf('TestCqtInv1: Residue on CQT inverse: %e\n', res);
 fprintf('TestCqtInv2: Residue on CQT inverse: %e\n', res2);
 fprintf('TestCqtInv3: Residue on CQT inverse: %e\n', res3);
 res=max([res,res2,res3]);
-assert(res < 1000 * eps);
+assert(res < 1e4 * eps);
 
 end

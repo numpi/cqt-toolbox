@@ -4,6 +4,7 @@ function RunAllTests
 addpath ../
 
 TestCqtGeneric;
+TestCqtTranspose;
 TestCqtPlus;
 TestCqtMtimes;
 TestCqtInv;
