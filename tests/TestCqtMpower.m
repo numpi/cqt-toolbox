@@ -22,9 +22,6 @@ S13 = S^13;
 CheckTestResult(norm(T13(1:100,1:100) - S13(1:100,1:100)), '<', 1e-5, ...
     'Computation of T^13 for infinite CQT matrices');
 
-% The finite multiplication has not been implemented, yet. 
-return;
-
 %
 % Finite case
 %
