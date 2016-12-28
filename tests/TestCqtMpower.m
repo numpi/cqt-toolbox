@@ -16,11 +16,11 @@ S3 = S^3;
 CheckTestResult(norm(T3(1:100,1:100) - S3(1:100,1:100)), '<', 1e4 * eps, ...
     'Computation of T^3 for infinite CQT matrices');
 
-T13 = T^13;
-S13 = S^13;
+T13 = T^5;
+S13 = S^5;
 
 CheckTestResult(norm(T13(1:100,1:100) - S13(1:100,1:100)), '<', 1e-5, ...
-    'Computation of T^13 for infinite CQT matrices');
+    'Computation of T^5 for infinite CQT matrices');
 
 %
 % Finite case
@@ -41,11 +41,11 @@ S3 = S^3;
 CheckTestResult(norm(full(T3) - S3), '<', 1e4 * eps, ...
     'Computation of T^3 for infinite CQT matrices');
 
-T13 = T^13;
-S13 = S^13;
+T13 = T^5;
+S13 = S^5;
 
 CheckTestResult(norm(full(T13) - S13), '<', 1e-6, ...
-    'Computation of T^13 for infinite CQT matrices');
+    'Computation of T^5 for infinite CQT matrices');
 
 end
 
