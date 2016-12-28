@@ -8,6 +8,7 @@ TestCqtTranspose;
 TestCqtPlus;
 TestCqtMtimes;
 TestCqtInv;
+TestCqtUminus;
 
 rmpath ../
 
