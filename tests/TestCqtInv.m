@@ -19,4 +19,11 @@ fprintf('TestCqtInv3: Residue on CQT inverse: %e\n', res3);
 res=max([res,res2,res3]);
 assert(res < 1e4 * eps);
 
+[T1] = GenerateFiniteExample(10, 2, 4, 100, 100);
+T1 = T1 + cqt(5,5,0,0,0,0,100,100);
+T2 = inv(T1);
+fT = inv(full(T1));
+res = norm(full(T2) - fT);
+fprintf('TestCqtInv4: Residue on a finite CQT inverse: %e\n', res3);
+assert(res < 1e4 * eps);
 end
