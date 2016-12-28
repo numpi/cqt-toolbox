@@ -9,6 +9,7 @@ TestCqtPlus;
 TestCqtMtimes;
 TestCqtInv;
 TestCqtUminus;
+TestCqtMpower;
 
 rmpath ../
 

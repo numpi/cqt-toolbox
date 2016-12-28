@@ -8,18 +8,15 @@ function [ym,yp] = reciprocal_fft(am,ap)
 % ym(1)=yp(1) is the constant coefficient
 % June 22, 2016. By Dario A. Bini
 
+a1 = length(am);  a2 = length(ap);
+
+am = reshape(am, 1, a1);
+ap = reshape(ap, 1, a2);
+
 % constants:
   maxiter = 18;
   epsi = 1.e-15;
   realflag=isreal(am)*isreal(ap);
-% check the size of the input
-  if size(am,2)==1
-    am = am.';
-  end
-  if size(ap,2)==1
-    ap = ap.';
-  end
-  a1 = length(am);  a2 = length(ap);
 % compute the first approximation
   k = 1 + ceil(log(a1 + a2)/log(2));
   Na = 2^k; N = Na;

@@ -15,18 +15,25 @@ function [cm, cp, Fc, Gc]=qt_inv(am, ap, F, G)
 % 5- Fc=[Fh, F3]; Gc=[Gh, G2]
 % June 2, By Dario A. Bini
 
+switch cqtoption('inversion')
+    case 'cr'
+        spectral = @spectral_cr;
+        reciprocal = @reciprocal_cr;
+    case 'fft'
+        spectral = @spectral_fft;
+        reciprocal = @reciprocal_fft;
+end
 
 %1- Compute the spectral factorization T = UL
-  [vm,vp] = spectral_fft(am,ap);
+  [vm,vp] = spectral(am,ap);
 %2- Invert the triangular Toeplitz matrices L and U
   vm2 = [vm(1)]; vp1 = [vp(1)];
-  [linvm, linvp] = reciprocal_fft(vm,vm2);
-  [uinvm, uinvp] = reciprocal_fft(vp1,vp);
+  
+  [linvm, linvp] = reciprocal(vm,vm2);
+  [uinvm, uinvp] = reciprocal(vp1,vp);
 
 % Compute Li*Ui
   [cm, cp, Fh, Gh] = si_tmult(linvm, linvp, uinvm, uinvp);
-
-
 
 %3-  compute G1 and F1
   [nf,kf] = size(F); [ng, kg]=size(G); 

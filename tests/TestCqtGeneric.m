@@ -4,19 +4,16 @@ function TestCqtGeneric
 [T1, ~, U1, V1, sn1, sp1] = GenerateExample(6, 3, 4);
 
 [ssn1, ssp1] = symbol(T1);
-res = norm(sn1 - ssn1) + norm(sp1 - ssp1);
-fprintf('TestCqtGeneric: Residue on the retrieved symbols: %e\n', res);
-assert(res < eps);
+CheckTestResult(norm(sn1 - ssn1) + norm(sp1 - ssp1), '<', eps, ...
+    'Accessor method for the symbol');
 
 [U, V] = correction(T1);
-res = norm(U - U1) + norm(V - V1);
-fprintf('TestCqtGeneric: Residue on the retrieved factored correction: %e\n', res);
-assert(res < eps);
+CheckTestResult(norm(U - U1) + norm(V - V1), '<', eps, ...
+    'Accessor method for the finite correction');
 
 E = correction(T1);
-res = norm(E - U1 * V1.');
-fprintf('TestCqtGeneric: Residue on the retrieved dense correction: %e\n', res);
-assert(res < eps);
+CheckTestResult(norm(E - U1 * V1.'), '<', eps, ...
+    'Accessor method for the finite and dense correction');
 
 % Similar tests for the finite case
 
