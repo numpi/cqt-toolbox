@@ -5,10 +5,10 @@ addpath ../
 
 TestCqtGeneric;
 TestCqtTranspose;
-TestCqtPlus;
+%TestCqtPlus;
 TestCqtMtimes;
-TestCqtInv;
-TestCqtUminus;
+%TestCqtInv;
+%TestCqtUminus;
 
 rmpath ../
 

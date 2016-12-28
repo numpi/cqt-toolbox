@@ -44,6 +44,31 @@ fprintf('TestCqtMtimes: Residue on scalar * CQT multiplication: %e\n', ...
    res);
 assert(res < norm(correction(Ssl) * eps));
 
+%% Testing the finite case
+[T1, T2, U1, V1, W1, Z1, sn1, sp1, U2, V2, W2, Z2 sn2, sp2] = GenerateFiniteExample(80, 3, 2);
+S = T1 * T2;
+[v1,v2]=symbol(S);
+[E, F] = correction(S);
+XT1 = full(T1);
+XT2 =full(T2);
+XS = full(S);
+XT12 = XT1 * XT2;
+[v1,v2]=symbol(S);
+res = norm(XS - XT12);
 
+%XT12-toep(v1,v2,100,80);
+%F
+fprintf('TestCqtMtimes: Residue on finite CQT multiplication: %e\n', res);
+assert(res < 1000 * eps);
+Ssr = T1 * 2.0;
+Ssl = 2.0 * T1;
+
+[Ssr_n, Ssr_p] = symbol(Ssr);
+[Ssl_n, Ssl_p] = symbol(Ssl);
+
+res = norm(Ssr_n - 2.0 * sn1) + norm(Ssr_p - 2.0 * sp1);
+fprintf('TestCqtMtimes: Residue on finite CQT * scalar multiplication: %e\n', ...
+    res);
+assert(res < eps);
 end
 

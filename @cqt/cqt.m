@@ -106,10 +106,6 @@ classdef cqt
 				if varargin{1}(1) ~= varargin{2}(1)
 					error('The coefficients of degree 0 do not coincide');
 	    			end
-				if max(size(varargin{3},1),size(varargin{4},1)) > varargin{7} ||...
-			 		max(size(varargin{3},2),size(varargin{4},2)) > varargin{8}
-					error('Size of the corrections bigger than the size of the matrix');
-				end
 				if max(size(varargin{3},1),size(varargin{5},1)) > varargin{7} ||...
 			 		max(size(varargin{4},1),size(varargin{6},1)) > varargin{8}
 					error('Size of the corrections bigger than the size of the matrix');

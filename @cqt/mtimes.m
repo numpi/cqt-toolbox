@@ -5,20 +5,35 @@ function [ T ] = mtimes(T1, T2)
 %     matrices T1 and T2. If T2 is a dense finite matrix it is considered
 %     as a semiinfinite matrix with only the leading top-left corner
 %     different from zero. 
-if isa(T1,'cqt')
-	if isa(T2, 'cqt')
-    		[cm,cp,cU,cV]=qt_mult(T1.n, T1.p, T1.U, T1.V, T2.n, T2.p, T2.U, T2.V);
-    		T = cqt(cm, cp, cU, cV);
-	elseif isscalar(T2)
+if isa(T1,'cqt') && isa(T2, 'cqt')
+	if T1.sz(2) == T2.sz(1)
+		if T1.sz(2) == inf
+    			[cm,cp,cU,cV]=qt_mult(T1.n, T1.p, T1.U, T1.V, T2.n, T2.p, T2.U, T2.V);
+    			T = cqt(cm, cp, cU, cV);
+		else
+			[cm, cp, cU, cV, cW, cZ]=fqt_mult2(T1.n, T1.p, T1.U, T1.V, T1.W, T1.Z, T2.n, T2.p, T2.U, T2.V, T2.W, T2.Z, T1.sz(1), T1.sz(2), T2.sz(2));
+			T = cqt(cm, cp, cU, cV, cW(end:-1:1,end:-1:1), cZ(end:-1:1,end:-1:1), T1.sz(1), T2.sz(2));
+		end       
+	end
+elseif  isa(T1, 'cqt') && isscalar(T2)
+	if T1.sz(2) == inf
     		T = cqt(T1.n * T2, T1.p * T2, T1.U * T2, T1.V);
 	else
-		error('Incompatible types multiplication. \nIf you want to multiply a cqt matrix T with a finite matrix of %s A you can use T * cqt(A) ',class(T2));
+		T = cqt(T1.n * T2, T1.p * T2, T1.U* T2, T1.V, T1.W(end:-1:1,end:-1:1) * T2, T1.Z(end:-1:1,end:-1:1), T1.sz(1), T1.sz(2));
 	end
-else
-	if isscalar(T1) && isa(T2, 'cqt')
+elseif isscalar(T1) && isa(T2, 'cqt')
+	if T2.sz(2) == inf
 		T = cqt(T2.n * T1, T2.p * T1, T2.U * T1, T2.V);
 	else
-		error('Incompatible types multiplication. \nIf you want to multiply a finite matrix of %s A with a cqt matrix you can use cqt(A) * T',class(T1));
+		T = cqt(T2.n * T1, T2.p * T1, T2.U * T1, T2.V, T2.W(end:-1:1,end:-1:1) * T1, T2.Z(end:-1:1,end:-1:1), T2.sz(1), T2.sz(2));
 	end
+elseif isa(T1,'cqt') && T1.sz(1) == inf && ~isa(T2, 'cqt')
+		error('Incompatible types multiplication. \nIf you want to multiply a cqt matrix T with a finite matrix of %s A you can use T * cqt(A) ',class(T2));
+elseif isa(T1,'cqt') && T1.sz(1) ~= inf && ~isa(T2, 'cqt')
+		error('Incompatible types multiplication. \nIf you want to multiply a finite cqt matrix T with a finite matrix of %s A you can use full(T) * cqt(A) ',class(T2));
+elseif isa(T2,'cqt') && T2.sz(1) == inf && ~isa(T1, 'cqt')
+		error('Incompatible types multiplication. \nIf you want to multiply a finite matrix of %s A with a cqt matrix you can use cqt(A) * T',class(T1));		
+elseif isa(T2,'cqt') && T2.sz(1) ~= inf && ~isa(T1, 'cqt')
+		error('Incompatible types multiplication. \nIf you want to multiply a finite matrix of %s A with a finite cqt matrix you can use cqt(A) * full(T)',class(T1));
 end
 
