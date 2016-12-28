@@ -22,30 +22,42 @@ S13 = S^5;
 CheckTestResult(norm(T13(1:100,1:100) - S13(1:100,1:100)), '<', 1e-5, ...
     'Computation of T^5 for infinite CQT matrices');
 
+T = T + cqt(5, 5);
+
+S = T(1:1000, 1:1000);
+T2 = T^(-2);
+S2 = S^(-2);
+
+CheckTestResult(norm(T2(1:100,1:100) - S2(1:100,1:100)), '<', 1e4 * eps, ...
+    'Computation of T^(-2) for infinite CQT matrices');
+
+T3 = T^(-3);
+S3 = S^(-3);
+
+CheckTestResult(norm(T3(1:100,1:100) - S3(1:100,1:100)), '<', 1e4 * eps, ...
+    'Computation of T^(-3) for infinite CQT matrices');
+
+T13 = T^(-5);
+S13 = S^(-5);
+
+CheckTestResult(norm(T13(1:100,1:100) - S13(1:100,1:100)), '<', 1e-5, ...
+    'Computation of T^(-5) for infinite CQT matrices');
+
 %
 % Finite case
 %
 
 T = GenerateFiniteExample(6, 2, 3, 100, 100);
-
+T = T + cqt(5, 5, 0, 0, 0, 0, 100, 100);
 S = full(T);
-T2 = T^2;
-S2 = S^2;
 
-CheckTestResult(norm(full(T2) - S2), '<', 1e4 * eps, ...
-    'Computation of T^2 for infinite CQT matrices');
+for p = [ 1, 2, 3, 5, -1, -2, -3, -5 ]
+    TT = T^p;
+    SS = S^p;
 
-T3 = T^3;
-S3 = S^3;
-
-CheckTestResult(norm(full(T3) - S3), '<', 1e4 * eps, ...
-    'Computation of T^3 for infinite CQT matrices');
-
-T13 = T^5;
-S13 = S^5;
-
-CheckTestResult(norm(full(T13) - S13), '<', 1e-6, ...
-    'Computation of T^5 for infinite CQT matrices');
+    CheckTestResult(norm(full(TT) - SS), '<', 1e6 * eps, ...
+       sprintf('Computation of T^(%d) for finite CQT matrices', p));
+end
 
 end
 

@@ -9,6 +9,11 @@ if T.sz(1) ~= T.sz(2)
     error('A^p is only possible for square matrices');
 end
 
+if p < 0
+    T = inv(T)^(-p);
+    return;
+end
+
 switch p
     case 2
         T = T * T;
