@@ -1,8 +1,8 @@
 function u = toepmult_fft(am, ap, m, n, v)
 %TOEPMULT_FFT Fast multiplication of a CQT matrix times a vector. 
 %
-% U = TOEPMULT_FFT(AM, AP, M, N, V) computes the matrix-matrix product M*V
-%     where M is a Toeplitz matrix defined by the vectors AM and AP and has
+% U = TOEPMULT_FFT(AM, AP, M, N, V) computes the matrix-matrix product A*V
+%     where A is a Toeplitz matrix defined by the vectors AM and AP and has
 %     size M x N, where N = length(V). 
 %
 
