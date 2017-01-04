@@ -12,8 +12,7 @@ end
 
 if isa(A,'cqt') && isa(B,'cqt')
     if isinf(A.sz(1))
-        [cm, cp, cU, cV] = qt_mldivide(A.n, A.p, A.U, A.V, B.n, B.p, B.U, B.V);
-        X = cqt(cm, cp, cU, cV); 
+        X = qt_mldivide(A, B); 
     else        
         X = fqt_mldivide(A, B);
     end
