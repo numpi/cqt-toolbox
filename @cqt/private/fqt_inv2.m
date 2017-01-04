@@ -25,14 +25,14 @@ end
 
   % The triangular cases can be handled without calling spectral()
   if length(am) == 1 || length(ap) == 1
-      vm = am;
+      vm = am / am(1);
       vp = ap;
   else
-    [vm,vp] = spectral(am,ap);
+    [vm, vp] = spectral(am,ap);
   end
 
 % Compute the lower right corner correction 
-  [~,~,~,~,hW,hZ] = fsi_tmult2(vp(1), vp.', vm.', vm(1),n, n, n);
+  [~,~,~,~,hW,hZ] = fsi_tmult2(vp(1), vp, vm, vm(1),n, n, n);
   m1=size(aW,1); m2=size(hW,1);
   if (m1 < m2)
 	aW = [aW;zeros(m2-m1,size(aW,2))];		

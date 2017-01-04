@@ -28,7 +28,7 @@ end
 
   % The triangular case can be handled without calling spectral()
   if length(am) == 1 || length(ap) == 1
-      vm = am;
+      vm = am / am(1);
       vp = ap;
   else      
     [vm,vp] = spectral(am, ap);

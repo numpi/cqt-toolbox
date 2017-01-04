@@ -8,7 +8,15 @@ function [cm,cp,cU,cV,cW,cZ]=fsi_tmult2(am, ap, bm, bp, m, p, n)
 lancz_param = 200; % size at which the lanczos method for compressing is triggered
 lancz_debug = 0;   % check the residual of the compression 
 
+% Make sure all the inputs are row vectors
+if ~isvector(am) || ~isvector(ap) || ~isvector(bm) || ~isvector(bp)
+    error('The symbols must be specified as vectors');
+end
 
+am = reshape(am, 1, length(am));
+ap = reshape(ap, 1, length(ap));
+bp = reshape(bp, 1, length(bp));
+bm = reshape(bm, 1, length(bm));
 
   nam = length(am); nap = length(ap);
   nbm = length(bm); nbp = length(bp);
