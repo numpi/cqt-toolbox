@@ -55,7 +55,7 @@ for p = [ 1, 2, 3, 5, -1, -2, -3, -5 ]
     TT = T^p;
     SS = S^p;
 
-    CheckTestResult(norm(full(TT) - SS), '<', 1e6 * eps, ...
+    CheckTestResult(norm(full(TT) - SS), '<', 1e3 * eps * norm(SS), ...
        sprintf('Computation of T^(%d) for finite CQT matrices', p));
 end
 

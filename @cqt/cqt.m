@@ -92,7 +92,7 @@ classdef cqt
 			 		max(size(varargin{3},2),size(varargin{4},2)) > varargin{6}
 					error('Size of the corrections bigger than the size of the matrix');
 				end
-				if max([varargin{3},varargin{4}]) == inf || min([varargin{3},varargin{4}]) <= 0
+				if max([varargin{5},varargin{6}]) == inf || min([varargin{5},varargin{6}]) <= 0
 					error('Invalid parameter for the size of the corrections');
 				end
 				obj.n = varargin{1};
@@ -125,7 +125,15 @@ classdef cqt
 				obj.sz = [varargin{7},varargin{8}];
 			otherwise
 				error('Invalid number of parameters');
-        	end
+            end
+            
+            if ~isvector(obj.n) || ~isvector(obj.p)
+                error('The symbol must be a 1D vector');
+            end
+            
+            % Make sure that the symbol is represented as a row vector.
+            obj.n = reshape(obj.n, 1, length(obj.n));
+            obj.p = reshape(obj.p, 1, length(obj.p));
     	end
      end
 end

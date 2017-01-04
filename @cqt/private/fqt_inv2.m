@@ -32,7 +32,6 @@ end
   end
 
 % Compute the lower right corner correction 
-  
   [~,~,~,~,hW,hZ] = fsi_tmult2(vp(1), vp.', vm.', vm(1),n, n, n);
   m1=size(aW,1); m2=size(hW,1);
   if (m1 < m2)
