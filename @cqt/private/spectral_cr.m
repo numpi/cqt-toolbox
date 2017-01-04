@@ -65,7 +65,9 @@ end
    u(n+1) = 1;
    l = l(1:nm);
    u = u(end:-1:end-np+1);
-   y = vp(end)/(l(1)*u(end));
+
+   m = min(length(l), length(u));
+   y = vp(1) / dot(l(1:m), u(1:m));
    x = sqrt(abs(y));
    u = u*x*sign(y); l = l*x;
    
