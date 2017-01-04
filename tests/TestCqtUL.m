@@ -7,10 +7,16 @@ T = GenerateExample(6, 2, 3);
 CheckTestResult(norm(U*L+E-T), '<', 1e3 * eps * norm(T), ...
     'Accuracy of the UL factorization');
 
-T = GenerateFiniteExample(6, 2, 3, 45, 45);
+T = GenerateFiniteExample(6, 2, 3, 45, 60);
 [U,L,E] = ul(T);
 CheckTestResult(norm(U*L+E-T), '<', 1e3 * eps * norm(T, 1), ...
     'Accuracy of the UL factorization (finite case)');
+
+T = GenerateFiniteExample(6, 2, 3, 60, 45);
+[U,L,E] = ul(T);
+CheckTestResult(norm(U*L+E-T), '<', 1e3 * eps * norm(T, 1), ...
+    'Accuracy of the UL factorization (finite case)');
+
 
 end
 

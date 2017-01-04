@@ -39,6 +39,14 @@ if ~isinf(A.sz(1))
   
   m = min(length(u), length(l)) - 1;
   
+  [ ~, new_u, new_l, ~ ] = lower_right_correction(u(1), u, l, l(1), ...
+      A.sz(1) , min(A.sz), A.sz(2));  
+  
+  hU = hankel(new_u(2:end));
+  hL = hankel(new_l(2:end));
+  
+  m = min(length(new_u), length(new_l)) - 1;
+  
   hU = hU(:,1:m);
   hL = hL(1:m,:);  
   
