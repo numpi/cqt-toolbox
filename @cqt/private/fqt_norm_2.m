@@ -17,7 +17,12 @@ while log(abs(diff)) > threshold
     
     oldr = r;
     r = norm(y);
-    diff = r / oldr;
+    
+    if oldr == 0
+        diff = inf;
+    else
+        diff = r / oldr;
+    end
     
     x = y / r;
 end
