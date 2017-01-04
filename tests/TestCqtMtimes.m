@@ -13,8 +13,8 @@ XT12 = XT1 * XT2;
 
 res = norm(XS(1:10,1:10) - XT12(1:10,1:10));
 
-fprintf('TestCqtMtimes: Residue on CQT multiplication: %e\n', res);
-assert(res < 100 * eps);
+CheckTestResult(res, '<', 1e3 * eps * norm(XT12), ...
+    'CQT multiplication');
 
 Ssr = T1 * 2.0;
 Ssl = 2.0 * T1;
@@ -23,28 +23,29 @@ Ssl = 2.0 * T1;
 [Ssl_n, Ssl_p] = symbol(Ssl);
 
 res = norm(Ssr_n - 2.0 * sn1) + norm(Ssr_p - 2.0 * sp1);
-fprintf('TestCqtMtimes: Residue on CQT * scalar multiplication: %e\n', ...
-    res);
-assert(res < eps);
+
+CheckTestResult(res, '<', 4.0 * eps, ...
+    'CQT symbol after scalar multiplication');
 
 res = norm(Ssl_n - 2.0 * sn1) + norm(Ssl_p - 2.0 * sp1);
-fprintf('TestCqtMtimes: Residue on scalar * CQT multiplication: %e\n', ...
-    res);
-assert(res < eps);
+
+CheckTestResult(res, '<', 4.0 * eps, ...
+    'Scalar * CQT multiplication');
 
 [Ul, Vl] = correction(Ssr);
 res = norm(2.0 * U1 * V1' - Ul * Vl');
-fprintf('TestCqtMtimes: Residue on CQT * scalar multiplication: %e\n', ...
-   res);
-assert(res < norm(correction(Ssr) * eps));
+
+CheckTestResult(res, '<', 4.0 * eps * norm(correction(Ssr)), ...
+    'Correction after scalar multiplication');
 
 [Ul, Vl] = correction(Ssl);
 res = norm(2.0 * U1 * V1' - Ul * Vl');
-fprintf('TestCqtMtimes: Residue on scalar * CQT multiplication: %e\n', ...
-   res);
-assert(res < norm(correction(Ssl) * eps));
 
-%% Testing the finite case
+
+CheckTestResult(res, '<', 4.0 * eps * norm(correction(Ssl)), ...
+    'Correction after scalar multiplication');
+
+% Testing the finite case
 [T1, T2, U1, V1, W1, Z1, sn1, sp1, U2, V2, W2, Z2 sn2, sp2] = GenerateFiniteExample(80, 3, 2, 80, 100);
 T2 = T2.';
 S = T1 * T2;
@@ -59,17 +60,20 @@ res = norm(XS - XT12);
 
 %XT12-toep(v1,v2,100,80);
 %F
-fprintf('TestCqtMtimes: Residue on finite CQT multiplication: %e\n', res);
-assert(res < 1000 * eps);
+CheckTestResult(res, '<', 1e3 * eps * norm(XT12), ...
+    'Finite CQT multiplication');
+
 Ssr = T1 * 2.0;
 Ssl = 2.0 * T1;
 
 [Ssr_n, Ssr_p] = symbol(Ssr);
 [Ssl_n, Ssl_p] = symbol(Ssl);
 
-res = norm(Ssr_n - 2.0 * sn1) + norm(Ssr_p - 2.0 * sp1);
-fprintf('TestCqtMtimes: Residue on finite CQT * scalar multiplication: %e\n', ...
-    res);
-assert(res < eps);
+res = norm(Ssr_n - 2.0 * sn1) + norm(Ssr_p - 2.0 * sp1) + ...
+    norm(Ssl_n - 2.0 * sn1) + norm(Ssl_p - 2.0 * sp1);
+
+CheckTestResult(res, '<', 10.0 * eps, ...
+    'Symbol after scalar multiplication');
+
 end
 
