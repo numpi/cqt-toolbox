@@ -40,8 +40,9 @@ if ~isinf(A.sz(1))
   m = min(length(u), length(l)) - 1;
   
   hU = hU(:,1:m);
-  hL = hL(1:m,:);
+  hL = hL(1:m,:);  
   
-  F = cqt(0, 0, 0, 0, hU, hL.', A.sz(1), A.sz(2));
+  F = cqt(0, 0, 0, 0, hU(end:-1:1,end:-1:1), hL(end:-1:1,end:-1:1).', A.sz(1), A.sz(2));
+  
   E = E + F;
 end

@@ -7,5 +7,6 @@ end
 for j=2:length(ap)
 	res = res + j * abs(ap(j));
 end
+
 temp = abs(aU * aV.');
 res = res + sum(sum(temp,1));

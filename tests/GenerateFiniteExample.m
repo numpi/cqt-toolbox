@@ -24,7 +24,7 @@ else
 	U1 = 0; V1 = 0; W1 = 0; Z1 = 0; U2 = 0; V2 = 0; W2 = 0; Z2 = 0; 
 end
 
-sn1 = [ 5 rand(1, 5) ];
+sn1 = [ 15 rand(1, 5) ];
 sp1 = [ sn1(1) , rand(1, 4) ];
 sn2 = rand(1, 4);
 sp2 = [ sn2(1), rand(1, 7) ];
