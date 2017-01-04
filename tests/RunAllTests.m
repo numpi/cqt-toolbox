@@ -11,6 +11,7 @@ TestCqtInv;
 TestCqtUminus;
 TestCqtMpower;
 TestCqtMldivide;
+TestCqtMrdivide;
 TestCqtUL;
 
 rmpath ../
