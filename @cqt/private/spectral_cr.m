@@ -2,6 +2,18 @@ function [l, u, wn, wp] = spectral_cr(vm, vp)
 %function [l,u,wn,wp]=spectral_cr(vm,vp)
 % Computes the spectral factorization of the Laurent
 % polynomial with coefficients vm, vp, by means of CR 
+
+% Handle the trivial case of a diagonal Toeplitz matrix
+if (length(vm) == 1) && (length(vp) == 1)
+    l = 1;
+    u = vp;
+    
+    wn = 1;
+    wp = 1 ./ u;
+    
+    return;
+end
+
    maxiter = 40;  epsi = 1.e-20;
    if size(vm,1)==1
       vm = vm.';
