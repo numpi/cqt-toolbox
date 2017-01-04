@@ -20,9 +20,6 @@ end
   [vm,vp] = spectral(am,ap);
 
 %2- Invert the triangular Toeplitz matrices L and U
-
-  
-
   vm2 = [vm(1)]; vp1 = [vp(1)];  
   [linvm, linvp] = reciprocal(vm,vm2);
   [uinvm, uinvp] = reciprocal(vp1,vp);

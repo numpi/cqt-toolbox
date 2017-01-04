@@ -25,9 +25,17 @@ switch cqtoption('inversion')
 end
 
 %1- Compute the spectral factorization T = UL
-  [vm,vp] = spectral(am,ap);
+
+  % The triangular case can be handled without calling spectral()
+  if length(am) == 1 || length(ap) == 1
+      vm = am;
+      vp = ap;
+  else      
+    [vm,vp] = spectral(am, ap);
+  end
+  
 %2- Invert the triangular Toeplitz matrices L and U
-  vm2 = [vm(1)]; vp1 = [vp(1)];
+  vm2 = vm(1); vp1 = vp(1);
   
   [linvm, linvp] = reciprocal(vm,vm2);
   [uinvm, uinvp] = reciprocal(vp1,vp);
