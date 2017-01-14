@@ -1,5 +1,5 @@
-function [l, u, wn, wp] = spectral_cr(vm, vp)
-%function [l,u,wn,wp]=spectral_cr(vm,vp)
+function [l, u] = spectral_cr(vm, vp)
+%function [l,u]=spectral_cr(vm,vp)
 % Computes the spectral factorization of the Laurent
 % polynomial with coefficients vm, vp, by means of CR
 
@@ -7,10 +7,6 @@ function [l, u, wn, wp] = spectral_cr(vm, vp)
 if (length(vm) == 1) && (length(vp) == 1)
 	l = 1;
 	u = vp;
-	
-	wn = 1;
-	wp = 1 ./ u;
-	
 	return;
 end
 
@@ -58,6 +54,7 @@ for k=1:maxiter
 		break
 	end
 end
+
 en = zeros(n,1); e1 = en; en(n) = 1; e1(1) = 1;
 ll = b*(ah\en);
 l(1) = 1; l(2:n+1) = ll; l = l.';
@@ -70,11 +67,6 @@ m = min(length(l), length(u));
 y = vp(1) / dot(l(1:m), u(1:m));
 x = sqrt(abs(y));
 u = u*x*sign(y); l = l*x;
-
-if nargout > 2
-	w = A\[e1,en];
-	wn = w(:,1); wp = w(:,2); wp=wp(end:-1:1);
-end
 
 % inv(A)
 end

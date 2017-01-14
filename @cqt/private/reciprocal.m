@@ -16,12 +16,14 @@ elseif length(vp) == 1
 	l = reciprocal_poly(vm, nm);
 	u = l(1);
 else
-	switch cqtoption('inversion')
-		case 'cr'
-			[l, u] = reciprocal_cr(vm, vp, nm, np);
-		case 'fft'
-			[l, u] = reciprocal_fft(vm, vp, nm, vp);
-	end
+	[l, u] = spectral(vm, vp, nm, np);
+	
+	[linv, ~] = reciprocal_poly(l, nm);
+	[~, uinv] = reciprocal_poly(u, np);
+	
+	r = conv_fft(linv, [ zeros(1, length(linv) - 1), uinv ]);
+	l = r(1:length(linv));
+	u = r(length(linv):end);
 end
 
 
