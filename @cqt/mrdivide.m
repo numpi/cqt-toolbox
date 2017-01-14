@@ -14,6 +14,16 @@ if isa(B, 'cqt') && ~isa(A, 'cqt')
 	return;
 end
 
+if isa(A, 'cqt') && ~isa(B, 'cqt')
+	if A.sz(2) ~= size(B, 1)
+		error('Incompatible dimensions');
+	end
+	
+	cB = cqt([], [], B, [], size(B, 1), size(B, 2));
+	X  = full(cB / A);
+	return;
+end
+
 if isa(A,'cqt') && isa(B,'cqt')
 	if B.sz(2) ~= A.sz(1)
 		error('Incompatible dimensions');
@@ -23,8 +33,6 @@ if isa(A,'cqt') && isa(B,'cqt')
 	else
 		X = fqt_mrdivide(B, A);
 	end
-else
-	error('A and B must be cqt matrices');
 end
 
 end

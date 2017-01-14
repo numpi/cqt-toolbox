@@ -50,9 +50,8 @@ aZ = [aZ,hZ];
 [aW,aZ] = compress_qr(aW,aZ);
 
 %2- Invert the triangular Toeplitz matrices L and U
-
-[linvm, linvp] = reciprocal(vm,vm(1));
-[uinvm, uinvp] = reciprocal(vp(1),vp);
+[linvm, linvp] = reciprocal(vm,vm(1), n, n);
+[uinvm, uinvp] = reciprocal(vp(1),vp, n, n);
 linvm = truncate(linvm,n);  uinvp = truncate(uinvp,n);
 linvm = cln(linvm);     uinvp = cln(uinvp);
 

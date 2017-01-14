@@ -24,10 +24,10 @@ U.sz = [ A.sz(1) , min(A.sz) ];
 % Compute the required correction E
 if max(A.sz) == inf
 	[E1, E2] = correction(A);
-	E = cqt(0, 0, E1, E2, [], [], A.sz(1), A.sz(2));
+	E = cqt([], [], E1, E2, [], [], A.sz(1), A.sz(2));
 else
 	[E1, E2, E3, E4] = correction(A);
-	E = cqt(0, 0, E1, E2, E3, E4, A.sz(1), A.sz(2));
+	E = cqt([], [], E1, E2, E3, E4, A.sz(1), A.sz(2));
 end
 
 % In the finite case we need to add another term at the bottom of the
@@ -50,7 +50,7 @@ if ~isinf(max(A.sz))
 	hU = hU(:,1:m);
 	hL = hL(1:m,:);
 	
-	F = cqt(0, 0, 0, 0, hU(end:-1:1,end:-1:1), hL(end:-1:1,end:-1:1).', A.sz(1), A.sz(2));
+	F = cqt([], [], [], [], hU(end:-1:1,end:-1:1), hL(end:-1:1,end:-1:1).', A.sz(1), A.sz(2));
 	
 	E = E + F;
 end

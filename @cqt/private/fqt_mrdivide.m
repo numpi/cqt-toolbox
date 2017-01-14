@@ -7,12 +7,11 @@ function C = fqt_mrdivide(B, A)
 E1 = cqt(0, 0, E.U, E.W(end:-1:1,end:-1:1), A.sz(1), size(E.U,2) + size(E.W,2));
 E2 = cqt(0, 0, E.V, E.Z(end:-1:1,end:-1:1), A.sz(2), size(E.V,2) + size(E.Z,2));
 
-LUinv = inv(L) * inv(U);
-
 % Compute A \ B by Sherman-Morrison
-LUinv = inv(L) * inv(U);
-BLU = B * LUinv;
-E2LU = E2.' * LUinv;
+Linv = inv(L);
+Uinv = inv(U);
+BLU = (B * Linv) * Uinv;
+E2LU = (E2.' * Linv) * Uinv;
 
 S = eye(size(E1, 2)) + full(E2LU * E1);
 

@@ -2,6 +2,15 @@ function disp(T)
 %DISP Display a CQT matrix on the screen.
 
 fprintf('CQT Matrix of size %d x %d\n\n', T.sz(1), T.sz(2));
+if size(T.U, 2) > 0
+	fprintf('  Rank of top-left correction: %d\n', size(T.U,2));
+end
+
+if size(T.W, 2) > 0
+	fprintf('  Rank of bottom-right correction: %d\n', size(T.W, 2));
+end
+
+fprintf('\n');
 
 % Check if the CQT has a non-zero Toeplitz part
 if length(T.n) + length(T.p) > 0

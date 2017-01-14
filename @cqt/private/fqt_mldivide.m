@@ -7,12 +7,11 @@ function C = fqt_mldivide(A, B)
 E1 = cqt(0, 0, E.U, E.W(end:-1:1,end:-1:1), A.sz(1), size(E.U,2) + size(E.W,2));
 E2 = cqt(0, 0, E.V, E.Z(end:-1:1,end:-1:1), A.sz(2), size(E.V,2) + size(E.Z,2));
 
-LUinv = inv(L) * inv(U);
-
 % Compute A \ B by Sherman-Morrison
-LUinv = inv(L) * inv(U);
-LUB = LUinv * B;
-LUE1 = LUinv * E1;
+Linv = inv(L);
+Uinv = inv(U);
+LUB = Linv * (Uinv * B);
+LUE1 = Linv * (Uinv * E1);
 
 S = eye(size(E1, 2)) + full(E2.' * LUE1);
 
