@@ -13,14 +13,7 @@
 % 4- Y=I+G1'*F1; F2=F1/Y; F3=Li*F2;  G2=Ui'*G1
 % 5- Fc=[Fh, F3]; Gc=[Gh, G2]
 function [cm, cp, Uc, Vc,Wc,Zc]=fqt_inv2(am, ap, aU, aV, aW,aZ,n)
-switch cqtoption('inversion')
-	case 'cr'
-		spectral = @spectral_cr;
-		reciprocal = @reciprocal_cr;
-	case 'fft'
-		spectral = @spectral_fft;
-		reciprocal = @reciprocal_fft;
-end
+
 %1- Compute the spectral factorization T = UL
 
 % The triangular cases can be handled without calling spectral()

@@ -5,13 +5,6 @@ function [U, L, E] = ul(A)
 % factors U, L, and E are all CQT matrices. U and L are upper and lower
 % triangulat Toeplitz matrices, and E is a finite correction.
 
-switch cqtoption('inversion')
-	case 'cr'
-		spectral = @spectral_cr;
-	case 'fft'
-		spectral = @spectral_fft;
-end
-
 [l, u] = spectral(A.n, A.p);
 
 L = cqt(l, l(1));

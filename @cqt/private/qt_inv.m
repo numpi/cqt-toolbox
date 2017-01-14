@@ -15,15 +15,6 @@ function [cm, cp, Fc, Gc]=qt_inv(am, ap, F, G)
 % 5- Fc=[Fh, F3]; Gc=[Gh, G2]
 % June 2, By Dario A. Bini
 
-switch cqtoption('inversion')
-	case 'cr'
-		spectral = @spectral_cr;
-		reciprocal = @reciprocal_cr;
-	case 'fft'
-		spectral = @spectral_fft;
-		reciprocal = @reciprocal_fft;
-end
-
 %1- Compute the spectral factorization T = UL
 
 % The triangular case can be handled without calling spectral()
