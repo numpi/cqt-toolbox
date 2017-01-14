@@ -26,7 +26,7 @@ end
 % Convolution c(z) of a(z) e b(z), with detection of the center
 a = [am(end:-1:1),ap(2:end)]; centera = length(am);
 b = [bm(end:-1:1),bp(2:end)]; centerb = length(bm);
-c = conv(a,b); m = centera + centerb-1;
+c = conv_fft(a,b); m = centera + centerb-1;
 cm = c(m:-1:1);cp = c(m:end);
 % clean cm and cp
 cm = cln(cm);

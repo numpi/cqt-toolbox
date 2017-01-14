@@ -40,7 +40,7 @@ nbm = length(bm); nbp = length(bp);
 % Convolution c(z) of a(z) e b(z), con calcolo del centro
 a=[am(end:-1:1),ap(2:end)]; centroa=length(am);
 b=[bm(end:-1:1),bp(2:end)]; centrob=length(bm);
-c = conv(a,b); cc = centroa+centrob-1;
+c = conv_fft(a,b); cc = centroa+centrob-1;
 cm = c(cc:-1:1);cp = c(cc:end);
 
 % clean cm and cp
