@@ -1,11 +1,14 @@
 function X = mldivide(A, B)
 
 if isa(B, 'cqt') && ~isa(A, 'cqt')
-    if isinf(B.sz(1))
+    if B.sz(1) ~= size(A,2)
         error('Incompatible dimensions');
     end
-    
-    X = cqt(0, 0, A \ full(B), [], size(A, 1), B.sz(2));
+    cl = B.sz(2);
+    if cl == inf
+	B.sz(2) = max(size(B.V,1), length(B.p) + B.sz(1));
+    end
+    X = cqt([], [], A \ full(B), [], size(A, 1), cl);
     
     return;
 end

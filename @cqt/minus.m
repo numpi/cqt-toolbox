@@ -5,10 +5,10 @@ function T = minus(T1, T2)
 %     and produces a new CQT matrix T. 
 
 if isa(T1, 'cqt') && isa(T2, 'cqt')
-    if isinf(T1.sz(1))
+    if max(T1.sz) == inf
         [ cm, cp, cu, cv ] = qt_add(T1.n, T1.p, T1.U, T1.V, ...
             -T2.n, -T2.p, -T2.U, T2.V);
-        T = cqt(cm, cp, cu, cv);
+        T = cqt(cm, cp, cu, cv, [], [], T1.sz(1), T1.sz(2));
     else
         [ cm, cp, cu, cv, cw, cz ] = fqt_add2(T1.n, T1.p,  ...
         		T1.U, T1.V, T1.W, T1.Z, -T2.n, -T2.p, -T2.U, ...

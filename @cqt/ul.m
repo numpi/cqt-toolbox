@@ -22,9 +22,9 @@ L.sz = [ min(A.sz) , A.sz(2) ];
 U.sz = [ A.sz(1) , min(A.sz) ];
 
 % Compute the required correction E
-if isinf(A.sz(1))
+if max(A.sz) == inf
     [E1, E2] = correction(A);
-    E = cqt(0, 0, E1, E2);
+    E = cqt(0, 0, E1, E2, [], [], A.sz(1), A.sz(2));
 else
     [E1, E2, E3, E4] = correction(A);
     E = cqt(0, 0, E1, E2, E3, E4, A.sz(1), A.sz(2));
@@ -32,7 +32,7 @@ end
 
 % In the finite case we need to add another term at the bottom of the
 % matrix. 
-if ~isinf(A.sz(1))
+if ~isinf(max(A.sz))
   % Compute the lower right corner correction
   hU = hankel(u(2:end));
   hL = hankel(l(2:end));

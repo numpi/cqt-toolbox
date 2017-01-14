@@ -11,12 +11,19 @@ function [TU, TV] = compress_qr(U, V)
 
   epsi= eps;
   
-  if size(U,1)==1 
+  if size(U,1) == 1 
     TU = 1;  TV = V*U.';
     return
   end
+
+  if length(U) == 0
+    TU = [];
+    TV = [];
+    return;
+  end
+
   if max(max(abs(U)))==0 || max(max(abs(V)))==0
-    TU = 1;  TV = 0;
+    TU = [];  TV = [];
     return
   end
   [q1,r1,p1] = qr(U,0);    

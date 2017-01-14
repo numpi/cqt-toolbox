@@ -4,7 +4,7 @@ function [ iT ] = inv(T)
 %     iT = INV(T) computes the inverse of a CQT matrix T and produces a new CQT matrix iT.
 %    
 
-if T.sz(2) == inf
+if T.sz(2) == inf && T.sz(1) == T.sz(2)
 	[n, p, U, V] = qt_inv(T.n, T.p, T.U, T.V);
 	iT = cqt(n, p, U, V);
 elseif T.sz(1) == T.sz(2)

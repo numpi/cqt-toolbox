@@ -8,6 +8,16 @@ function [cm,cp,cU,cV,cW,cZ]=fsi_tmult2(am, ap, bm, bp, m, p, n)
 lancz_param = 200; % size at which the lanczos method for compressing is triggered
 lancz_debug = 0;   % check the residual of the compression 
 
+if isempty(am) || isempty(bm)
+  cm = [];
+  cp = [];
+  cU = [];
+  cV = [];
+  cW = [];
+  cZ = [];
+  return;
+end
+
 % Make sure all the inputs are row vectors
 if ~isvector(am) || ~isvector(ap) || ~isvector(bm) || ~isvector(bp)
     error('The symbols must be specified as vectors');
@@ -44,7 +54,7 @@ bm = reshape(bm, 1, length(bm));
 % Compute upper-left correction 
 h=min(nam,nbp)-1;
 
-    if h == 0
+    if h <= 0
       cU=0; cV=0;
     elseif h<=lancz_param % If at least one of the hankel matrices is small then we compress with QR
 	

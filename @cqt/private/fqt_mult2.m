@@ -189,11 +189,11 @@ db1 = length(down_bm); db2 = length(down_bp);
 [cU,cV] = compress_qr(cU,cV);
 [cW,cZ] = compress_qr(cW,cZ);
   if (min(size(cU)==0) || min(size(cV)==0))
-	cU = 1; cV = 0;
+	cU = []; cV = [];
  
   end
   if (min(size(cW)==0) || min(size(cZ)==0))
-	cW = 1; cZ = 0;
+	cW = []; cZ = [];
  
   end
   cm = cln(cm); cp = cln(cp);

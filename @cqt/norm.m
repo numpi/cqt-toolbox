@@ -3,13 +3,17 @@ function r = norm(T, p)
 %
 %     r = NORM(T) computes the CQT-norm of a CQT-matrix  
 
-if isinf(T.sz(1))
+if min(T.sz) == inf
     if exist('p', 'var') && ~(strcmp(p, 'CQT') || strcmp(p, 'cqt'))
         error('Only the CQT norm is supported for infinite matrices');
     end
     
     r = qt_norm(T.n, T.p, T.U, T.V);
 else
+    if max(T.sz) == inf
+	T.sz = [ min(max(size(T.U,1), length(T.n) + T.sz(2)), T.sz(1)), ...
+                 min(max(size(T.V,2), length(T.p) + T.sz(1)), T.sz(2)) ];
+    end
     % For small matrices, or the ones that have overlapping corrections, we
     % compute the norm of the full version
     m = size(T, 1);

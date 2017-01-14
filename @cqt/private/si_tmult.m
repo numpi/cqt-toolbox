@@ -9,6 +9,14 @@ function [cm,cp,cU,cV]=si_tmult(am, ap, bm, bp)
   nam = length(am); nap = length(ap);
   nbm = length(bm); nbp = length(bp);
 
+  if nam == 0 || nbm == 0
+    cm = [];
+    cp = [];
+    cU = [];
+    cV = [];
+    return;
+  end
+
 % resize the input vectors according to their numerical length
   [nam_eps,am] = epslength(am);
   [nap_eps,ap] = epslength(ap);
@@ -25,8 +33,8 @@ function [cm,cp,cU,cV]=si_tmult(am, ap, bm, bp)
   cp = cln(cp);
 % Compute R 
   na = length(am); nb = length(bp);
-  if na==1 || nb==1
-    cU = 0; cV = 0;
+  if na <=1 || nb <= 1
+    cU = []; cV = [];
   else
   if na>nb
     am = am(2:end);   bm = [bp(2:end),zeros(1,na-nb)];  bp = zeros(1,nb-1);
@@ -34,7 +42,8 @@ function [cm,cp,cU,cV]=si_tmult(am, ap, bm, bp)
   else
     bm = bp(2:end);
     am = am(2:end); ap = [am(end),zeros(1,nb-2)];
-    cU = -hankel(am,ap); cV = hankel(bm).';
+    cU = -hankel(am,ap);
+    cV = hankel(bm).';
   end
 end
 
