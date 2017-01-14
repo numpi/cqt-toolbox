@@ -16,7 +16,18 @@ if length(p) == 1
 	return;
 end
 
+p = reshape(p, 1, length(p));
+
+% Choosing a good block size makes this algorithm faster, even if it
+% theoretically requires more flops.
+minimum_block_size = 16;
+
 n = length(p) - 1;
+
+if n < minimum_block_size
+	p = [ p, zeros(1, minimum_block_size - length(p)) ];
+	n = length(p) - 1;
+end
 
 T = toep(p(1), p(1:end-1), n, n);
 A = toep(p(end:-1:2), p(end), n, n);
