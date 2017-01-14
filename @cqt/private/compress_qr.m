@@ -16,7 +16,7 @@ if size(U,1) == 1
 	return
 end
 
-if length(U) == 0
+if isempty(U)
 	TU = [];
 	TV = [];
 	return;

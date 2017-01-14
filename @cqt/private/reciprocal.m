@@ -1,5 +1,18 @@
 function [l, u] = reciprocal(vm, vp, nm, np)
 %RECIPROCAL Compute the inverse of a Laurent polynomial. 
+%
+% [L, U] = RECIPROCAL(VM, VP) computes the coefficients of the Laurent
+% polynomial with positive coefficients VP and negative coefficients VM.
+% The coefficients are order starting from the constant to the one of
+% higher (negative or positive) degree. This function computes all the
+% non-negligible coefficients with respect to machine precision. 
+%
+% [L, U] = RECIPROCAL(VM, VP, NM, NP) does the same computation of
+% RECIPROCAL(VM, VP) but only returns at at most NM negative coefficients
+% and NP positive ones. 
+%
+% Authors: Stefano Massei <stefano.massei@sns.it>
+%          Leonardo Robol <leonardo.robol@cs.kuleuven.be>
 
 if ~exist('nm', 'var')
 	nm = inf;
