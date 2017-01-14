@@ -3,47 +3,47 @@ function [um,up] = spectral_fft(vm,vp)
 %
 %     [UM, UP] = SPECTRAL_FFT(VM, VP) computes the spectral factorization
 %     of a polynomial P(Z) defined by the coefficients
-%     
-%       P := [ VM(1) ... VM(end) VP(1) ... VP(END) ], 
+%
+%       P := [ VM(1) ... VM(end) VP(1) ... VP(END) ],
 %
 %     where the first element is the leading coefficient. That is, the
-%     coefficient with the vectors reported above can be obtained as 
+%     coefficient with the vectors reported above can be obtained as
 %
 %       P = conv(UM, UP)
-%     
+%
 %     The algorithm consists in evaluating the central 2m-1 coefficients of
-%     the Laurent series 1/p(z) and then by computing the first and last 
-%     column of the inverse of the mxm symmetric Toeplitz matrix formed with 
-%     these elements these columns, suitably scaled, provide an approximation 
-%     to the desired factor. 
+%     the Laurent series 1/p(z) and then by computing the first and last
+%     column of the inverse of the mxm symmetric Toeplitz matrix formed with
+%     these elements these columns, suitably scaled, provide an approximation
+%     to the desired factor.
 %
 %     The function does not use any special algorithm for solving the Toeplitz
-%     system. 
+%     system.
 %
 %     June 2, 2016, By Dario A. Bini
- 
+
 % clean data
-  realflag = isreal(vm) && isreal(vp);
-  
-  vm = cln(vm); vp = cln(vp);
+realflag = isreal(vm) && isreal(vp);
+
+vm = cln(vm); vp = cln(vp);
 % compute the reciprocal of the Laurent polynomial
-  [tm,tp] = reciprocal_fft(vm,vp);
-  nm = length(vm); np = length(vp);  n = max(nm,np);
+[tm,tp] = reciprocal_fft(vm,vp);
+nm = length(vm); np = length(vp);  n = max(nm,np);
 % Form the Toeplitz matrix
-  A = toep(tm,tp,n,n); 
+A = toep(tm,tp,n,n);
 % Solve the Toeplitz system % it can be improved
-  b1 = zeros(n,1);  b2 = b1;  b1(1) = 1;  b2(n) = 1;
-  U = A\[b1,b2];
-  um = U(:,1);  up = U(end:-1:1,2);
+b1 = zeros(n,1);  b2 = b1;  b1(1) = 1;  b2(n) = 1;
+U = A\[b1,b2];
+um = U(:,1);  up = U(end:-1:1,2);
 % Clean vectors and normalize
-  um = cln(um); up = cln(up);
-  n = min(length(um), length(up));
-  th = sum(um(1:n).*up(1:n));
-  if vm(1)/th<0 && realflag
-    disp('Warning: in spectral_fft th<0')
-    th
-    %pause
-  end
-  th = sqrt(vm(1)/th);
-  um = th*um;  up = th*up;
+um = cln(um); up = cln(up);
+n = min(length(um), length(up));
+th = sum(um(1:n).*up(1:n));
+if vm(1)/th<0 && realflag
+	disp('Warning: in spectral_fft th<0')
+	th
+	%pause
+end
+th = sqrt(vm(1)/th);
+um = th*um;  up = th*up;
 end

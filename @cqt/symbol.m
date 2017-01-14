@@ -3,7 +3,7 @@ function [n, p] = symbol(T)
 %
 %   [N, P] = SYMBOL(T) returns two vectors containing the negative and
 %       positive coefficients of the symbol of the Toeplitz part of T,
-%       respectively. 
+%       respectively.
 
 n = T.n;
 p = T.p;

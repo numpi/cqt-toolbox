@@ -1,9 +1,9 @@
 function [T1, T2, U1, V1, sn1, sp1, U2, V2, sn2, sp2] = GenerateExample(n, k1, k2)
-%GENERATEEXAMPLE Generate two random CQT matrices. 
+%GENERATEEXAMPLE Generate two random CQT matrices.
 %
 % [T1, U1, V1, sn1, sp1, T2, U2, V2, sn2, sp2] = GENERATEEXAMPLE(n, k1, k2)
 %     generates two CQT matrices T1 and T2 that can be used as test
-%     examples. 
+%     examples.
 %
 % Author: Leonardo Robol <leonardo.robol@cs.kuleuven.be>
 

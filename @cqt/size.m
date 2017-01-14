@@ -4,11 +4,11 @@ function sz = size(T, idx)
 sz = T.sz;
 
 if exist('idx', 'var')
-    if idx < 1 || idx > 2
-        error('Invalid dimension specified');
-    else
-        sz = sz(idx);
-    end
+	if idx < 1 || idx > 2
+		error('Invalid dimension specified');
+	else
+		sz = sz(idx);
+	end
 end
 
 end
