@@ -2,7 +2,7 @@ function q = reciprocal_poly(p, d)
 %RECIPROCAL Compute the Taylor expansion of the inverse of a polynomial.
 %
 % Q = RECIPROCAL_POLY(P, D) computes at most N entries of the Taylor series
-% of the inverse of the polynomial 
+% of the inverse of the polynomial
 %
 %   P(1) + P(2) * x + ... + P(l+1) x^l
 %
