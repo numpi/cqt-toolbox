@@ -5,7 +5,7 @@
 % directly in MATLAB. Assume that we have a semi-infinite Toeplitz matrix T
 % with symbol _s(z)_ defined as follows:
 %
-% $$ s(z) = 2 z^{-2} + z - 3 - z + 4z^2 $$
+% $$ s(z) = 2 z^{-2} + z^{-1} - 3 - z + 4z^2 $$
 %
 % We can represent this matrix using the CQT toolbox as
 
