@@ -1,21 +1,21 @@
 classdef cqt
 	%CQT  class of continuosly quasi-Toeplitz matrices
 	%
-	%     T = CQT(pos, neg, A) creates the semi-infinite CQT-matrix with
+	%     T = CQT(neg, pos, A) creates the semi-infinite CQT-matrix with
 	%     the specified symbol and finite correction A
 	%
-	%     T = CQT(pos, neg, U, V) creates the semi-infinite CQT-matrix with
+	%     T = CQT(neg, pos, U, V) creates the semi-infinite CQT-matrix with
 	%     the specified symbol and finite correction U * V.'
 	%
-	%     T = CQT(pos, neg, A, B, m, n) creates the (m x n)-CQT-matrix with
+	%     T = CQT(neg, pos, A, B, m, n) creates the (m x n)-CQT-matrix with
 	%     the specified symbol, top-left correction A and bottom-right correction B.
 	%     If one between m and n is 'inf' then B is ignored.
 	%
-	%     T = CQT(pos, neg, U, V, W, Z, m, n) creates the (m x n)-CQT-matrix with
+	%     T = CQT(neg, pos, U, V, W, Z, m, n) creates the (m x n)-CQT-matrix with
 	%     the specified symbol and finite corrections A = U * V.' , B = W * Z.'.
 	%     If one between m and n is 'inf' then B is ignored.
 	%
-	%     T = CQT(pos, neg) creates the semi-infinite CQT-matrix with the specified
+	%     T = CQT(neg, pos2) creates the semi-infinite CQT-matrix with the specified
 	%     symbol and an empty finite correction
 	%
 	%     T = CQT(A) creates the semi-infinite CQT-matrix with a symbol equal to 0
