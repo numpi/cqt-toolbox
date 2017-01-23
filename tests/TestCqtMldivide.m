@@ -10,6 +10,11 @@ D = A \ B;
 CheckTestResult(norm(C - D), '<', 1e3 * eps * norm(B) * norm(inv(A)), ...
 	'mldivide on CQT and finite matrix');
 
+x = rand;
+C = x \ B;
+CheckTestResult(norm(C * x - B), '<', 1e2 * eps * norm(B), ...
+	'mldivide with scalar and CQT');
+
 A = cqt([ 4 -1 ], [4 1]);
 B = cqt([1 rand(1,2) ], [1 rand(1,2) ]);
 

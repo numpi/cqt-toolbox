@@ -1,6 +1,12 @@
 function X = mldivide(A, B)
 
 if isa(B, 'cqt') && ~isa(A, 'cqt')
+	if isscalar(A)
+		X = (1 / A) * B;
+		return;
+	end
+	
+	
 	if B.sz(1) ~= size(A,2)
 		error('Incompatible dimensions');
 	end

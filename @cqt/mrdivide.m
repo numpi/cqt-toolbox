@@ -2,6 +2,11 @@ function X = mrdivide(B, A)
 %MRDIVIDE Compute B * inv(A).
 
 if isa(B, 'cqt') && ~isa(A, 'cqt')
+	if isscalar(A)
+		X = (1 / A) * B;
+		return;
+	end
+	
 	if B.sz(2) ~= size(A,1)
 		error('Incompatible dimensions');
 	end
