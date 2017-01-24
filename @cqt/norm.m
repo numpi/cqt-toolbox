@@ -36,6 +36,8 @@ else
 				r = fqt_norm_2(T);
 			case inf
 				r = fqt_norm_inf(T);
+			case 'cqt'
+				r = qt_norm(T.n, T.p, T.U, T.V) + qt_norm(0, 0, T.W, T.Z);
 			otherwise
 				error('Unsupported norm');
 		end

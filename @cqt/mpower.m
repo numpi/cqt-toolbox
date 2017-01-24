@@ -26,7 +26,12 @@ switch p
 		p2 = p - p1;
 		
 		% Call this function recursively
-		T = T^p1 * T^p2;
+		if p1 == p2
+			T = T^p1;
+			T = T*T;
+		else
+			T = T^p1 * T^p2;
+		end
 end
 
 end

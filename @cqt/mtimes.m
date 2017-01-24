@@ -53,7 +53,7 @@ elseif isscalar(T1) && isa(T2, 'cqt')
 elseif isa(T1,'cqt') && T1.sz(1) == inf && ~isa(T2, 'cqt')
 	error('Incompatible types multiplication. \nIf you want to multiply a cqt matrix T with a finite matrix of %s A you can use T * cqt(A) ',class(T2));
 elseif isa(T1,'cqt') && T1.sz(1) ~= inf && ~isa(T2, 'cqt')
-	error('Incompatible types multiplication. \nIf you want to multiply a finite cqt matrix T with a finite matrix of %s A you can use full(T) * cqt(A) ',class(T2));
+	error('Incompatible types multiplication. \nIf you want to multiply a finite cqt matrix T with a finite matrix of %s A you can use T * cqt(A) ',class(T2));
 elseif isa(T2,'cqt') && T2.sz(1) == inf && ~isa(T1, 'cqt')
 	error('Incompatible types multiplication. \nIf you want to multiply a finite matrix of %s A with a cqt matrix you can use cqt(A) * T',class(T1));
 elseif isa(T2,'cqt') && T2.sz(1) ~= inf && ~isa(T1, 'cqt')
