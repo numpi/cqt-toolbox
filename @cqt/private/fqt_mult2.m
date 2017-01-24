@@ -101,8 +101,16 @@ ZZ(1:saz1,:) = aZ;
 WW(1:sbw1,:) = bW;
 
 % RaRbU=aU*(aV'*bU); RaRbV = bV;                   % 3
-RaRbU = aU*(VV.'*UU); RaRbV = bV;
-SaSbW = aW*(ZZ.'*WW); SaSbZ = bZ;
+if size(bV,2) < size(aU,2)
+	RaRbU = aU*(VV.'*UU); RaRbV = bV;
+else
+	RaRbU = aU; RaRbV = bV *(UU.'* VV);
+end
+if size(bZ,2) < size(aW,2)
+	SaSbW = aW*(ZZ.'*WW); SaSbZ = bZ;
+else
+	SaSbW = aW; SaSbZ = bZ*(WW.'*ZZ);
+end
 
 % Case of too big corrections ---> we need to consider cross products
 krasb = 0;
