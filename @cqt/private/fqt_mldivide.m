@@ -26,5 +26,29 @@ LUB = Linv * (Uinv * B);
 LUE1 = Linv * (Uinv * E1);
 
 S = eye(size(E1, 2)) + full(E2.' * LUE1);
+% C = LUB - LUE1 * (S \ (E2.' * LUB));
+% C = LUB - LUE1 * (S \ (E2.' * LUB));
 
-C = LUB - LUE1 * (S \ (E2.' * LUB));
+% C = LUB - cqt([], [], full(LUE1), full(S \ (E2.' * LUB)).', [], [], LUE1.sz(1), size(C, 2));
+C = 1;
+return;
+
+
+disp('1');
+C = E2.' * LUB;
+% [ size(C.U) , size(C.V) ]
+
+disp('2');
+C = S \ C;
+% [ size(LUE1.U), size(LUE1.V), size(C.U), size(C.V) ]
+
+disp('3');
+C = cqt([], [], full(LUE1), full(C).', [], [], LUE1.sz(1), size(C, 2));
+disp('4');
+% C = LUB - C;
+disp('5');
+
+
+
+
+
