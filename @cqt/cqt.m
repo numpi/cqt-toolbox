@@ -62,7 +62,7 @@ classdef cqt
 					obj.p = varargin{2};
 					obj.sz = [inf,inf];
 				case 3
-					if varargin{1}(1) ~= varargin{2}(1)
+					if ~isempty(varargin{1}) && (varargin{1}(1) ~= varargin{2}(1))
 						error('The coefficients of degree 0 does not coincide');
 					end
 					obj.n = varargin{1};

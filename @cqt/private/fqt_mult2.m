@@ -30,36 +30,41 @@ c1 = length(cm); c2 = length(cp);
 a1 = length(am); a2 = length(ap);
 b1 = length(bm); b2 = length(bp);
 
+down_am = 0; down_ap = 0; down_bm = 0; down_bp = 0;
 % Symbols corresponding to the bottom right correction
-if m >= p   % left factor
-	if 1+m-p <= a1
-		down_am = am(1+m-p:end);
+if ~isempty(am) && ~isempty(ap)
+	if m >= p   % left factor
+		if 1+m-p <= a1
+			down_am = am(1+m-p:end);
+		else
+			down_am = 0;
+		end
+		down_ap = [zeros(1,max(0,1+m-p-a1)),am(min(1+m-p,a1):-1:2),ap];
 	else
-		down_am = 0;
+		if 1+p-m <= a2
+			down_ap = ap(1+p-m:end);
+		else
+			down_ap = 0;
+		end
+		down_am = [zeros(1,max(0,1+p-m-a2)),ap(min(1+p-m,a2):-1:2),am];
 	end
-	down_ap = [zeros(1,max(0,1+m-p-a1)),am(min(1+m-p,a1):-1:2),ap];
-else
-	if 1+p-m <= a2
-		down_ap = ap(1+p-m:end);
-	else
-		down_ap = 0;
-	end
-	down_am = [zeros(1,max(0,1+p-m-a2)),ap(min(1+p-m,a2):-1:2),am];
 end
-if p >= n   % right factor
-	if 1+p-n <= b1
-		down_bm = bm(1+p-n:end);
+if ~isempty(bm) && ~isempty(bp)
+	if p >= n   % right factor
+		if 1+p-n <= b1
+			down_bm = bm(1+p-n:end);
+		else
+			down_bm = 0;
+		end
+		down_bp = [zeros(1,max(0,1+p-n-b1)),bm(min(1+p-n,b1):-1:2),bp];
 	else
-		down_bm = 0;
+		if 1+n-p <= b2
+			down_bp = bp(1+n-p:end);
+		else
+			down_bp = 0;
+		end
+		down_bm = [zeros(1,max(0,1+n-p-b2)),bp(min(1+n-p,b2):-1:2),bm];
 	end
-	down_bp = [zeros(1,max(0,1+p-n-b1)),bm(min(1+p-n,b1):-1:2),bp];
-else
-	if 1+n-p <= b2
-		down_bp = bp(1+n-p:end);
-	else
-		down_bp = 0;
-	end
-	down_bm = [zeros(1,max(0,1+n-p-b2)),bp(min(1+n-p,b2):-1:2),bm];
 end
 da1 = length(down_am); da2 = length(down_ap);
 db1 = length(down_bm); db2 = length(down_bp);
