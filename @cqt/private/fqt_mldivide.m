@@ -24,7 +24,12 @@ Linv = inv(L);
 Uinv = inv(U);
 LUB = Linv * (Uinv * B);
 LUE1 = Linv * (Uinv * E1);
-
 S = eye(size(E1, 2)) + full(E2.' * LUE1);
 
-C = LUB - LUE1 * (S \ (E2.' * LUB));
+LUE1S = cqt([],[],LUE1.U, S(1:size(LUE1.V,2),1:size(LUE1.V,2)).'\LUE1.V, LUE1.W(end:-1:1,end:-1:1), S(size(LUE1.V,2)+1:end,size(LUE1.V,2)+1:end).'\LUE1.Z(end:-1:1,end:-1:1), LUE1.sz(1), LUE1.sz(2));
+
+LUE1SE2 = -LUE1S * E2.';
+LUE1SE2.p = 1;
+LUE1SE2.n = 1;
+
+C = LUE1SE2 * LUB;

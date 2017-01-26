@@ -1,4 +1,5 @@
 function [TU, TV] = compress_qr(U, V)
+
 %COMPRESS_QR Compress the factors of an outer product X1 * X2'.
 %
 % [Y1, Y2] = COMPRESS_QR(X1, X2) compute a new factorization Y1 * Y2' of
@@ -8,7 +9,6 @@ function [TU, TV] = compress_qr(U, V)
 %
 % Date: June 2 2016
 % Author: Dario A. Bini
-
 epsi= eps;
 
 if size(U,1) == 1
@@ -16,7 +16,7 @@ if size(U,1) == 1
 	return
 end
 
-if isempty(U)
+if isempty(U) || isempty(V)
 	TU = [];
 	TV = [];
 	return;
@@ -42,6 +42,11 @@ end
 n1 = sum(abs(diag(r1))>epsi*abs(r1(1,1)));
 n2 = sum(abs(diag(r2))>epsi*abs(r2(1,1)));
 r = r1(1:n1,ip1)*r2(1:n2,ip2).';
+if isempty(r)
+        TU=[];
+        TV=[];
+        return;
+end
 dosvd = 1;
 if dosvd
 	[ru,rs,rv] = svd(r);
