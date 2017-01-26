@@ -3,7 +3,7 @@ function C = qt_mldivide(A, B)
 
 % Handle the triangular case
 if length(A.p) == 1 || length(A.n) == 1
-	C = inv(A) * B;
+	C = inv(A) \ B;
 	return;
 end
 
@@ -13,18 +13,12 @@ end
 E1 = cqt([], [], E.U, [], inf, size(E.U, 2));
 E2 = cqt([], [], E.V, [], inf, size(E.V, 2));
 
-LUinv = inv(L) * inv(U);
-
 % Compute A \ B by Sherman-Morrison
-
-%LUinv = inv(L) * inv(U);
-%LUB = LUinv * B;
-%LUE1 = LUinv * E1;
 Linv = inv(L);
 Uinv = inv(U);
-LUB  = Linv * (Uinv * B);
-LUE1 = Linv * (Uinv * E1);
+LUinv = Linv * Uinv;
+LUB  = LUinv * B;
+LUE1 = LUinv * E1;
 
 S = eye(size(E.U, 2)) + full(E2.' * LUE1);
-
 C = LUB - LUE1 * (S \ E2.') * LUB;
