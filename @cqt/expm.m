@@ -37,11 +37,6 @@ elseif strcmp(method,'pade')
 		end
 		p = ~p;
 	end
-	[length(eTd.n),length(eTd.p)]
-	size(eTd.U)
-	size(eTd.V)
-	size(eTd.W)
-	size(eTd.Z)
 	
 	eT =  eTn * inv(eTd);
 else
