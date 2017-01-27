@@ -8,21 +8,18 @@ end
 
 nrm = norm(T, nrm_type);
 
-h = ceil(log2(nrm)) + 1;
+h = floor(log2(nrm)) + 2;
 T = T/2^h;
 if ~exist('method','var')
-	method = 'taylor';
+	method = 'pade';
 end
 if strcmp(method,'taylor')
-	maxit = 100;  debug = 0;
+	maxit = 26;
 	eT = cqt(1,1,[],[],T.sz(1),T.sz(2));
 	tempT = eT;
 	for i=1:maxit
 		tempT = tempT * T/i;
 		eT = eT + tempT;
-		if norm(tempT, nrm_type) < eps
-			break
-		end
 	end
 elseif strcmp(method,'pade')
 	
