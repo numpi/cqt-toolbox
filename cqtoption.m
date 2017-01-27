@@ -7,6 +7,9 @@ function optval = cqtoption(keyword, value)
 %   'inversion': [ 'cr', 'fft' ]
 %      Select the algorithm used to perform the Toeplitz inversion.
 %
+%   'sqrt': [ 'db', 'cr' ]
+%      Select the iteration used to compute the square root.
+%
 %
 
 switch keyword
@@ -18,6 +21,16 @@ switch keyword
 			end
 		else
 			setoption('inversion', value);
+		end
+		
+	case 'sqrt'
+		if nargin == 1
+			optval = getoption('sqrt');
+			if isempty(optval)
+				optval = 'db';
+			end
+		else
+			setoption('sqrt', value);
 		end
 end
 

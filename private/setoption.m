@@ -1,11 +1,14 @@
 function setoption(keyword, value)
 %SETOPTION Set an option for the CQT toolbox.
 
-global inversion;
+global cqt_inversion;
+global cqt_sqrt;
 
 switch keyword
 	case 'inversion'
-		inversion = value;
+		cqt_inversion = value;
+	case 'sqrt'
+		cqt_sqrt = value;
 	otherwise
 		error('Unsupported option specified');
 end

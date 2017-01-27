@@ -13,35 +13,35 @@ T = T/2^h;
 if ~exist('method','var')
 	method = 'taylor';
 end
-if strcmp(method,'taylor') 
+if strcmp(method,'taylor')
 	maxit = 100;  debug = 0;
 	eT = cqt(1,1,[],[],T.sz(1),T.sz(2));
 	tempT = eT;
 	for i=1:maxit
 		tempT = tempT * T/i;
 		eT = eT + tempT;
-        	if norm(tempT, nrm_type) < eps
-        		break
-        	end
+		if norm(tempT, nrm_type) < eps
+			break
+		end
 	end
 elseif strcmp(method,'pade')
-
+	
 	c = 1 / 2;
 	eTn = cqt(1, 1, [], [], T.sz(1), T.sz(2)) + c*T;
 	eTd = cqt(1, 1, [], [], T.sz(1), T.sz(2)) - c*T;
-
+	
 	q = 6;
 	p = 1;
-	X = T;	
+	X = T;
 	for k = 2 : q
 		c = c * (q-k+1) / (k*(2*q-k+1));
 		X = T * X;
-   		cX = c*X;
+		cX = c*X;
 		eTn = eTn + cX;
 		if p
-		     eTd = eTd + cX;
+			eTd = eTd + cX;
 		else
-		     eTd = eTd - cX;
+			eTd = eTd - cX;
 		end
 		p = ~p;
 	end

@@ -1,5 +1,5 @@
 function F = funm(A, fun, varargin)
-% FUNM computes the matrix function FUN on the argument M  
+% FUNM computes the matrix function FUN on the argument M
 %
 % F = FUNM(A, FUN) computes the function FUN on the input matrix argument M
 %
@@ -23,7 +23,7 @@ end
 res = @(z) inv(cqt(z, z, [], [], m, n) - A) * fun(z);
 
 % Make sure that we do not choose a circle which contains poles for the
-% contour integral. 
+% contour integral.
 r = norm(A, inf) + 1;
 
 while sum(abs(poles) == r) > 0
@@ -37,7 +37,7 @@ for i = 1 : length(poles)
 	if abs(poles(i)) < r
 		corr = inv(cqt(poles(i), poles(i), [], [], m, n) - A);
 		rr = .5 / norm(corr, inf)
-
+		
 		corr = contour_integral(res, poles(i), rr, max_it);
 		F = F - corr;
 	end

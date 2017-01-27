@@ -20,7 +20,7 @@ E2LU = (E2.' * Linv) * Uinv;
 S = eye(size(E1, 2)) + full(E2LU * E1);
 
 SE2LU = cqt([],[], S(1:size(E2LU.U,2),1:size(E2LU.U,2))\E2LU.U, E2LU.V, S(size(E2LU.U,2)+1:end,size(E2LU.U,2)+1:end)\E2LU.W(end:-1:1,end:-1:1),...
- E2LU.Z(end:-1:1,end:-1:1), E2LU.sz(1), E2LU.sz(2));
+	E2LU.Z(end:-1:1,end:-1:1), E2LU.sz(1), E2LU.sz(2));
 
 %C = BLU - BLU * (E1 * SE2LU);
 

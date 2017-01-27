@@ -43,9 +43,9 @@ n1 = sum(abs(diag(r1))>epsi*abs(r1(1,1)));
 n2 = sum(abs(diag(r2))>epsi*abs(r2(1,1)));
 r = r1(1:n1,ip1)*r2(1:n2,ip2).';
 if isempty(r)
-        TU=[];
-        TV=[];
-        return;
+	TU=[];
+	TV=[];
+	return;
 end
 dosvd = 1;
 if dosvd
