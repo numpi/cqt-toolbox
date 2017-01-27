@@ -19,7 +19,7 @@ if size(vp,1)==1
 end
 nm = length(vm); np = length(vp);
 if nm>np
-	am = vm(1:nm-1); ap = [vp;zeros(nm-np-1,1)];
+	am  = vm(1:nm-1); ap = [vp;zeros(nm-np-1,1)];
 	A = toeplitz(am,ap);
 	B = toeplitz([vm(nm);zeros(nm-2,1)],vm(nm:-1:2));
 	C = toeplitz([zeros(nm-np,1);vp(np:-1:2)],zeros(nm-1,1));
@@ -48,9 +48,8 @@ for k=1:maxiter
 	C = -C*ABC(:,n+1:2*n);
 	at = at-cab;
 	ah = ah-bac;
-	err = sqrt(norm(B,'inf')*norm(C,'inf'));
-	% err
-	if err<epsi
+	err = min(norm(B,'inf'), norm(C,'inf'));
+	if err< epsi
 		break
 	end
 end
@@ -64,7 +63,8 @@ l = l(1:nm);
 u = u(end:-1:end-np+1);
 
 m = min(length(l), length(u));
-y = vp(1) / dot(l(1:m), u(1:m));
+y = vp(1) / dot(conj(l(1:m)), u(1:m));
+
 x = sqrt(abs(y));
 u = u*x*sign(y); l = l*x;
 
