@@ -1,5 +1,13 @@
 function eT = expm(T, method)
-nrm = norm(T,'cqt');
+
+if max(T.sz) == inf
+	nrm_type = 'cqt';
+else
+	nrm_type = inf;
+end
+
+nrm = norm(T, nrm_type);
+
 h = ceil(log2(nrm)) + 1;
 T = T/2^h;
 if ~exist('method','var')
@@ -12,7 +20,7 @@ if strcmp(method,'taylor')
 	for i=1:maxit
 		tempT = tempT * T/i;
 		eT = eT + tempT;
-        	if norm(tempT,'cqt') < eps
+        	if norm(tempT, nrm_type) < eps
         		break
         	end
 	end
