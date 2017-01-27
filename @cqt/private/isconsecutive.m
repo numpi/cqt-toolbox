@@ -6,7 +6,7 @@ function l = isconsecutive(v)
 if isempty(v)
 	l = true;
 else
-	l = sum( (v(2:end) - v(1:end-1)) == 1) == length(v) - 1;
+	l = all((v(2:end) - v(1:end-1)) == 1);
 end
 
 
