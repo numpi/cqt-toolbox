@@ -15,6 +15,15 @@ if min(row_indices) <= 0 || min(col_indices) <= 0
 	error('Negative indices are not supported')
 end
 
+if ~isempty(row_indices) && ~isempty(col_indices)
+	if sum(row_indices(2:end) - row_indices(1:end-1) == 1) == length(row_indices) - 1 && ...
+		sum(col_indices(2:end) - col_indices(1:end-1) == 1) == length(col_indices) - 1
+		M = slicemat_contiguous(T, row_indices(1), row_indices(end), ...
+			col_indices(1), col_indices(end));
+		return;
+	end
+end
+
 M = zeros(length(row_indices), length(col_indices));
 
 for i = 1 : length(row_indices)
