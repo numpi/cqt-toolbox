@@ -14,7 +14,7 @@ if ~exist('method','var')
 	method = 'pade';
 end
 if strcmp(method,'taylor')
-	maxit = 26;
+	maxit = 12;
 	eT = cqt(1,1,[],[],T.sz(1),T.sz(2));
 	tempT = eT;
 	for i=1:maxit
