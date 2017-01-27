@@ -1,7 +1,7 @@
-function M = slicemat_contiguous(T, imin, imax, jmin, jmax)
-%SLICEMAT_CONTIGUOUS Slice a contiguous part of a CQT matrix.
+function M = slicemat_consecutive(T, imin, imax, jmin, jmax)
+%SLICEMAT_CONSECUTIVE Slice a contiguous part of a CQT matrix.
 %
-%     M = slicemat_contiguous(T, IMIN, IMAX, JMIN, JMAX) extracts a dense
+%     M = SLICEMAT_CONSECUTIVE(T, IMIN, IMAX, JMIN, JMAX) extracts a dense
 %     representation of a slice of a CQT matrix with row indices between
 %     IMIN and IMAX and column indices between JMIN and JMAX.
 
@@ -16,7 +16,8 @@ if imin <= size(T.U, 1) && jmin <= size(T.V, 1)
 	max_rel_col_index = max_col_index - jmin + 1;
 	
 	M(1:max_rel_row_index,1:max_rel_col_index) = ...
-		M(1:max_rel_row_index,1:max_rel_col_index) + T.U(imin:max_row_index,:) * ...
+		M(1:max_rel_row_index,1:max_rel_col_index) + ...
+		T.U(imin:max_row_index,:) * ...
 		T.V(jmin:max_col_index,:).';
 end
 
