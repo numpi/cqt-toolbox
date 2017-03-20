@@ -1,5 +1,5 @@
 function [TU, TV] = compress_qr(U, V)
-
+%[size(U),size(V)]
 %COMPRESS_QR Compress the factors of an outer product X1 * X2'.
 %
 % [Y1, Y2] = COMPRESS_QR(X1, X2) compute a new factorization Y1 * Y2' of
@@ -10,7 +10,7 @@ function [TU, TV] = compress_qr(U, V)
 % Date: June 2 2016
 % Author: Dario A. Bini
 epsi= eps;
-
+pivoting = 0;
 if size(U,1) == 1
 	TU = 1;  TV = V*U.';
 	return
@@ -26,26 +26,34 @@ if max(max(abs(U)))==0 || max(max(abs(V)))==0
 	TU = [];  TV = [];
 	return
 end
-[q1,r1,p1] = qr(U,0);
-[q2,r2,p2] = qr(V,0);
+if pivoting
+	[q1,r1,p1] = qr(U,0);
+	[q2,r2,p2] = qr(V,0);
 
-% invert the permutations
-for i=1:length(p1)
-	ip1(p1(i)) = i;
-end
-for i=1:length(p2)
-	ip2(p2(i)) = i;
-end
+	% invert the permutations
+	for i=1:length(p1)
+		ip1(p1(i)) = i;
+	end
+	for i=1:length(p2)
+		ip2(p2(i)) = i;
+	end
 
-% compute the number of meaningful elements
-% gestire il caso di r1 vuoto
-n1 = sum(abs(diag(r1))>epsi*abs(r1(1,1)));
-n2 = sum(abs(diag(r2))>epsi*abs(r2(1,1)));
-r = r1(1:n1,ip1)*r2(1:n2,ip2).';
-if isempty(r)
-	TU=[];
-	TV=[];
-	return;
+	% compute the number of meaningful elements
+	% gestire il caso di r1 vuoto
+	n1 = sum(abs(diag(r1))>epsi*abs(r1(1,1)));
+	n2 = sum(abs(diag(r2))>epsi*abs(r2(1,1)));
+	r = r1(1:n1,ip1)*r2(1:n2,ip2).';
+	if isempty(r)
+		TU=[];
+		TV=[];
+		return;
+	end
+else
+	[q1,r1] = qr(U,0);
+	[q2,r2] = qr(V,0);
+	r = r1*r2.';
+	n1 = size(r1,1);
+	n2 = size(r2,1);
 end
 dosvd = 1;
 if dosvd
@@ -89,5 +97,5 @@ for i=length(e2):-1:1
 	end
 end
 TU = TU(1:n1,:); TV = TV(1:n2,:);
-
+%[size(TU),size(TV)]
 

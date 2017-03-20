@@ -7,14 +7,14 @@ function y = cln(y)
 % Author: Dario Bini <bini@dm.unipi.it>
 
 relative = true;
-epsilon = eps;
+epsilon = 1e1 * eps;
 
 n = length(y);
 
 if relative
 	nrm = norm(y,'inf')*epsilon;
 else
-	nrm=epsi;
+	nrm=epsilon;
 end
 
 for i=n:-1:1

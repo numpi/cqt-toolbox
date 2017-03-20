@@ -6,7 +6,7 @@ function [k, v] = epslength(a)
 %  global epsi
 %  global relative
 
-epsi = eps;
+epsi = 1e1 * eps;
 relative = true;
 if relative
 	mx=norm(a,'inf');

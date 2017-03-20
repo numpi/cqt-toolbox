@@ -24,7 +24,11 @@ res = @(z) inv(cqt(z, z, [], [], m, n) - A) * fun(z);
 
 % Make sure that we do not choose a circle which contains poles for the
 % contour integral.
-r = norm(A, inf) + 1;
+if max(A.sz) == inf
+        r = norm(A) + 1;
+else
+        r = norm(A, inf) + 1;
+end
 
 while sum(abs(poles) == r) > 0
 	r = r + 1;

@@ -1,6 +1,10 @@
 function r = conv_fft(p, q)
 %CONVFFT Compute conv(p, q) using the FFT.
 
+r = conv(p, q);
+
+return;
+
 if ~isvector(p) || ~isvector(q)
 	error('Arguments of CONV_FFT must be vectors');
 end
