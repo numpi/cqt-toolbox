@@ -3,7 +3,7 @@ function r = norm(T, p)
 %
 %     r = NORM(T) computes the CQT-norm of a CQT-matrix
 
-if min(T.sz) == inf
+if max(T.sz) == inf
 	if exist('p', 'var') && ~(strcmp(p, 'CQT') || strcmp(p, 'cqt'))
 		error('Only the CQT norm is supported for infinite matrices');
 	end
@@ -18,7 +18,7 @@ else
 	% compute the norm of the full version
 	m = size(T, 1);
 	n = size(T, 2);
-	if max(T.sz) < 50 || ( (size(T.U,1) + size(T.W,1) >= m) && (size(T.V,1) + size(T.Z,1) >= n) )
+	if max(T.sz) < 50 || ((size(T.U,1) + size(T.W,1) >= m) && (size(T.V,1) + size(T.Z,1) >= n) )
 		if exist('p', 'var')
 			r = norm(full(T), p);
 		else

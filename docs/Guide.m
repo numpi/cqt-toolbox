@@ -13,3 +13,5 @@
 % The CQT toolbox allows to represent these matrices directly in MATLAB.
 %
 % <ArithmeticExample.html First steps with CQT matrices>
+%
+% <JacksonExample.html Solving QBD processes>
