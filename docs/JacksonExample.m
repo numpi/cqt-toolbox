@@ -50,6 +50,11 @@ fprintf ('Residual norm on pi0: %e\n', norm(res));
 % infinite vectors, therefore we will need to store them truncated in the
 % output. 
 
+% Normalization
+s = cqt(pi0') / (cqt(1,1) - R);
+s = sum(s(1,1:1024));
+pi0 = pi0 / s;
+
 infinite_pi0 = cqt(pi0');
 pi = pi0;
 

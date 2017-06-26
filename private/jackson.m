@@ -34,6 +34,15 @@ Am1 = cqt((q-1)*mu2, [(q-1)*mu2, -q*mu2]);
 hA0 = cqt([ l1 + l2 + mu1, (p-1)*mu1 ], ...
 	[ l1 + l2 + mu1, -l1 ], -mu1);
 
+A0 = cqt([l1 + l2 + mu1 + mu2 , (q-1)*mu2 ], ...
+	[ l1 + l2 + mu1 + mu2, -l2 ], -mu2);
+A1 = cqt([ -l1 , -q*mu2], [ -l1 ]);
+Am1 = cqt([ (p-1)*mu1 ], [ (p-1)*mu1, -p*mu1 ]);
+hA0 = cqt([l1 + l2 + mu2 , (q-1)*mu2 ], ...
+	[ l1 + l2 + mu2, -l2 ], -mu2);
+
+return;
+
 % Perform normalization of the rows 
 f  = 1 / (l1 + l2 + mu1 + mu2);
 A0 = f * A0;

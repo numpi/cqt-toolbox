@@ -42,9 +42,12 @@ for i=1:max_it
 	% norm(Bm1, norm_type)
 	% norm(B1, norm_type)
 	% norm(symbol(Bm1))
-	% s = svd(correction(B1)); 
+	% s = svd(correction(Bm1)); 
 	% s(1:min(3,length(s)))
     % min(norm(Bm1, norm_type), norm(B1, norm_type))
+	% G = hB0 \ Am1;
+	% S = Am1  + A0 * G + A1
+	% max(max(abs(correction(B1))))
 	if min(norm(Bm1, norm_type), norm(B1, norm_type)) < eps
 		break
 	end
