@@ -28,7 +28,7 @@ fprintf('Residue of the right solution G: %1.2e\n', norm(Am1 + A0 * G + A1* G^2)
 fprintf('Residue of the left solution R: %1.2e\n', norm(R^2 * Am1 + R * A0 + A1));
 
 %% 
-% We can now compute the matrix $M = A0 + A1 G$ so that it is block
+% We can now compute the matrix $M = A_0 + A_1 G$ so that it is block
 % tridiagonal and block Toeplitz, with at most the top-left block different
 % from the other diagonal ones. We need to find an integer $m$ such that
 % the correction is contained in the first $m$ rows and columns, and such
