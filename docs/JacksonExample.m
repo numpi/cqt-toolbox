@@ -65,9 +65,9 @@ Mm1 = M(m+1:2*m,1:m);
 pi0 = Q(:,end)';
 
 pim1 = pi0;
-nrm_pi0 = norm(pi0);
+nrm_pi0 = norm(pi0, inf);
 
-while norm(pim1) > nrm_pi0 * eps
+while norm(pim1, inf) > nrm_pi0 * eps
 	pim1 = pim1 * RM;
 	pi0 = [ pi0, pim1 ];
 end
