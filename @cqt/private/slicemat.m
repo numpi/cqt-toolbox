@@ -46,8 +46,11 @@ for i = 1 : length(row_indices)
 	
 end
 
-
-
-
+if ~isempty(T.c)
+    if length(T.c) < max(col_indices)
+        T.c(max(col_indices)) = 0;
+    end
+    
+    M = M + ones(size(M,1),1) * T.c(col_indices);
 end
 

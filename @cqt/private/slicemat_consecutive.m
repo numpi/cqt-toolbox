@@ -64,3 +64,11 @@ if ~isempty(T.n)
 		M = M + toep(neg, pos, size(M, 1), size(M, 2));
 	end
 end
+
+if ~isempty(T.c)
+    if length(T.c) < jmax
+        T.c(jmax) = 0;
+    end
+    
+    M = M + ones(size(M,1),1) * T.c(jmin:jmax);
+end

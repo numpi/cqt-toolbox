@@ -4,11 +4,18 @@ function r = norm(T, p)
 %     r = NORM(T) computes the CQT-norm of a CQT-matrix
 
 if max(T.sz) == inf
-	if exist('p', 'var') && ~(strcmp(p, 'CQT') || strcmp(p, 'cqt'))
-		error('Only the CQT norm is supported for infinite matrices');
-	end
-	
-	r = qt_norm(T.n, T.p, T.U, T.V);
+    if ~exist('p', 'var')
+        p = 'cqt';
+    end
+    
+    switch p
+        case 'cqt'
+            r = qt_norm(T.n, T.p, T.U, T.V);
+        case 'eqt'
+            r = eqt_norm(T);
+        otherwise
+            error('Only CQT / EQT norms are supported for infinite matrices');
+    end
 else
 	if max(T.sz) == inf
 		T.sz = [ min(max(size(T.U,1), length(T.n) + T.sz(2)), T.sz(1)), ...

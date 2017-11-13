@@ -41,6 +41,9 @@ classdef cqt
 		
 		% Vector containing the size of the CQT-matrix
 		sz
+        
+        % Rank 1 correction containing the limits of the columns
+        c
 	end
 	
 	methods
@@ -54,6 +57,7 @@ classdef cqt
 					obj.U = varargin{1};
 					obj.V = eye(size(varargin{1},2));
 					obj.sz = [inf,inf];
+                    obj.c = zeros(1, 0);
 				case 2
 					if length(varargin{1}) > 0 && (varargin{1}(1) ~= varargin{2}(1))
 						error('The coefficients of degree 0 does not coincide');
@@ -61,6 +65,7 @@ classdef cqt
 					obj.n = varargin{1};
 					obj.p = varargin{2};
 					obj.sz = [inf,inf];
+                    obj.c = zeros(1, 0);
 				case 3
 					if ~isempty(varargin{1}) && (varargin{1}(1) ~= varargin{2}(1))
 						error('The coefficients of degree 0 does not coincide');
@@ -70,6 +75,7 @@ classdef cqt
 					obj.U = varargin{3};
 					obj.V = eye(size(varargin{3},2));
 					obj.sz = [inf,inf];
+                    obj.c = zeros(1, 0);
 				case 4
 					if length(varargin{1}) > 0 && (varargin{1}(1) ~= varargin{2}(1))
 						error('The coefficients of degree 0 does not coincide');
@@ -80,6 +86,7 @@ classdef cqt
 						obj.U = varargin{3};
 						obj.V = varargin{4};
 						obj.sz = [inf,inf];
+                        obj.c = zeros(1, 0);
 					else
 						error('Incompatible dimensions: the last two arguments must have the same number of columns');
 					end
@@ -109,6 +116,7 @@ classdef cqt
 						warning('The bottom right correction is ignored due to the infinite dimension of the matrix');
 					end
 					obj.sz = [varargin{5},varargin{6}];
+                    obj.c = zeros(1, 0);
 				case 8
 					if length(varargin{1}) > 0 && (varargin{1}(1) ~= varargin{2}(1))
 						error('The coefficients of degree 0 do not coincide');
@@ -134,6 +142,7 @@ classdef cqt
 						warning('The bottom right correction is ignored due to the infinite dimension of the matrix');
 					end
 					obj.sz = [varargin{7},varargin{8}];
+                    obj.c = zeros(1, 0);
 				otherwise
 					error('Invalid number of parameters');
 			end

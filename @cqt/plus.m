@@ -17,7 +17,9 @@ if isa(T1, 'cqt') && isa(T2, 'cqt')
 			T2.V, T2.W, T2.Z);
 		T = cqt(cm, cp, cu, cv);
 		T.W = cw; T.Z = cz; T.sz = T1.sz;
-	end
+    end
+    
+    T.c = cln(formatted_sum(T1.c, T2.c));
 elseif ~isa(T1, 'cqt')
 	error('Incompatible types addition. \nIf you want to add a matrix of %s with a cqt matrix T you can use cqt(A) + T',class(T1));
 elseif ~isa(T2, 'cqt')

@@ -8,4 +8,8 @@ function T = uminus(T1)
 T = cqt(-T1.n, -T1.p, -T1.U, T1.V, -T1.W(end:-1:1,end:-1:1), ...
 	T1.Z(end:-1:1,end:-1:1), T1.sz(1), T1.sz(2));
 
+if ~isempty(T1.c)
+    T.c = -T1.c;
+end
+
 end

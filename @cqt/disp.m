@@ -28,6 +28,11 @@ if size(T.U, 1) > 0 && size(T.V, 2) > 0
 	disp(T.U * T.V.');
 end
 
+if size(T.c,2) > 0
+    fprintf('\n - Rank-1 correction with limits of the columns: \n');
+    disp(T.c);
+end
+
 if size(T.W, 1) > 0 && size(T.Z, 2) > 0
 	fprintf('\n - Finite correction (bottom-right corner): \n');
 	S = T.W * T.Z';

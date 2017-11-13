@@ -42,14 +42,37 @@ if isa(T1,'cqt') && isa(T2, 'cqt')
 				T = cqt(cm, cp, cU, cV, cW(end:-1:1,end:-1:1), cZ(end:-1:1,end:-1:1), T1.sz(1), T2.sz(2));
 			end
 			
-		end
+        end
+        
+        if ~isempty(T1.c) || ~isempty(T2.c)
+            [na, pa] = symbol(T1);
+            sa = sum([ na, pa(2:end) ]);
+            
+            c2 = T2.c; c1 = T1.c;
+            T2.c = zeros(1,0); T1.c = zeros(1,0);                        
+            
+            T.c = formatted_sum(correction(cqt(c1) * T2), sum(c1) * c2);
+            T.c = formatted_sum(T.c, sa * c2);
+            
+            Te = cumsum(na(end:-1:2)).';
+            Te = Te(end:-1:1);
+            [U1,V1] = correction(T1);
+            T = T + cqt([], [], formatted_sum(-Te, U1 * sum(V1, 1)'), c2');          
+        end
+        
 	else
 		error('Incompatible inner dimensions');
 	end
 elseif  isa(T1, 'cqt') && isscalar(T2)
 	T = cqt(T1.n * T2, T1.p * T2, T1.U* T2, T1.V, T1.W(end:-1:1,end:-1:1) * T2, T1.Z(end:-1:1,end:-1:1), T1.sz(1), T1.sz(2));
+    if ~isempty(T1.c)
+        T = extend(T, T1.c * T2);
+    end
 elseif isscalar(T1) && isa(T2, 'cqt')
 	T = cqt(T2.n * T1, T2.p * T1, T2.U * T1, T2.V, T2.W(end:-1:1,end:-1:1) * T1, T2.Z(end:-1:1,end:-1:1), T2.sz(1), T2.sz(2));
+    if ~isempty(T2.c)
+        T = extend(T, T2.c * T1);
+    end    
 elseif isa(T1,'cqt') && T1.sz(1) == inf && ~isa(T2, 'cqt')
 	error('Incompatible types multiplication. \nIf you want to multiply a cqt matrix T with a finite matrix of %s A you can use T * cqt(A) ',class(T2));
 elseif isa(T1,'cqt') && T1.sz(1) ~= inf && ~isa(T2, 'cqt')
