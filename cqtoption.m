@@ -31,7 +31,15 @@ switch keyword
 			end
 		else
 			setoption('sqrt', value);
-		end
+        end
+        
+    case 'compression'
+        if nargin == 1
+            optval = getoption('compression');
+        else
+            setoption('compression', value);
+        end
+        
 end
 
 end

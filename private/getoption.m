@@ -3,6 +3,7 @@ function value = getoption(keyword)
 
 global cqt_inversion;
 global cqt_sqrt;
+global cqt_compression;
 
 switch keyword
 	case 'inversion'
@@ -10,6 +11,12 @@ switch keyword
 		
 	case 'sqrt'
 		value = cqt_sqrt;
+        
+    case 'compression'
+        if isempty(cqt_compression)
+            cqt_compression = 'lanczos';
+        end
+        value = cqt_compression;
 		
 	otherwise
 		error('Unsupported option specified');
