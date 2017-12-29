@@ -17,6 +17,7 @@ if isa(T1, 'cqt') && isa(T2, 'cqt')
 			T2.V, T2.W, T2.Z);
 		T = cqt(cm, cp, cu, cv);
 		T.W = cw; T.Z = cz; T.sz = T1.sz;
+        T = merge_corrections(T);
     end
     
     T.c = formatted_sum(T1.c, T2.c);
