@@ -28,7 +28,8 @@ v = zeros(nv, mav+mbv);
 v(1:nav, 1:mav) = av(1:nav, 1:mav);
 v(1:nbv, mav+1:mav+mbv) = bv(1:nbv, 1:mbv);
 % compress and clean
-[cu,cv] = compress_qr(u, v);
-cm = cln(cm); cp = cln(cp);
+nrm = qt_norm(cm, cp, u, v);
+[cu, cv] = compress_qr(u, v, nrm);
+[cm, cp] = symbol_clean(cm, cp, nrm);
 
 

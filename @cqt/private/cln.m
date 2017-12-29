@@ -1,4 +1,4 @@
-function y = cln(y)
+function y = cln(y, nrm)
 %CQT Clean the relatively small components of a vector.
 %
 % Y = CLN(X) returns the thresholded vector, i.e. the vector where the

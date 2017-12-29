@@ -51,6 +51,9 @@ nf = max(nfh,nf3); ng = max(ngh,ng2);
 Fc = zeros(nf,kf+kfh); Gc = zeros(ng,kf+kfh);
 Fc(1:nfh,1:kfh) = Fh; Fc(1:nf3,kfh+1:kf+kfh) = -F3;
 Gc(1:ngh,1:kfh) = Gh; Gc(1:ng2,kfh+1:kf+kfh) = G2;
-[Fc,Gc] = compress_qr(Fc,Gc);
+
+nrm = qt_norm(cm, cp, Fc, Gc);
+[cm, cp] = symbol_clean(cm, cp, nrm);
+[Fc, Gc] = compress_qr(Fc, Gc, nrm);
 
 

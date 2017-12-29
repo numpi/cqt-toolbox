@@ -116,7 +116,8 @@ classdef cqt
 						warning('The bottom right correction is ignored due to the infinite dimension of the matrix');
 					end
 					obj.sz = [varargin{5},varargin{6}];
-                    obj.c = zeros(1, 0);
+                    obj.c = zeros(1, 0);                    
+                    obj = merge_corrections(obj);
 				case 8
 					if length(varargin{1}) > 0 && (varargin{1}(1) ~= varargin{2}(1))
 						error('The coefficients of degree 0 do not coincide');
@@ -143,6 +144,7 @@ classdef cqt
 					end
 					obj.sz = [varargin{7},varargin{8}];
                     obj.c = zeros(1, 0);
+                    obj = merge_corrections(obj);
 				otherwise
 					error('Invalid number of parameters');
 			end

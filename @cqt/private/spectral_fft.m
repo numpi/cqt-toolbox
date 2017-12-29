@@ -25,7 +25,7 @@ function [um,up] = spectral_fft(vm,vp)
 % clean data
 realflag = isreal(vm) && isreal(vp);
 
-vm = cln(vm); vp = cln(vp);
+% vm = cln(vm); vp = cln(vp);
 % compute the reciprocal of the Laurent polynomial
 [tm,tp] = reciprocal_fft(vm,vp);
 nm = length(vm); np = length(vp);  n = max(nm,np);
@@ -36,7 +36,7 @@ b1 = zeros(n,1);  b2 = b1;  b1(1) = 1;  b2(n) = 1;
 U = A\[b1,b2];
 um = U(:,1);  up = U(end:-1:1,2);
 % Clean vectors and normalize
-um = cln(um); up = cln(up);
+% um = cln(um); up = cln(up);
 n = min(length(um), length(up));
 th = sum(um(1:n).*up(1:n));
 if vm(1)/th<0 && realflag

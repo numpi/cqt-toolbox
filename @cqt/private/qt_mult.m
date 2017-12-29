@@ -64,9 +64,9 @@ cV(1:nratv,kru+ktrbu+1:kru+ktrbu+kratu) = RaTV;
 cU(1:nrarbu,kru+ktrbu+kratu+1:kru+ktrbu+kratu+krarbu) = RaRbU;
 cV(1:nrarbv,kru+ktrbu+kratu+1:kru+ktrbu+kratu+krarbu) = RaRbV;
 % compress and clean
-[cU,cV] = compress_qr(cU,cV);
-cm = cln(cm); cp = cln(cp);
-
+nrm = qt_norm(cm, cp, cU, cV);
+[cU, cV] = compress_qr(cU, cV, nrm);
+[cm, cp] = symbol_clean(cm, cp, nrm);
 
 
 

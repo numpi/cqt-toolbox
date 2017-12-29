@@ -56,7 +56,7 @@ for iter=1:maxiter
 	ym = ynm;  yp = ynp;
 	if erm <epsi*norm(ym,'inf') && erp<epsi*norm(yp,'inf')
 		% Clean the output
-		ym = cln(ym); yp = cln(yp);
+		% ym = cln(ym); yp = cln(yp);
 		break
 	end
 end

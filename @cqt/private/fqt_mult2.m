@@ -199,15 +199,8 @@ if(down2==1)
 	cZ(end-rb2+1:end,ksw+ktsbw+ksatw+ksasbw+down1*kbs+1:ksw+ktsbw+ksatw+ksasbw+down1*kbs+kbr) = sarbV(end:-1:1,end:-1:1);
 end
 % compress and clean
-[cU,cV] = compress_qr(cU,cV);
-[cW,cZ] = compress_qr(cW,cZ);
-if (min(size(cU)==0) || min(size(cV)==0))
-	cU = []; cV = [];
-	
-end
-if (min(size(cW)==0) || min(size(cZ)==0))
-	cW = []; cZ = [];
-	
-end
-cm = cln(cm); cp = cln(cp);
+nrm = fqt_norm(cm, cp, cU, cV, cW, cZ);
+[cU,cV] = compress_qr(cU,cV, nrm);
+[cW,cZ] = compress_qr(cW,cZ, nrm);
+[cm, cp] = symbol_clean(cm, cp, nrm);
 

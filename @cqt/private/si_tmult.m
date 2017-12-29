@@ -5,7 +5,9 @@ function [cm,cp,cU,cV]=si_tmult(am, ap, bm, bp)
 % A and B defined by their first column and first row am,ap
 % and bm,bp, respectively
 % the matrix product C is written as toep(cm,cp) + cU*cV
-lancz_param = inf; % size at which the lanczos method for compressing is triggered
+
+lancz_param = 200; % size at which the lanczos method for compressing is triggered
+
 nam = length(am); nap = length(ap);
 nbm = length(bm); nbp = length(bp);
 
@@ -28,9 +30,12 @@ a = [am(end:-1:1),ap(2:end)]; centera = length(am);
 b = [bm(end:-1:1),bp(2:end)]; centerb = length(bm);
 c = conv_fft(a,b); m = centera + centerb-1;
 cm = c(m:-1:1);cp = c(m:end);
+
 % clean cm and cp
-cm = cln(cm);
-cp = cln(cp);
+% if ~isempty(cp)
+%     [cm, cp] = symbol_clean(cm, cp, norm([cm, cp(2:end)], 1));
+% end
+
 % Compute R
 na = length(am); nb = length(bp);
 if na <=1 || nb <= 1
@@ -41,11 +46,10 @@ else
 		if nb>lancz_param
 			cU=-am(2:end);
 			cV=bp(2:end);
-			[ cU,cV ] =lanczos_hankel_product(cU,cV);
+			[ cU,cV ] = hankel_compress(cU, cV, cqtoption('compression')); %lanczos_hankel_product(cU,cV);
 			cV=conj(cV);
 		else
-			cU = -hankel(am); cV = hankel(bm,bp).';
-                        
+			cU = -hankel(am); cV = hankel(bm,bp).';                        
 			[ cU, cV ] = compress_qr( cU, cV );
 		end
 		
@@ -55,7 +59,7 @@ else
 		if nb>lancz_param
 			cU=-am(2:end);
 			cV=bp(2:end);
-			[ cU,cV ] =lanczos_hankel_product(cU,cV);
+			[ cU,cV ] = hankel_compress(cU, cV, cqtoption('compression')); % lanczos_hankel_product(cU,cV);
 			cV=conj(cV);
 		else
 			cU = -hankel(am,ap);

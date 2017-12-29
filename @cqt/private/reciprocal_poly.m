@@ -47,7 +47,7 @@ while length(q) < d && ~accurate
 	q = [ q , nq ];
 end
 
-q = truncate(cln(q), d);
+q = truncate(symbol_clean(q, q(1), norm(q,1)), d);
 
 end
 

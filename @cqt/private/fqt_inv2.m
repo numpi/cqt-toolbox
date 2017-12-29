@@ -46,10 +46,9 @@ aZ = [aZ,hZ];
 [linvm, linvp] = reciprocal(vm,vm(1), n, n);
 [uinvm, uinvp] = reciprocal(vp(1),vp, n, n);
 linvm = truncate(linvm,n);  uinvp = truncate(uinvp,n);
-linvm = cln(linvm);     uinvp = cln(uinvp);
 
 % Compute Li*Ui
-[cm, cp, cU, cV,K,K] = fsi_tmult2(linvm, linvp, uinvm, uinvp, n, n, n);
+[cm, cp, cU, cV] = fsi_tmult2(linvm, linvp, uinvm, uinvp, n, n, n);
 
 % 3-  compute G1 and F1
 
@@ -107,7 +106,11 @@ Uc = zeros(nUmax,kU+kUh); Vc = zeros(nVmax,kU+kUh);
 Uc(1:nUh,1:kUh) = cU;
 Uc(1:tdim1,kUh+1:kU+kUh) = -aU3;
 Vc(1:nVh,1:kUh) = cV; Vc(1:tdim4,kUh+1:kU+kUh) = aV2;
-[Uc,Vc] = compress_qr(Uc,Vc);
+
 Wc = -aW3;
 Zc = aZ2;
-[Wc,Zc] = compress_qr(Wc,Zc);
+
+nrm = fqt_norm(cm, cp, Uc, Vc, Wc, Zc);
+[cm, cp] = symbol_clean(cm, cp, nrm);
+[Uc,Vc] = compress_qr(Uc,Vc, nrm);
+[Wc,Zc] = compress_qr(Wc,Zc, nrm);

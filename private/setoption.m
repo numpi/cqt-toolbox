@@ -4,6 +4,7 @@ function setoption(keyword, value)
 global cqt_inversion;
 global cqt_sqrt;
 global cqt_compression;
+global cqt_threshold;
 
 switch keyword
 	case 'inversion'
@@ -12,6 +13,8 @@ switch keyword
 		cqt_sqrt = value;
     case 'compression'
         cqt_compression = value;
+    case 'threshold'
+        cqt_threshold = value;
 	otherwise
 		error('Unsupported option specified');
 end

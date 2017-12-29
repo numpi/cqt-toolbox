@@ -39,7 +39,7 @@ if isa(T1,'cqt') && isa(T2, 'cqt')
 			elseif max(T1.sz(1), T2.sz(2)) == inf
 				T = cqt(cm, cp, cU, cV, [], [], T1.sz(1), T2.sz(2));
 			else
-				T = cqt(cm, cp, cU, cV, cW(end:-1:1,end:-1:1), cZ(end:-1:1,end:-1:1), T1.sz(1), T2.sz(2));
+				T = cqt(cm, cp, cU, cV, cW(end:-1:1,end:-1:1), cZ(end:-1:1,end:-1:1), T1.sz(1), T2.sz(2));                                
 			end
 			
         end

@@ -28,6 +28,8 @@ else
 	norm_type = inf;
 end
 
+tol = 1e-8;
+
 for i=1:max_it
 	BB0 = inv(B0);
 	temp1 = BB0 * B1;	
@@ -48,6 +50,17 @@ for i=1:max_it
 	% G = hB0 \ Am1;
 	% S = Am1  + A0 * G + A1
 	% max(max(abs(correction(B1))))
+    
+%    [BU,BV] = correction(B0);
+%    if size(BU,1) > 20 * size(BV,1)
+%        B0 = extrapolate_limit(B0, tol);
+%        B1 = extrapolate_limit(B1, tol);
+%        Bm1 = extrapolate_limit(Bm1, tol);
+%        hB0 = extrapolate_limit(hB0, tol);
+%    end
+    
+%    fprintf('Iteration %d, res = %e', i, min(norm(Bm1, norm_type), norm(B1, norm_type)));
+    
 	if min(norm(Bm1, norm_type), norm(B1, norm_type)) < eps
 		break
 	end

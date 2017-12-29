@@ -35,8 +35,10 @@ z=zeros(nz,maz+mbz);
 z(1:naz,1:maz)=az(1:naz,1:maz);
 z(1:nbz,maz+1:maz+mbz)=bz(1:nbz, 1:mbz);
 % compress and clean
-[cu,cv] = compress_qr(u,v);
-[cw,cz] = compress_qr(w,z);
-cm=cln(cm); cp=cln(cp);
+nrm = fqt_norm(cm, cp, u, v, w, z);
+[cu,cv] = compress_qr(u,v,nrm);
+[cw,cz] = compress_qr(w,z,nrm);
+% cm=cln(cm); cp=cln(cp);
+[cm, cp] = symbol_clean(cm, cp, nrm);
 end
 

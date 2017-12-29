@@ -1,4 +1,4 @@
-function [TU, TV] = compress_qr(U, V)
+function [TU, TV] = compress_qr(U, V, nrm)
 %[size(U),size(V)]
 %COMPRESS_QR Compress the factors of an outer product X1 * X2'.
 %
@@ -9,7 +9,13 @@ function [TU, TV] = compress_qr(U, V)
 %
 % Date: June 2 2016
 % Author: Dario A. Bini
-epsi= eps;
+
+if exist('nrm', 'var')
+    epsi= nrm * cqtoption('threshold');
+else
+    epsi = inf;
+end
+
 pivoting = 0;
 if size(U,1) == 1
 	TU = 1;  TV = V*U.';
@@ -51,7 +57,12 @@ if pivoting
 else
 	[q1,r1] = qr(U,0);
 	[q2,r2] = qr(V,0);
-	r = r1*r2.';
+	r = r1*r2.';        
+    
+    if epsi == inf
+        epsi = norm(r) * cqtoption('threshold');
+    end
+    
 	n1 = size(r1,1);
 	n2 = size(r2,1);
 end
@@ -60,12 +71,18 @@ if dosvd
 	[ru,rs,rv] = svd(r);
 	
 	rs=diag(rs);
-	nsv = sum(rs>epsi*rs(1));
+	nsv = sum(rs > epsi);
 	
 	% symmetric scaling
 	srs = sqrt(rs(1:nsv));
-	TU = q1(:,1:n1)*(ru(:,1:nsv)*diag(srs));
-	TV = q2(:,1:n2)*(conj(rv(:,1:nsv))*diag(srs));
+	TU = q1(:,1:n1)*(ru(:,1:nsv));
+	TV = q2(:,1:n2)*(conj(rv(:,1:nsv)));
+    
+    if exist('nrm', 'var')
+        [TU, TV] = svd_clean(TU, TV, rs(1:nsv), nrm);
+    end
+    TU = TU * diag(srs);
+    TV = TV * diag(srs);
 	
 else        % no svd
 	if n2>n1
@@ -76,26 +93,4 @@ else        % no svd
 		TV = q2(:,1:n2);
 	end
 end
-e1 = abs(TU)*ones(size(TU,2),1);
-e2 = abs(TV)*ones(size(TV,2),1);
-e1 = e1>eps*max(e1);
-e2 = e2>eps*max(e2);
-n1 = size(TU,1);
-for i=length(e1):-1:1
-	if e1(i)
-		break
-	else
-		n1 = n1-1;
-	end
-end
-n2 = size(TV,1);
-for i=length(e2):-1:1
-	if e2(i)
-		break
-	else
-		n2 = n2-1;
-	end
-end
-TU = TU(1:n1,:); TV = TV(1:n2,:);
-%[size(TU),size(TV)]
 

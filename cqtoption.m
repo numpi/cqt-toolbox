@@ -10,6 +10,8 @@ function optval = cqtoption(keyword, value)
 %   'sqrt': [ 'db', 'cr' ]
 %      Select the iteration used to compute the square root.
 %
+%   'threshold': 
+%      The threshold used in truncation.
 %
 
 switch keyword
@@ -38,6 +40,13 @@ switch keyword
             optval = getoption('compression');
         else
             setoption('compression', value);
+        end
+        
+    case 'threshold'
+        if nargin == 1
+            optval = getoption('threshold');
+        else
+            setoption('threshold', value);
         end
         
 end

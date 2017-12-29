@@ -33,7 +33,7 @@ else
 		end
 	else
 		if ~exist('p', 'var')
-			p = 2;
+			p = 'cqt';
 		end
 		
 		switch p

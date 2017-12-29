@@ -78,12 +78,16 @@ while   1 %&& omega>tol
 	%  [it, betha(it-1),alpha(it), tol]
 	if(betha(it-1)<tol && alpha(it)<tol)
 		break
-	end
+    end
+    
 	it=it+1;
+    
+    fprintf('Iteration %d, beta = %e\n', it, alpha(it));
 	
 	
 	
 end
+
 it=it-1;
 [alpha(1:it),[0;betha(1:it-1)]];
 [Uf,S,Vf]=svd(diag(alpha(1:it))+diag(betha(1:it-1),-1));

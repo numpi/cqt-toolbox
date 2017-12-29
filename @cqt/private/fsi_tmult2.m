@@ -44,9 +44,7 @@ c = conv_fft(a,b); cc = centroa+centrob-1;
 cm = c(cc:-1:1);cp = c(cc:end);
 
 % clean cm and cp
-cm = cln(cm);
 cm = truncate(cm,m);
-cp = cln(cp);
 cp = truncate(cp,n);
 nam=length(am); nap=length(ap); nbm=length(bm); nbp=length(bp);
 
