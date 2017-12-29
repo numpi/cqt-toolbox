@@ -45,7 +45,7 @@ while res > tol
     % possibility of stopping the iteration. 
     if ~nrm_converged
         nrm_est = norm(diag(alfa) + diag(beta(1:end-1), 1));
-        if (nrm_est - nrm) / nrm < 1e-8
+        if (nrm_est - nrm) / nrm < cqtoption('threshold')
             nrm_converged = true;
         end
         nrm = nrm_est;
@@ -53,7 +53,7 @@ while res > tol
         res = beta(end) / nrm;
     end
     
-    % fprintf('Iteration %d, res = %e, nrm_conv = %d\n', it, res, nrm_converged);
+    fprintf('Iteration %d, res = %e, nrm_conv = %d\n', it, res, nrm_converged);
 end
 
 [Ul, S, Vl] = svd(diag(alfa) + diag(beta(1:end-1), 1));

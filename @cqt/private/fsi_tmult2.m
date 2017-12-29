@@ -68,7 +68,7 @@ elseif h>lancz_param   % If both the hankel matrices are big then we compress wi
 		H = Hu * Hv;
 		clear Hu, Hv;
 	end
-	[ cU,cV ] =lanczos_hankel_product(cU,cV);
+	[ cU,cV ] =hankel_compress(cU, cV, cqtoption('compression')); % lanczos_hankel_product(cU,cV);    
 	if lancz_debug
 		disp('*****residue upper-left corner*****')
 		norm(cU*cV'-H)/norm(H)
@@ -127,7 +127,7 @@ elseif h>lancz_param % If both the hankel matrices are big then we compress with
 		H = Hu * Hv;
 		clear Hu, Hv;
 	end
-	[ cW,cZ ] =lanczos_hankel_product(cW,cZ);
+	[ cW,cZ ] = hankel_compress(cW, cZ, cqtoption('compression')); % lanczos_hankel_product(cW,cZ);
 	
 	if lancz_debug
 		disp('*****residue lower-right corner*****')

@@ -25,8 +25,6 @@ switch strategy
         error('Unsupported compression strategy selected');
 end
 
-
-
 end
 
 function y = hankel_matvec(a, b, x, trasp)
