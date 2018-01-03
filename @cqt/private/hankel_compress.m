@@ -1,7 +1,10 @@
 function [U, V] = hankel_compress(a, b, strategy)
 %HANKEL_COMPRESS Compress the product of two Hankel matrices.
 
-n = min(length(a), length(b));
+n = max(length(a), length(b));
+
+a = [ a , zeros(1, n - length(a)) ];
+b = [ b , zeros(1, n - length(b)) ];
 
 if ~exist('strategy', 'var')
     strategy = 'random';

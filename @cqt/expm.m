@@ -3,12 +3,12 @@ function eT = expm(T, method)
 if max(T.sz) == inf
 	nrm_type = 'cqt';
 else
-	nrm_type = inf;
+	nrm_type = 1;
 end
 
 nrm = norm(T, nrm_type);
 
-h = floor(log2(nrm)) + 2;
+h = max(0, ceil(log2(nrm / 5.4)));
 T = T/2^h;
 if ~exist('method','var')
 	method = 'pade';

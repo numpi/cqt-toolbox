@@ -32,65 +32,32 @@ if max(max(abs(U)))==0 || max(max(abs(V)))==0
 	TU = [];  TV = [];
 	return
 end
-if pivoting
-	[q1,r1,p1] = qr(U,0);
-	[q2,r2,p2] = qr(V,0);
 
-	% invert the permutations
-	for i=1:length(p1)
-		ip1(p1(i)) = i;
-	end
-	for i=1:length(p2)
-		ip2(p2(i)) = i;
-	end
+[q1,r1] = qr(U,0);
+[q2,r2] = qr(V,0);
+r = r1*r2.';        
 
-	% compute the number of meaningful elements
-	% gestire il caso di r1 vuoto
-	n1 = sum(abs(diag(r1))>epsi*abs(r1(1,1)));
-	n2 = sum(abs(diag(r2))>epsi*abs(r2(1,1)));
-	r = r1(1:n1,ip1)*r2(1:n2,ip2).';
-	if isempty(r)
-		TU=[];
-		TV=[];
-		return;
-	end
-else
-	[q1,r1] = qr(U,0);
-	[q2,r2] = qr(V,0);
-	r = r1*r2.';        
-    
-    if epsi == inf
-        epsi = norm(r) * cqtoption('threshold');
-    end
-    
-	n1 = size(r1,1);
-	n2 = size(r2,1);
+if epsi == inf
+    epsi = norm(r) * cqtoption('threshold');
 end
-dosvd = 1;
-if dosvd
-	[ru,rs,rv] = svd(r);
-	
-	rs=diag(rs);
-	nsv = sum(rs > epsi);
-	
-	% symmetric scaling
-	srs = sqrt(rs(1:nsv));
-	TU = q1(:,1:n1)*(ru(:,1:nsv));
-	TV = q2(:,1:n2)*(conj(rv(:,1:nsv)));
-    
-    if exist('nrm', 'var')
-        [TU, TV] = svd_clean(TU, TV, rs(1:nsv), nrm);
-    end
-    TU = TU * diag(srs);
-    TV = TV * diag(srs);
-	
-else        % no svd
-	if n2>n1
-		TU = q1(:,1:n1);
-		TV = q2(:,1:n2)*r';
-	else
-		TU = q1(:,1:n1)*r;
-		TV = q2(:,1:n2);
-	end
+
+n1 = size(r1,1);
+n2 = size(r2,1);
+
+[ru,rs,rv] = svd(r);
+
+rs=diag(rs);
+nsv = sum(rs > epsi);
+
+% symmetric scaling
+srs = sqrt(rs(1:nsv));
+TU = q1(:,1:n1)*(ru(:,1:nsv));
+TV = q2(:,1:n2)*(conj(rv(:,1:nsv)));
+
+if exist('nrm', 'var')
+    [TU, TV] = svd_clean(TU, TV, rs(1:nsv), nrm);
 end
+
+TU = TU * diag(srs);
+TV = TV * diag(srs);
 

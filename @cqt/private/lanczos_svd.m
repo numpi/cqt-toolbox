@@ -53,7 +53,7 @@ while res > tol
         res = beta(end) / nrm;
     end
     
-    fprintf('Iteration %d, res = %e, nrm_conv = %d\n', it, res, nrm_converged);
+    % fprintf('Iteration %d, res = %e, nrm_conv = %d\n', it, res, nrm_converged);
 end
 
 [Ul, S, Vl] = svd(diag(alfa) + diag(beta(1:end-1), 1));
