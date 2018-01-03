@@ -6,7 +6,7 @@ function [cm,cp,cU,cV]=si_tmult(am, ap, bm, bp)
 % and bm,bp, respectively
 % the matrix product C is written as toep(cm,cp) + cU*cV
 
-lancz_param = inf; % size at which the lanczos method for compressing is triggered
+lancz_param = 200; % size at which the lanczos method for compressing is triggered
 
 nam = length(am); nap = length(ap);
 nbm = length(bm); nbp = length(bp);
