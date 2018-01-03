@@ -8,7 +8,7 @@ end
 
 nrm = norm(T, nrm_type);
 
-h = max(0, ceil(log2(nrm / 5.4)));
+h = max(0, ceil(log2(nrm / 1)));
 T = T/2^h;
 if ~exist('method','var')
 	method = 'pade';

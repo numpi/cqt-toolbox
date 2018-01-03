@@ -38,12 +38,12 @@ end
 %CR
 b = B; c = C;
 n = size(A,1);
-at = A;  ah = A;
+at = A; ah = A;
 for k=1:maxiter
-	ABC = A\[B,C];
+	ABC = A \ [B,C];
 	cab = C*ABC(:,1:n);
 	bac = B*ABC(:,n+1:2*n);
-	A = A-cab-bac;
+	A = A - cab - bac;
 	B = -B*ABC(:,1:n);
 	C = -C*ABC(:,n+1:2*n);
 	at = at-cab;

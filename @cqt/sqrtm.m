@@ -4,8 +4,14 @@ function X = sqrtm(A)
 % Y = SQRT(X) computes a matrix Y such that Y^2 = X. The computed square
 % root is the principal branch of the square root.
 
+if size(A, 2) == inf
+    nrm_type = 'cqt';
+else
+    nrm_type = 'cqt';
+end
+
 converged = false;
-threshold = 1.0e2 * eps * norm(A, inf);
+threshold = 1.0e2 * cqtoption('threshold') * norm(A, nrm_type);
 
 switch cqtoption('sqrt')
 	
@@ -17,10 +23,10 @@ switch cqtoption('sqrt')
 		while ~converged
 			Xnew = .5 * (X + inv(Y));
 			Ynew = .5 * (Y + inv(X));
-			
-			if norm(Xnew - X, inf) < threshold
+            
+			if norm(Xnew - X, nrm_type) < threshold
 				converged = true;
-			end
+            end
 			
 			X = Xnew;
 			Y = Ynew;
@@ -34,7 +40,7 @@ switch cqtoption('sqrt')
 			Xnew = X + E;
 			Enew = - .5 * (E * inv(Xnew) * E);
 			
-			if norm(Enew, inf) < threshold
+			if norm(Enew, nrm_type) < threshold
 				converged = true;
 			end
 			

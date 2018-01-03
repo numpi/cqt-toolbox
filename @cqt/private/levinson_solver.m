@@ -1,6 +1,14 @@
 function x = levinson_solver(c,r,b)
 %LEVINSON Solve a Toeplitz linear system.
 
+if size(b, 2) > 1
+    x = zeros(length(c), size(b, 2));
+    for i = 1 : size(x, 2)
+        x(:,i) = levinson_solver(c, r, b(:,i));
+    end
+    return;
+end
+
 c = reshape(c, length(c), 1);
 r = reshape(r, length(r), 1);
 
