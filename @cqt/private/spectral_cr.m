@@ -48,10 +48,24 @@ for k=1:maxiter
 	C = -C*ABC(:,n+1:2*n);
 	at = at-cab;
 	ah = ah-bac;
-	err = min(norm(B,'inf'), norm(C,'inf'));
+    
+    nrmB = norm(B, 'inf');
+    nrmC = norm(C, 'inf');
+    
+    % Adjust the scaling to account for splitting on non-unitary circles.
+    alpha = sqrt(nrmB / nrmC);    
+    B = B / alpha;
+    C = C * alpha;
+    
+	err = min(nrmB, nrmC);
+    
 	if err< epsi
 		break
 	end
+end
+
+if err > epsi
+    warning('CR did not convergence within the maximum number of iterations');
 end
 
 en = zeros(n,1); e1 = en; en(n) = 1; e1(1) = 1;
