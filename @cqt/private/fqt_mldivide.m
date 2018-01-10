@@ -23,6 +23,7 @@ E2 = cqt([], [], E.V, E.Z(end:-1:1,end:-1:1), A.sz(2), size(E.V,2) + size(E.Z,2)
 Linv = inv(L);
 Uinv = inv(U);
 LUB = Linv * (Uinv * B);
+
 LUE1 = Linv * (Uinv * E1);
 S = eye(size(E1, 2)) + full(E2.' * LUE1);
 

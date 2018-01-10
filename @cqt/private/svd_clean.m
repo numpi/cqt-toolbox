@@ -16,8 +16,8 @@ function [U, V, S, epsilon] = svd_clean_rec(U,V, S, epsilon)
         return;
     end
     
-    nrmU = norm(U(end,:) .* S);
-    nrmV = norm(V(end,:) .* S);
+    nrmU = norm(U(end,:) * S);
+    nrmV = norm(V(end,:) * S);
 
     if min(nrmU, nrmV) < epsilon
         if nrmU < nrmV

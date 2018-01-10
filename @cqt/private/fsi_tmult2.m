@@ -53,7 +53,7 @@ nam=length(am); nap=length(ap); nbm=length(bm); nbp=length(bp);
 h=min(nam,nbp)-1;
 
 if h <= 0
-	cU=0; cV=0;
+	cU=[]; cV=[];
 elseif h<=lancz_param % If at least one of the hankel matrices is small then we compress with QR
 	
 	[ cU,cV ] = compress_qr(hankel(-am(2:end),[-am(end),zeros(1,h-1)]),hankel(bp(2:h+1),[bp(h+1:end),zeros(1,h-1)]).' );
@@ -116,7 +116,7 @@ nam = length(am); nap = length(ap);
 nbm = length(bm); nbp = length(bp);
 h = min(nap,nbm)-1;
 if h == 0
-	cW=0; cZ=0;
+	cW=[]; cZ=[];
 elseif h<=lancz_param && h>0 % If at least one of the hankel matrices is small then we compress with QR
 	[ cW,cZ ] = compress_qr(hankel(-ap(2:end),[-ap(end),zeros(1,h-1)]),hankel(bm(2:h+1),[bm(h+1:end),zeros(1,h-1)]).' );
 elseif h>lancz_param % If both the hankel matrices are big then we compress with Lanczos

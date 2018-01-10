@@ -200,6 +200,7 @@ if(down2==1)
 end
 % compress and clean
 nrm = fqt_norm(cm, cp, cU, cV, cW, cZ);
+
 [cU,cV] = compress_qr(cU,cV, nrm);
 [cW,cZ] = compress_qr(cW,cZ, nrm);
 [cm, cp] = symbol_clean(cm, cp, nrm);

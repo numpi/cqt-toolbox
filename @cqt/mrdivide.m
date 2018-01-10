@@ -20,7 +20,7 @@ if isa(B, 'cqt') && ~isa(A, 'cqt')
 end
 
 if isa(A, 'cqt') && ~isa(B, 'cqt')
-	if A.sz(2) ~= size(B, 1)
+	if A.sz(1) ~= size(B, 2)
 		error('Incompatible dimensions');
 	end
 	

@@ -5,6 +5,20 @@ function [U, L, E] = ul(A)
 % factors U, L, and E are all CQT matrices. U and L are upper and lower
 % triangulat Toeplitz matrices, and E is a finite correction.
 
+% Compute the required correction E
+if max(A.sz) == inf
+	[E1, E2] = correction(A);
+	E = cqt([], [], E1, E2, [], [], A.sz(1), A.sz(2));
+else
+	[E1, E2, E3, E4] = correction(A);
+	E = cqt([], [], E1, E2, E3, E4, A.sz(1), A.sz(2));
+end
+
+if length(A.n) == 0 % empty symbol
+	L = cqt([], [], [], [], min(A.sz), A.sz(2));
+	U = cqt([], [], [], [], A.sz(1), min(A.sz));
+	return
+end
 [l, u] = spectral(A.n, A.p);
 
 L = cqt(l, l(1));
@@ -14,14 +28,7 @@ U = cqt(u(1), u);
 L.sz = [ min(A.sz) , A.sz(2) ];
 U.sz = [ A.sz(1) , min(A.sz) ];
 
-% Compute the required correction E
-if max(A.sz) == inf
-	[E1, E2] = correction(A);
-	E = cqt([], [], E1, E2, [], [], A.sz(1), A.sz(2));
-else
-	[E1, E2, E3, E4] = correction(A);
-	E = cqt([], [], E1, E2, E3, E4, A.sz(1), A.sz(2));
-end
+
 
 % In the finite case we need to add another term at the bottom of the
 % matrix.
