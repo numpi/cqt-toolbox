@@ -1,8 +1,17 @@
 function F = funm(A, fun, varargin)
-% FUNM computes the matrix function FUN on the argument M
+%FUNM computes the matrix function FUN on the argument M
 %
-% F = FUNM(A, FUN) computes the function FUN on the input matrix argument M
+% F = FUNM(A, FUN) computes the function FUN on the input matrix argument A
 %
+% F = FUNM(A, FUN, 'opt1', value1, 'opt2', value2, ...) performs the 
+% computation with the optional parameters opt1, opts2, ... with the given
+% values. Possible choices for the parameters are: 
+%
+% - 'max_it': Maximum number of points for the contour integral formula.
+%             The default value is 64. 
+% - 'poles':  Poles of the functions, if any. Should be specified as a
+%             vector, and needs to be given for the formula to work if any
+%             of them is smaller than the norm of A. 
 
 p = inputParser;
 
@@ -40,7 +49,7 @@ for i = 1 : length(poles)
 	% If the pole is inside the radius, remove the integral around it
 	if abs(poles(i)) < r
 		corr = inv(cqt(poles(i), poles(i), [], [], m, n) - A);
-		rr = .5 / norm(corr, inf)
+		rr = .5 / norm(corr, inf);
 		
 		corr = contour_integral(res, poles(i), rr, max_it);
 		F = F - corr;

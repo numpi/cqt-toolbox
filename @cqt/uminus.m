@@ -1,7 +1,7 @@
 function T = uminus(T1)
-%UMINUS change the sign of a CQT-matrix.
+%UMINUS Change the sign of a CQT-matrix.
 %
-%     T = UMINUS(T1) changes the sign of the CQT-matrix T1 and produces
+% T = UMINUS(T1) changes the sign of the CQT-matrix T1 and produces
 %     a new CQT matrix T.
 
 

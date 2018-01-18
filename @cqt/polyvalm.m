@@ -1,5 +1,6 @@
 function Y = polyvalm(p,X)
 %POLYVALM Evaluate polynomial with matrix argument.
+%
 %   Y = POLYVALM(P,X), when P is a vector of length N+1 whose elements
 %   are the coefficients of a polynomial, is the value of the
 %   polynomial evaluated with matrix argument X.  X must be a

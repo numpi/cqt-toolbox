@@ -1,7 +1,7 @@
 function T = plus(T1, T2)
 %PLUS Add two CQT matrices.
 %
-%     T = PLUS(T1, T2) adds two CQT matrices and produces a new CQT matrix T.
+% T = PLUS(T1, T2) adds two CQT matrices and produces a new CQT matrix T.
 
 if isa(T1, 'cqt') && isa(T2, 'cqt')
 	if ~prod(T1.sz == T2.sz)

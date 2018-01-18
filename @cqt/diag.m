@@ -1,5 +1,12 @@
 function D = diag(C)
 %DIAG Extract the diagonal of a CQT matrix. 
+%
+% D = DIAG(C) obtains a vector with the diagonal of the CQT matrix C.
+% Notice this only makes sense for finite matrices. 
+
+if min(size(C)) == inf
+    error('DIAG can only be used on finite CQT matrices');
+end
 
 D = C;
 

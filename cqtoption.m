@@ -10,6 +10,11 @@ function optval = cqtoption(keyword, value)
 %   'sqrt': [ 'db', 'cr' ]
 %      Select the iteration used to compute the square root.
 %
+%   'compression': [ 'lanczos', 'random' ]
+%      Compression strategy for the Hankel compression when the dimension
+%      is sufficiently large. Default is 'lanczos'. The performance and
+%      reliability of the two strategies are comparable. 
+%
 %   'threshold': 
 %      The threshold used in truncation.
 %

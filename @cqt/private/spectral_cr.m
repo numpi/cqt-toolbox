@@ -44,10 +44,10 @@ for k=1:maxiter
 	cab = C*ABC(:,1:n);
 	bac = B*ABC(:,n+1:2*n);
 	A = A - cab - bac;
-	B = -B*ABC(:,1:n);
-	C = -C*ABC(:,n+1:2*n);
-	at = at-cab;
-	ah = ah-bac;
+	B = -B * ABC(:,1:n);
+	C = -C * ABC(:,n+1:2*n);
+	at = at - cab;
+	ah = ah - bac;
     
     nrmB = norm(B, 'inf');
     nrmC = norm(C, 'inf');
@@ -59,7 +59,7 @@ for k=1:maxiter
     
 	err = min(nrmB, nrmC);
     
-	if err< epsi
+	if err < epsi
 		break
 	end
 end

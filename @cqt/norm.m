@@ -1,7 +1,7 @@
 function r = norm(T, p)
 %NORM CQT-norm of a CQT-matrix
 %
-%     r = NORM(T) computes the CQT-norm of a CQT-matrix
+% R = NORM(T) computes the CQT-norm of a CQT-matrix
 
 if max(T.sz) == inf
     if ~exist('p', 'var')

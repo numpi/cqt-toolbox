@@ -1,4 +1,15 @@
 function eT = expm(T, method)
+%EXPM Compute the matrix exponential of T
+%
+% E = EXPM(T) compues the matrix exponential of T. 
+%
+% E = EXPM(T, METHOD) uses the selected method to perform the computation.
+% The calid choices for METHOD are: 
+%  - 'taylor': Use a Taylor approximant of order 12. 
+%  - 'pade': Use a (6,6)-Padè approximant
+%
+% Both strategies are coupled with a suitable scaling & squaring technique.
+% 
 
 if max(T.sz) == inf
 	nrm_type = 'cqt';

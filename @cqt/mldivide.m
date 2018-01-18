@@ -1,4 +1,8 @@
 function X = mldivide(A, B)
+%MLDIVIDE Solve the linear system AX = B. 
+%
+% X = A \ B computes X such that AX = B. X could be a CQT matrix or a
+% vector, depending on the structure of B. 
 
 if isa(B, 'cqt') && ~isa(A, 'cqt')
 	if isscalar(A)

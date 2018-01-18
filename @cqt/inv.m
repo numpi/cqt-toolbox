@@ -1,7 +1,8 @@
 function [ iT ] = inv(T)
 %INV Inverse of a CQT-matrix T.
 %
-%     iT = INV(T) computes the inverse of a CQT matrix T and produces a new CQT matrix iT.
+% iT = INV(T) computes the inverse of a CQT matrix T and produces a new CQT 
+% matrix iT.
 %
 
 if T.sz(2) == inf && T.sz(1) == T.sz(2)

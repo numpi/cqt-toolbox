@@ -1,6 +1,9 @@
 function A = full(T)
 %FULL Return the dense representation of the finite CQT-matrix T
 %
+% A = full(T) returns a dense matrix A representing T. Notice this only
+% makes sense for finite CQT matrices. 
+
 if max(T.sz) == inf
 	error('Invalid infinite dimensions for the function full')
 end

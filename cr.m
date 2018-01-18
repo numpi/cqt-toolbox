@@ -69,5 +69,10 @@ if i==max_it
 	warning('maximum number of iterations reached!')
 end
 
-G = - hB0 \ Am1;
-R = - A1 / hB0;
+% G = - hB0 \ Am1;
+% R = - A1 / hB0;
+
+hB0i = inv(hB0);
+
+G = - hB0i * Am1;
+R = - A1 * hB0i;

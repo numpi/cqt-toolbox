@@ -1,13 +1,11 @@
 function [ T ] = mtimes(T1, T2)
 %MTIMES Multiply two CQT matrices T1 and T2.
 %
-%	TODO Handle the case inf cqt matrix time non cqt (block) column with finite support
-%
-%
-%     T = MTIMES(T1, T2) computes the CQT matrix T obtained multiplying two CQT
+% T = MTIMES(T1, T2) computes the CQT matrix T obtained multiplying two CQT
 %     matrices T1 and T2. If T2 is a dense finite matrix it is considered
 %     as a semiinfinite matrix with only the leading top-left corner
 %     different from zero.
+
 if isa(T1,'cqt') && isa(T2, 'cqt')
 	if T1.sz(2) == T2.sz(1)
 		if min(T1.sz(1), T2.sz(2)) == 0
