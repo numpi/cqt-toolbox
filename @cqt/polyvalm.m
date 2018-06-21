@@ -12,23 +12,23 @@ function Y = polyvalm(p,X)
 
 % Check input is a vector
 if ~(isvector(p) || isempty(p))
-	error('POLYVALM: first argument must be a non empty vector');
+    error('POLYVALM: first argument must be a non empty vector');
 end
 
 np = length(p);
 [m, n] = size(X);
 
 if m ~= n
-	error(message('Polyvalm: NonSquareMatrix'))
+    error(message('Polyvalm: NonSquareMatrix'))
 end
 
 if np == 1    %Quick return if possible.
-	Y = cqt(p(1), p(1), [], [], m, n);
-	return
+    Y = cqt(p(1), p(1), [], [], m, n);
+    return
 end
 
 Y = cqt([],[],[],[],m,n);
 for i = 1:np
-	Y = X * Y + cqt(p(i),p(i), [], [], m, n);
+    Y = X * Y + cqt(p(i),p(i), [], [], m, n);
 end
 

@@ -23,28 +23,28 @@ function [varargout] = correction(T)
 % the dense corrections to the Toeplitz part.
 
 switch max(T.sz)
-	case inf
-		if nargout <= 1
-			varargout{1} = T.U * T.V.';
-		else
-			varargout{1} = T.U;
-			varargout{2} = T.V;
-		end
-		
-	otherwise
-		if nargout <= 2
-			varargout{1} = T.U * T.V.';
-			varargout{2} = T.W * T.Z.';
-			
-			% The trailing block is stored in reversed form
-			varargout{2} = varargout{2}(end:-1:1, end:-1:1);
-		else
-			varargout{1} = T.U;
-			varargout{2} = T.V;
-			varargout{3} = T.W(end:-1:1,end:-1:1);
-			varargout{4} = T.Z(end:-1:1,end:-1:1);
-		end
-		
+    case inf
+        if nargout <= 1
+            varargout{1} = T.U * T.V.';
+        else
+            varargout{1} = T.U;
+            varargout{2} = T.V;
+        end
+        
+    otherwise
+        if nargout <= 2
+            varargout{1} = T.U * T.V.';
+            varargout{2} = T.W * T.Z.';
+            
+            % The trailing block is stored in reversed form
+            varargout{2} = varargout{2}(end:-1:1, end:-1:1);
+        else
+            varargout{1} = T.U;
+            varargout{2} = T.V;
+            varargout{3} = T.W(end:-1:1,end:-1:1);
+            varargout{4} = T.Z(end:-1:1,end:-1:1);
+        end
+        
 end
 
 end

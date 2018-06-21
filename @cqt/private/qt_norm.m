@@ -6,7 +6,7 @@ alfa = ( sqrt(5) + 1 ) / 2;
 [~, ru] = qr(aU, 0);
 [~ ,rv] = qr(aV, 0);
 
-res = norm(ru * rv'); 
+res = norm(ru * rv');
 if ~isempty(am)
     res = res + alfa * sum(abs([ am, ap(2:end) ]));
 end

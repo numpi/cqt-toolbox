@@ -18,24 +18,24 @@ end
 
 pivoting = 0;
 if size(U,1) == 1
-	TU = 1;  TV = V*U.';
-	return
+    TU = 1;  TV = V*U.';
+    return
 end
 
 if isempty(U) || isempty(V)
-	TU = [];
-	TV = [];
-	return;
+    TU = [];
+    TV = [];
+    return;
 end
 
 if max(max(abs(U)))==0 || max(max(abs(V)))==0
-	TU = [];  TV = [];
-	return
+    TU = [];  TV = [];
+    return
 end
 
 [q1,r1] = qr(U,0);
 [q2,r2] = qr(V,0);
-r = r1*r2.';        
+r = r1*r2.';
 
 if epsi == inf
     epsi = norm(r) * cqtoption('threshold');

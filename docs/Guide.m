@@ -12,6 +12,13 @@
 %
 % The CQT toolbox allows to represent these matrices directly in MATLAB.
 %
-% <ArithmeticExample.html First steps with CQT matrices>
+% * <ArithmeticExample.html First steps with CQT matrices>
 %
-% <JacksonExample.html Solving QBD processes>
+%% Some more involved examples
+% 
+% * <JacksonExample.html Computing invariant probabilities> for certain Quasi-Birth-and-Death
+%   Markov processes involving quadratic matrix equations.  
+% * <SquareRoot.m Computing the matrix square root> of semi-infinite
+%   Toeplitz matrices with a low-rank correction. 
+% * <QuadraticExample.html Solving a quadratix matrix equation> using cyclic
+%   reduction and CQT matrices. 

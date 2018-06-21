@@ -5,7 +5,7 @@ function r = conv_fft(p, q)
 %return;
 
 if ~isvector(p) || ~isvector(q)
-	error('Arguments of CONV_FFT must be vectors');
+    error('Arguments of CONV_FFT must be vectors');
 end
 
 p = reshape(p, 1, length(p));

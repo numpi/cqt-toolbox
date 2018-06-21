@@ -14,42 +14,42 @@ converged = false;
 threshold = 1.0e2 * cqtoption('threshold') * norm(A, nrm_type);
 
 switch cqtoption('sqrt')
-	
-	case 'db'
-		
-		X = A;
-		Y = cqt(1, 1, [], [], A.sz(1), A.sz(2));
-		
-		while ~converged
-			Xnew = .5 * (X + inv(Y));
-			Ynew = .5 * (Y + inv(X));
+    
+    case 'db'
+        
+        X = A;
+        Y = cqt(1, 1, [], [], A.sz(1), A.sz(2));
+        
+        while ~converged
+            Xnew = .5 * (X + inv(Y));
+            Ynew = .5 * (Y + inv(X));
             
-			if norm(Xnew - X, nrm_type) < threshold
-				converged = true;
+            if norm(Xnew - X, nrm_type) < threshold
+                converged = true;
             end
-			
-			X = Xnew;
-			Y = Ynew;
-		end
-		
-	case 'cr'
-		X = A;
-		E = .5 * (cqt(1, 1, [], [], A.sz(1), A.sz(2)) - A);
-		
-		while ~converged
-			Xnew = X + E;
-			Enew = - .5 * (E * inv(Xnew) * E);
-			
-			if norm(Enew, nrm_type) < threshold
-				converged = true;
-			end
-			
-			X = Xnew;
-			E = Enew;
-		end
-		
-	otherwise
-		error('Unsupported value for the option "sqrt"');
+            
+            X = Xnew;
+            Y = Ynew;
+        end
+        
+    case 'cr'
+        X = A;
+        E = .5 * (cqt(1, 1, [], [], A.sz(1), A.sz(2)) - A);
+        
+        while ~converged
+            Xnew = X + E;
+            Enew = - .5 * (E * inv(Xnew) * E);
+            
+            if norm(Enew, nrm_type) < threshold
+                converged = true;
+            end
+            
+            X = Xnew;
+            E = Enew;
+        end
+        
+    otherwise
+        error('Unsupported value for the option "sqrt"');
 end
 
 

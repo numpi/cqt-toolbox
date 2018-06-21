@@ -19,10 +19,10 @@ function [cm, cp, Fc, Gc]=qt_inv(am, ap, F, G)
 
 % The triangular case can be handled without calling spectral()
 if length(am) == 1 || length(ap) == 1
-	vm = am / am(1);
-	vp = ap;
+    vm = am / am(1);
+    vp = ap;
 else
-	[vm,vp] = spectral(am, ap);
+    [vm,vp] = spectral(am, ap);
 end
 
 %2- Invert the triangular Toeplitz matrices L and U

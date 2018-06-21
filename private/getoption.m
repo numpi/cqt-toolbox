@@ -7,11 +7,11 @@ global cqt_compression;
 global cqt_threshold;
 
 switch keyword
-	case 'inversion'
-		value = cqt_inversion;
-		
-	case 'sqrt'
-		value = cqt_sqrt;
+    case 'inversion'
+        value = cqt_inversion;
+        
+    case 'sqrt'
+        value = cqt_sqrt;
         
     case 'compression'
         if isempty(cqt_compression)
@@ -24,8 +24,8 @@ switch keyword
             cqt_threshold = 1e-12;
         end
         value = cqt_threshold;
-		
-	otherwise
-		error('Unsupported option specified');
+        
+    otherwise
+        error('Unsupported option specified');
 end
 

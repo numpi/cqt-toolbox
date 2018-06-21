@@ -33,38 +33,38 @@ b1 = length(bm); b2 = length(bp);
 down_am = 0; down_ap = 0; down_bm = 0; down_bp = 0;
 % Symbols corresponding to the bottom right correction
 if ~isempty(am) && ~isempty(ap)
-	if m >= p   % left factor
-		if 1+m-p <= a1
-			down_am = am(1+m-p:end);
-		else
-			down_am = 0;
-		end
-		down_ap = [zeros(1,max(0,1+m-p-a1)),am(min(1+m-p,a1):-1:2),ap];
-	else
-		if 1+p-m <= a2
-			down_ap = ap(1+p-m:end);
-		else
-			down_ap = 0;
-		end
-		down_am = [zeros(1,max(0,1+p-m-a2)),ap(min(1+p-m,a2):-1:2),am];
-	end
+    if m >= p   % left factor
+        if 1+m-p <= a1
+            down_am = am(1+m-p:end);
+        else
+            down_am = 0;
+        end
+        down_ap = [zeros(1,max(0,1+m-p-a1)),am(min(1+m-p,a1):-1:2),ap];
+    else
+        if 1+p-m <= a2
+            down_ap = ap(1+p-m:end);
+        else
+            down_ap = 0;
+        end
+        down_am = [zeros(1,max(0,1+p-m-a2)),ap(min(1+p-m,a2):-1:2),am];
+    end
 end
 if ~isempty(bm) && ~isempty(bp)
-	if p >= n   % right factor
-		if 1+p-n <= b1
-			down_bm = bm(1+p-n:end);
-		else
-			down_bm = 0;
-		end
-		down_bp = [zeros(1,max(0,1+p-n-b1)),bm(min(1+p-n,b1):-1:2),bp];
-	else
-		if 1+n-p <= b2
-			down_bp = bp(1+n-p:end);
-		else
-			down_bp = 0;
-		end
-		down_bm = [zeros(1,max(0,1+n-p-b2)),bp(min(1+n-p,b2):-1:2),bm];
-	end
+    if p >= n   % right factor
+        if 1+p-n <= b1
+            down_bm = bm(1+p-n:end);
+        else
+            down_bm = 0;
+        end
+        down_bp = [zeros(1,max(0,1+p-n-b1)),bm(min(1+p-n,b1):-1:2),bp];
+    else
+        if 1+n-p <= b2
+            down_bp = bp(1+n-p:end);
+        else
+            down_bp = 0;
+        end
+        down_bm = [zeros(1,max(0,1+n-p-b2)),bp(min(1+n-p,b2):-1:2),bm];
+    end
 end
 da1 = length(down_am); da2 = length(down_ap);
 db1 = length(down_bm); db2 = length(down_bp);
@@ -107,14 +107,14 @@ WW(1:sbw1,:) = bW;
 
 % RaRbU=aU*(aV'*bU); RaRbV = bV;                   % 3
 if size(bV,2) < size(aU,2)
-	RaRbU = aU*(VV.'*UU); RaRbV = bV;
+    RaRbU = aU*(VV.'*UU); RaRbV = bV;
 else
-	RaRbU = aU; RaRbV = bV *(UU.'* VV);
+    RaRbU = aU; RaRbV = bV *(UU.'* VV);
 end
 if size(bZ,2) < size(aW,2)
-	SaSbW = aW*(ZZ.'*WW); SaSbZ = bZ;
+    SaSbW = aW*(ZZ.'*WW); SaSbZ = bZ;
 else
-	SaSbW = aW; SaSbZ = bZ*(WW.'*ZZ);
+    SaSbW = aW; SaSbZ = bZ*(WW.'*ZZ);
 end
 
 % Case of too big corrections ---> we need to consider cross products
@@ -122,27 +122,27 @@ krasb = 0;
 ksarb = 0;
 up1=0; up2=0; down1=0; down2=0;
 if(ra2+sb1>p)
-	krasb = ra2+sb1-p;
-	WW = bW(end:-1:1,end:-1:1);
-	rasbV = bZ(end:-1:1,end:-1:1);
-	rasbU = aU*(aV(end-krasb+1:end,:).'*WW(1:krasb,:));
-	if(ra2>=sb2)  % We decide to locate the correction in the upper left or in the lower right corner
-		up1 = 1;
-	else
-		down1 = 1;
-	end
+    krasb = ra2+sb1-p;
+    WW = bW(end:-1:1,end:-1:1);
+    rasbV = bZ(end:-1:1,end:-1:1);
+    rasbU = aU*(aV(end-krasb+1:end,:).'*WW(1:krasb,:));
+    if(ra2>=sb2)  % We decide to locate the correction in the upper left or in the lower right corner
+        up1 = 1;
+    else
+        down1 = 1;
+    end
 end
 if(sa2+rb1>p)
-	ksarb = sa2+rb1-p;
-	sarbV = bV;
-	WW = aW(end:-1:1,end:-1:1);
-	ZZ = aZ(end:-1:1,end:-1:1);
-	sarbU = WW*(ZZ(1:ksarb,:).'*bU(end-ksarb+1:end,:));
-	if(rb2>=sa2)
-		up2 = 1;
-	else
-		down2 = 1;
-	end
+    ksarb = sa2+rb1-p;
+    sarbV = bV;
+    WW = aW(end:-1:1,end:-1:1);
+    ZZ = aZ(end:-1:1,end:-1:1);
+    sarbU = WW*(ZZ(1:ksarb,:).'*bU(end-ksarb+1:end,:));
+    if(rb2>=sa2)
+        up2 = 1;
+    else
+        down2 = 1;
+    end
 end
 
 % sum them up % cU = [rU, TRbU, RaTU, RaRbU, rasbU,sarbU]; cV=[rV, TRbV, RaTV,RaRbV,rasbV, sarbV]
@@ -165,12 +165,12 @@ cU(1:nrarbu,kru+ktrbu+kratu+1:kru+ktrbu+kratu+krarbu) = RaRbU;
 cV(1:nrarbv,kru+ktrbu+kratu+1:kru+ktrbu+kratu+krarbu) = RaRbV;
 
 if(up1==1)   % If the result of the cross products is located up
-	cU(1:ra1,kru+ktrbu+kratu+krarbu+1:kru+ktrbu+kratu+krarbu+kbs) = rasbU;
-	cV(end-sb2+1:end,kru+ktrbu+kratu+krarbu+1:kru+ktrbu+kratu+krarbu+kbs) = rasbV;
+    cU(1:ra1,kru+ktrbu+kratu+krarbu+1:kru+ktrbu+kratu+krarbu+kbs) = rasbU;
+    cV(end-sb2+1:end,kru+ktrbu+kratu+krarbu+1:kru+ktrbu+kratu+krarbu+kbs) = rasbV;
 end
 if(up2==1)
-	cU(end-sa1+1:end,kru+ktrbu+kratu+krarbu+up1*kbs+1:kru+ktrbu+kratu+krarbu+up1*kbs+kbr) = sarbU;
-	cV(1:rb2,kru+ktrbu+kratu+krarbu+up1*kbs+1:kru+ktrbu+kratu+krarbu+up1*kbs+kbr) = sarbV;
+    cU(end-sa1+1:end,kru+ktrbu+kratu+krarbu+up1*kbs+1:kru+ktrbu+kratu+krarbu+up1*kbs+kbr) = sarbU;
+    cV(1:rb2,kru+ktrbu+kratu+krarbu+up1*kbs+1:kru+ktrbu+kratu+krarbu+up1*kbs+kbr) = sarbV;
 end
 % Compute the lower right correction
 nsw = size(sW,1); ntsbw = size(TSbW,1); nsatw = size(SaTW,1); nsasbw = size(SaSbW,1);
@@ -191,12 +191,12 @@ cW(1:nsasbw,ksw+ktsbw+ksatw+1:ksw+ktsbw+ksatw+ksasbw) = SaSbW;
 cZ(1:nsasbz,ksw+ktsbw+ksatw+1:ksw+ktsbw+ksatw+ksasbw) = SaSbZ;
 
 if(down1==1)    % If the result of the cross products is located down
-	cW(end-ra1+1:end,ksw+ktsbw+ksatw+ksasbw+1:ksw+ktsbw+ksatw+ksasbw+kbs) = rasbU(end:-1:1,end:-1:1);
-	cZ(1:sb2,ksw+ktsbw+ksatw+ksasbw+1:ksw+ktsbw+ksatw+ksasbw+kbs) = rasbV(end:-1:1,end:-1:1);
+    cW(end-ra1+1:end,ksw+ktsbw+ksatw+ksasbw+1:ksw+ktsbw+ksatw+ksasbw+kbs) = rasbU(end:-1:1,end:-1:1);
+    cZ(1:sb2,ksw+ktsbw+ksatw+ksasbw+1:ksw+ktsbw+ksatw+ksasbw+kbs) = rasbV(end:-1:1,end:-1:1);
 end
 if(down2==1)
-	cW(1:sa1,ksw+ktsbw+ksatw+ksasbw+down1*kbs+1:ksw+ktsbw+ksatw+ksasbw+down1*kbs+kbr) = sarbU(end:-1:1,end:-1:1);
-	cZ(end-rb2+1:end,ksw+ktsbw+ksatw+ksasbw+down1*kbs+1:ksw+ktsbw+ksatw+ksasbw+down1*kbs+kbr) = sarbV(end:-1:1,end:-1:1);
+    cW(1:sa1,ksw+ktsbw+ksatw+ksasbw+down1*kbs+1:ksw+ktsbw+ksatw+ksasbw+down1*kbs+kbr) = sarbU(end:-1:1,end:-1:1);
+    cZ(end-rb2+1:end,ksw+ktsbw+ksatw+ksasbw+down1*kbs+1:ksw+ktsbw+ksatw+ksasbw+down1*kbs+kbr) = sarbV(end:-1:1,end:-1:1);
 end
 % compress and clean
 nrm = fqt_norm(cm, cp, cU, cV, cW, cZ);

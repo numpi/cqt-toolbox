@@ -7,7 +7,7 @@ T = - T;
 res = norm(FT - T(1:100,1:100));
 
 CheckTestResult(res, '<', eps, ...
-	'Uminus implementation');
+    'Uminus implementation');
 
 T = GenerateFiniteExample(6, 2, 3);
 FT = - full(T);
@@ -15,7 +15,7 @@ T = - T;
 res = norm(FT - full(T));
 
 CheckTestResult(res, '<', eps, ...
-	'Uminus implementation (finite case)');
+    'Uminus implementation (finite case)');
 
 end
 

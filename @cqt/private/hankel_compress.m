@@ -22,7 +22,7 @@ switch strategy
         [U, S, V] = random_svd(@(x, t) hankel_matvec(a,b,x,t), n);
         
         U = U * sqrt(S);
-        V = V * sqrt(S);        
+        V = V * sqrt(S);
         
     otherwise
         error('Unsupported compression strategy selected');
@@ -33,16 +33,16 @@ end
 function y = hankel_matvec(a, b, x, trasp)
 %HANKEL_MATVEC Perform the matrix multiplication y = A * B * x
 
-    if strcmp(trasp, 'trasp')
-        y = hankel_matvec(b, a, x, 'notrasp');
-    else
-        h = min(length(a), length(b));
+if strcmp(trasp, 'trasp')
+    y = hankel_matvec(b, a, x, 'notrasp');
+else
+    h = min(length(a), length(b));
     
-        % Perform the multiplication y = B * x
-        y = toepmult_fft(b(h:-1:1), b(h), h, h, x);
+    % Perform the multiplication y = B * x
+    y = toepmult_fft(b(h:-1:1), b(h), h, h, x);
     
-        % ... and then y = A * (B * x);
-        y = toepmult_fft(a(h), a(h:-1:1), h, h, y);    
-    end
+    % ... and then y = A * (B * x);
+    y = toepmult_fft(a(h), a(h:-1:1), h, h, y);
+end
 end
 

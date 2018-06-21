@@ -5,34 +5,34 @@ function [l, u] = spectral_cr(vm, vp)
 
 % Handle the trivial case of a diagonal Toeplitz matrix
 if (length(vm) == 1) && (length(vp) == 1)
-	l = 1;
-	u = vp;
-	return;
+    l = 1;
+    u = vp;
+    return;
 end
 
 maxiter = 40;  epsi = 1.e-20;
 if size(vm,1)==1
-	vm = vm.';
+    vm = vm.';
 end
 if size(vp,1)==1
-	vp = vp.';
+    vp = vp.';
 end
 nm = length(vm); np = length(vp);
 if nm>np
-	am  = vm(1:nm-1); ap = [vp;zeros(nm-np-1,1)];
-	A = toeplitz(am,ap);
-	B = toeplitz([vm(nm);zeros(nm-2,1)],vm(nm:-1:2));
-	C = toeplitz([zeros(nm-np,1);vp(np:-1:2)],zeros(nm-1,1));
+    am  = vm(1:nm-1); ap = [vp;zeros(nm-np-1,1)];
+    A = toeplitz(am,ap);
+    B = toeplitz([vm(nm);zeros(nm-2,1)],vm(nm:-1:2));
+    C = toeplitz([zeros(nm-np,1);vp(np:-1:2)],zeros(nm-1,1));
 elseif nm<np
-	am = [vm;zeros(np-nm-1,1)]; ap = vp(1:np-1);
-	A = toeplitz(am,ap);
-	B = toeplitz(zeros(np-1,1),[zeros(np-nm,1);vm(nm:-1:2)]);
-	C = toeplitz(vp(np:-1:2),[vp(np);zeros(np-2,1)]);
+    am = [vm;zeros(np-nm-1,1)]; ap = vp(1:np-1);
+    A = toeplitz(am,ap);
+    B = toeplitz(zeros(np-1,1),[zeros(np-nm,1);vm(nm:-1:2)]);
+    C = toeplitz(vp(np:-1:2),[vp(np);zeros(np-2,1)]);
 else
-	am = vm(1:nm-1); ap = [vp(1:np-1)];
-	A = toeplitz(am,ap);
-	B = toeplitz([vm(nm);zeros(nm-2,1)],vm(nm:-1:2));
-	C = toeplitz(vp(np:-1:2),[vp(np);zeros(np-2,1)]);
+    am = vm(1:nm-1); ap = [vp(1:np-1)];
+    A = toeplitz(am,ap);
+    B = toeplitz([vm(nm);zeros(nm-2,1)],vm(nm:-1:2));
+    C = toeplitz(vp(np:-1:2),[vp(np);zeros(np-2,1)]);
 end
 
 %CR
@@ -40,28 +40,28 @@ b = B; c = C;
 n = size(A,1);
 at = A; ah = A;
 for k=1:maxiter
-	ABC = A \ [B,C];
-	cab = C*ABC(:,1:n);
-	bac = B*ABC(:,n+1:2*n);
-	A = A - cab - bac;
-	B = -B * ABC(:,1:n);
-	C = -C * ABC(:,n+1:2*n);
-	at = at - cab;
-	ah = ah - bac;
+    ABC = A \ [B,C];
+    cab = C*ABC(:,1:n);
+    bac = B*ABC(:,n+1:2*n);
+    A = A - cab - bac;
+    B = -B * ABC(:,1:n);
+    C = -C * ABC(:,n+1:2*n);
+    at = at - cab;
+    ah = ah - bac;
     
     nrmB = norm(B, 'inf');
     nrmC = norm(C, 'inf');
     
     % Adjust the scaling to account for splitting on non-unitary circles.
-    alpha = sqrt(nrmB / nrmC);    
+    alpha = sqrt(nrmB / nrmC);
     B = B / alpha;
     C = C * alpha;
     
-	err = min(nrmB, nrmC);
+    err = min(nrmB, nrmC);
     
-	if err < epsi
-		break
-	end
+    if err < epsi
+        break
+    end
 end
 
 if err > epsi

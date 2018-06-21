@@ -8,12 +8,12 @@ function q = reciprocal_poly(p, d)
 %
 
 if isempty(p) || p(1) == 0
-	error('The given polynomial is not invertible as series');
+    error('The given polynomial is not invertible as series');
 end
 
 if length(p) == 1
-	q = 1 / p;
-	return;
+    q = 1 / p;
+    return;
 end
 
 p = reshape(p, 1, length(p));
@@ -25,8 +25,8 @@ minimum_block_size = 16;
 n = length(p) - 1;
 
 if n < minimum_block_size
-	p = [ p, zeros(1, minimum_block_size - length(p)) ];
-	n = length(p) - 1;
+    p = [ p, zeros(1, minimum_block_size - length(p)) ];
+    n = length(p) - 1;
 end
 
 T = toep(p(1), p(1:end-1), n, n);
@@ -38,13 +38,13 @@ accurate = false;
 threshold = norm(q, inf) * eps;
 
 while length(q) < d && ~accurate
-	nq = -q(end-n+1:end) * A / T;
-	
-	if norm(nq, inf) < threshold
-		accurate = true;
-	end
-	
-	q = [ q , nq ];
+    nq = -q(end-n+1:end) * A / T;
+    
+    if norm(nq, inf) < threshold
+        accurate = true;
+    end
+    
+    q = [ q , nq ];
 end
 
 q = truncate(symbol_clean(q, q(1), norm(q,1)), d);

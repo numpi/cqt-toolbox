@@ -1,5 +1,5 @@
 function nrm = fqt_norm(am, ap, u, v, w, z)
-%FQT_NORM 
+%FQT_NORM
 
 nrm = 0.0;
 

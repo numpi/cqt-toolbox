@@ -1,5 +1,5 @@
 function [U, S, V] = random_svd(Afun, n, tol)
-%RANDOM_SVD Compute an approximate SVD with random sampling. 
+%RANDOM_SVD Compute an approximate SVD with random sampling.
 
 if ~exist('tol', 'var')
     tol = eps;
@@ -8,7 +8,7 @@ end
 % Oversampling parameter
 p = 10;
 
-% Estimated rank 
+% Estimated rank
 k = 5;
 
 converged = false;

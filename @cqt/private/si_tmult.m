@@ -12,11 +12,11 @@ nam = length(am); nap = length(ap);
 nbm = length(bm); nbp = length(bp);
 
 if nam == 0 || nbm == 0
-	cm = [];
-	cp = [];
-	cU = [];
-	cV = [];
-	return;
+    cm = [];
+    cp = [];
+    cU = [];
+    cV = [];
+    return;
 end
 
 % resize the input vectors according to their numerical length
@@ -39,35 +39,35 @@ cm = c(m:-1:1);cp = c(m:end);
 % Compute R
 na = length(am); nb = length(bp);
 if na <=1 || nb <= 1
-	cU = []; cV = [];
+    cU = []; cV = [];
 else
-	if na>nb
-		am = am(2:end);   bm = [bp(2:end),zeros(1,na-nb)];  bp = zeros(1,nb-1);
-		if nb>lancz_param
-			cU=-am(2:end);
-			cV=bp(2:end);
-			[ cU,cV ] = hankel_compress(cU, cV, cqtoption('compression')); %lanczos_hankel_product(cU,cV);
-			cV=conj(cV);
-		else
-			cU = -hankel(am); cV = hankel(bm,bp).';                        
-			[ cU, cV ] = compress_qr( cU, cV );
-		end
-		
-	else
-		bm = bp(2:end);
-		am = am(2:end); ap = [am(end),zeros(1,nb-2)];
-		if nb>lancz_param
-			cU=-am(2:end);
-			cV=bp(2:end);
-			[ cU,cV ] = hankel_compress(cU, cV, cqtoption('compression')); % lanczos_hankel_product(cU,cV);
-			cV=conj(cV);
-		else
-			cU = -hankel(am,ap);
-			cV = hankel(bm).';
-			[ cU, cV ] = compress_qr( cU, cV );
-                        
-		end
-	end
+    if na>nb
+        am = am(2:end);   bm = [bp(2:end),zeros(1,na-nb)];  bp = zeros(1,nb-1);
+        if nb>lancz_param
+            cU=-am(2:end);
+            cV=bp(2:end);
+            [ cU,cV ] = hankel_compress(cU, cV, cqtoption('compression')); %lanczos_hankel_product(cU,cV);
+            cV=conj(cV);
+        else
+            cU = -hankel(am); cV = hankel(bm,bp).';
+            [ cU, cV ] = compress_qr( cU, cV );
+        end
+        
+    else
+        bm = bp(2:end);
+        am = am(2:end); ap = [am(end),zeros(1,nb-2)];
+        if nb>lancz_param
+            cU=-am(2:end);
+            cV=bp(2:end);
+            [ cU,cV ] = hankel_compress(cU, cV, cqtoption('compression')); % lanczos_hankel_product(cU,cV);
+            cV=conj(cV);
+        else
+            cU = -hankel(am,ap);
+            cV = hankel(bm).';
+            [ cU, cV ] = compress_qr( cU, cV );
+            
+        end
+    end
 end
 
 % clean and resize R

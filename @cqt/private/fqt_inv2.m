@@ -15,30 +15,30 @@
 function [cm, cp, Uc, Vc,Wc,Zc]=fqt_inv2(am, ap, aU, aV, aW,aZ,n)
 %1- Compute the spectral factorization T = UL
 if am(1) == 0
-	error('fqt_inv2:: Can not invert a symbol with a0 = 0');
+    error('fqt_inv2:: Can not invert a symbol with a0 = 0');
 end
 % The triangular cases can be handled without calling spectral()
 if length(am) == 1 || length(ap) == 1
-	vm = am / am(1);
-	vp = ap;
+    vm = am / am(1);
+    vp = ap;
 else
-	[vm, vp] = spectral(am,ap);
+    [vm, vp] = spectral(am,ap);
 end
 
 % Compute the lower right corner correction
 [~,~,~,~,hW,hZ] = fsi_tmult2(vp(1), vp, vm, vm(1),n, n, n);
 m1=size(aW,1); m2=size(hW,1);
 if (m1 < m2)
-	aW = [aW;zeros(m2-m1,size(aW,2))];
+    aW = [aW;zeros(m2-m1,size(aW,2))];
 elseif(m2 < m1)
-	hW = [hW;zeros(m1-m2,size(hW,2))];
+    hW = [hW;zeros(m1-m2,size(hW,2))];
 end
 aW = [aW,-hW];
 m1 = size(aZ,1); m2 = size(hZ,1);
 if (m1 < m2)
-	aZ = [aZ;zeros(m2-m1,size(aZ,2))];
+    aZ = [aZ;zeros(m2-m1,size(aZ,2))];
 elseif(m2 < m1)
-	hZ = [hZ;zeros(m1-m2,size(hZ,2))];
+    hZ = [hZ;zeros(m1-m2,size(hZ,2))];
 end
 aZ = [aZ,hZ];
 [aW,aZ] = compress_qr(aW,aZ);
@@ -76,22 +76,22 @@ Y(end-kW+1:end,end-kW+1:end)=Y(end-kW+1:end,end-kW+1:end)+temp(end:-1:1,end:-1:1
 
 
 if(nV1+nW1<=n && nU1+nZ1<=n)
-	aU2 = aU1/Y(1:kU,1:kU);
-	Y = Y(end:-1:1,end:-1:1);
-	aW2 = aW1/Y(1:kW,1:kW);
+    aU2 = aU1/Y(1:kU,1:kU);
+    Y = Y(end:-1:1,end:-1:1);
+    aW2 = aW1/Y(1:kW,1:kW);
 else
-	if(nV1+nW1>n)
-		Y(1:kU,kU+1:end) = Y(1:kU,kU+1:end)+aV1(n-nW1+1:nV1,1:kU).'*aW1(end:-1:end-(nV1+nW1-n)+1,end:-1:1);
-	end
-	if(nU1+nZ1>n)
-		Y(kU+1:end,1:kU) = Y(kU+1:end,1:kU)+aZ1(end:-1:end-(nU1+nZ1-n)+1,end:-1:1).'*aU1(n-nZ1+1:nU1,1:kU);
-	end
-	Y = inv(Y);
-	Y = [[aU1;zeros(n-nU1,kU)],[zeros(n-nW1,kW);aW1(end:-1:1,end:-1:1)]]*Y;
-	aU2 = Y(:,1:kU);
-	aW2 = Y(:,kU+1:end);
-	aW2 = aW2(end:-1:1,end:-1:1);
-	
+    if(nV1+nW1>n)
+        Y(1:kU,kU+1:end) = Y(1:kU,kU+1:end)+aV1(n-nW1+1:nV1,1:kU).'*aW1(end:-1:end-(nV1+nW1-n)+1,end:-1:1);
+    end
+    if(nU1+nZ1>n)
+        Y(kU+1:end,1:kU) = Y(kU+1:end,1:kU)+aZ1(end:-1:end-(nU1+nZ1-n)+1,end:-1:1).'*aU1(n-nZ1+1:nU1,1:kU);
+    end
+    Y = inv(Y);
+    Y = [[aU1;zeros(n-nU1,kU)],[zeros(n-nW1,kW);aW1(end:-1:1,end:-1:1)]]*Y;
+    aU2 = Y(:,1:kU);
+    aW2 = Y(:,kU+1:end);
+    aW2 = aW2(end:-1:1,end:-1:1);
+    
 end
 nU = size(aU2,1);
 nW = size(aW2,1);

@@ -40,9 +40,9 @@ um = U(:,1);  up = U(end:-1:1,2);
 n = min(length(um), length(up));
 th = sum(um(1:n).*up(1:n));
 if vm(1)/th<0 && realflag
-	disp('Warning: in spectral_fft th<0')
-	th
-	%pause
+    disp('Warning: in spectral_fft th<0')
+    th
+    %pause
 end
 th = sqrt(vm(1)/th);
 um = th*um;  up = th*up;

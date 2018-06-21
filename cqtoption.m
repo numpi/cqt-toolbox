@@ -13,31 +13,31 @@ function optval = cqtoption(keyword, value)
 %   'compression': [ 'lanczos', 'random' ]
 %      Compression strategy for the Hankel compression when the dimension
 %      is sufficiently large. Default is 'lanczos'. The performance and
-%      reliability of the two strategies are comparable. 
+%      reliability of the two strategies are comparable.
 %
-%   'threshold': 
+%   'threshold':
 %      The threshold used in truncation.
 %
 
 switch keyword
-	case 'inversion'
-		if nargin == 1
-			optval = getoption('inversion');
-			if isempty(optval)
-				optval = 'cr';
-			end
-		else
-			setoption('inversion', value);
-		end
-		
-	case 'sqrt'
-		if nargin == 1
-			optval = getoption('sqrt');
-			if isempty(optval)
-				optval = 'db';
-			end
-		else
-			setoption('sqrt', value);
+    case 'inversion'
+        if nargin == 1
+            optval = getoption('inversion');
+            if isempty(optval)
+                optval = 'cr';
+            end
+        else
+            setoption('inversion', value);
+        end
+        
+    case 'sqrt'
+        if nargin == 1
+            optval = getoption('sqrt');
+            if isempty(optval)
+                optval = 'db';
+            end
+        else
+            setoption('sqrt', value);
         end
         
     case 'compression'

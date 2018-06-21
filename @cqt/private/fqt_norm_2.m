@@ -13,18 +13,18 @@ r = 0;
 threshold = 1e-6;
 
 while log(abs(diff)) > threshold
-	y = full(T' * (T * cqt(0, 0, x, 0, n, 1)));
-	
-	oldr = r;
-	r = norm(y);
-	
-	if oldr == 0
-		diff = inf;
-	else
-		diff = r / oldr;
-	end
-	
-	x = y / r;
+    y = full(T' * (T * cqt(0, 0, x, 0, n, 1)));
+    
+    oldr = r;
+    r = norm(y);
+    
+    if oldr == 0
+        diff = inf;
+    else
+        diff = r / oldr;
+    end
+    
+    x = y / r;
 end
 
 r = sqrt(r);

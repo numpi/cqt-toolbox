@@ -3,14 +3,14 @@ function C = fqt_mldivide(A, B)
 
 % Handle the triangular case
 if length(A.p) == 1 || length(A.n) == 1
-	
-	if isa(B, 'cqt') || max(length(A.n), length(A.p)) > 8
-		C = inv(A) * B;
-	else
-		C = fqt_solvetriang(A, B);
-	end
-	
-	return;
+    
+    if isa(B, 'cqt') || max(length(A.n), length(A.p)) > 8
+        C = inv(A) * B;
+    else
+        C = fqt_solvetriang(A, B);
+    end
+    
+    return;
 end
 
 [U, L, E] = ul(A);

@@ -15,11 +15,11 @@ res2 = norm(T * S + cqt(-1,-1,0,0));
 res3 = norm(S * T + cqt(-1,-1,0,0));
 
 CheckTestResult(res, '<', 1e4 * cqtoption('threshold') * norm(S), ...
-	'CQT inversion');
+    'CQT inversion');
 CheckTestResult(res2, '<', 1e4 * cqtoption('threshold') * norm(S), ...
-	'CQT inversion');
+    'CQT inversion');
 CheckTestResult(res3, '<', 1e4 * cqtoption('threshold') * norm(S), ...
-	'CQT inversion');
+    'CQT inversion');
 
 [T1] = GenerateFiniteExample(10, 2, 4, 100, 100);
 T1 = T1 + cqt(5,5,0,0,0,0,100,100);
@@ -30,7 +30,7 @@ res = norm(full(T2) - fT);
 % assert(res < 1e4 * eps);
 
 CheckTestResult(res, '<', 1e4 * cqtoption('threshold'), ...
-	'CQT inversion (finite case)');
+    'CQT inversion (finite case)');
 
 
 end

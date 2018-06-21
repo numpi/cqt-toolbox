@@ -11,7 +11,7 @@ function c = cond(A, norm_type)
 %    valid choice.
 
 if ~exist('norm_type', 'var')
-	c = norm(A) * norm(inv(A));
+    c = norm(A) * norm(inv(A));
 else
-	c = norm(A, norm_type) * norm(inv(A), norm_type);
+    c = norm(A, norm_type) * norm(inv(A), norm_type);
 end

@@ -1,5 +1,5 @@
 function r = eqt_norm(T)
-%EQT_NORM Extended QT norm. 
+%EQT_NORM Extended QT norm.
 
 [n, p] = symbol(T);
 E = correction(T);

@@ -9,19 +9,19 @@ function [k, v] = epslength(a)
 epsi = 1e1 * eps;
 relative = true;
 if relative
-	mx=norm(a,'inf');
-	epsx=mx*epsi;
+    mx=norm(a,'inf');
+    epsx=mx*epsi;
 else
-	epsx=epsi;
+    epsx=epsi;
 end
 b=a(end:-1:1);
 n=length(b);
 s=0;
 for i=1:n
-	s=s+abs(b(i));
-	if s>epsx
-		break
-	end
+    s=s+abs(b(i));
+    if s>epsx
+        break
+    end
 end
 k=n-i+1;
 v=a(1:k);

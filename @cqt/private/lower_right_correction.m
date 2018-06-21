@@ -18,34 +18,34 @@ bp = reshape(bp, 1, nbp);
 
 % Compute lower-right correction
 if m >= p   % left factor
-	if 1+m-p <= nam
-		new_am = am(1+m-p:end);
-	else
-		new_am = 0;
-	end
-	new_ap = [zeros(1,max(0,1+m-p-nam)), am(min(1+m-p,nam):-1:2), ap];
+    if 1+m-p <= nam
+        new_am = am(1+m-p:end);
+    else
+        new_am = 0;
+    end
+    new_ap = [zeros(1,max(0,1+m-p-nam)), am(min(1+m-p,nam):-1:2), ap];
 else
-	if 1+p-m <= nap
-		new_ap = ap(1+p-m:end);
-	else
-		new_ap = 0;
-	end
-	new_am = [zeros(1,max(0,1+p-m-nap)),ap(min(1+p-m,nap):-1:2),am];
+    if 1+p-m <= nap
+        new_ap = ap(1+p-m:end);
+    else
+        new_ap = 0;
+    end
+    new_am = [zeros(1,max(0,1+p-m-nap)),ap(min(1+p-m,nap):-1:2),am];
 end
 if p >= n   % right factor
-	if 1+p-n <= nbm
-		new_bm = bm(1+p-n:end);
-	else
-		new_bm = 0;
-	end
-	new_bp = [zeros(1,max(0,1+p-n-nbm)),bm(min(1+p-n,nbm):-1:2),bp];
+    if 1+p-n <= nbm
+        new_bm = bm(1+p-n:end);
+    else
+        new_bm = 0;
+    end
+    new_bp = [zeros(1,max(0,1+p-n-nbm)),bm(min(1+p-n,nbm):-1:2),bp];
 else
-	if 1+n-p <= nbp
-		new_bp = bp(1+n-p:end);
-	else
-		new_bp = 0;
-	end
-	new_bm = [zeros(1,max(0,1+n-p-nbp)),bp(min(1+n-p,nbp):-1:2),bm];
+    if 1+n-p <= nbp
+        new_bp = bp(1+n-p:end);
+    else
+        new_bp = 0;
+    end
+    new_bm = [zeros(1,max(0,1+n-p-nbp)),bp(min(1+n-p,nbp):-1:2),bm];
 end
 
 
