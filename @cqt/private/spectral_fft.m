@@ -13,12 +13,12 @@ function [um,up] = spectral_fft(vm,vp)
 %
 %     The algorithm consists in evaluating the central 2m-1 coefficients of
 %     the Laurent series 1/p(z) and then by computing the first and last
-%     column of the inverse of the mxm symmetric Toeplitz matrix formed with
-%     these elements these columns, suitably scaled, provide an approximation
-%     to the desired factor.
+%     column of the inverse of the mxm symmetric Toeplitz matrix formed 
+%     with these elements these columns, suitably scaled, provide an 
+%     approximation to the desired factor.
 %
-%     The function does not use any special algorithm for solving the Toeplitz
-%     system.
+%     The function does not use any special algorithm for solving the 
+%     Toeplitz system.
 %
 %     June 2, 2016, By Dario A. Bini
 

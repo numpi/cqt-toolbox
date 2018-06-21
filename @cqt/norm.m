@@ -14,7 +14,8 @@ if max(T.sz) == inf
         case 'eqt'
             r = eqt_norm(T);
         otherwise
-            error('Only CQT / EQT norms are supported for infinite matrices');
+            error('Only CQT / EQT norms are supported' + ...
+                'for infinite matrices');
     end
 else
     if max(T.sz) == inf
@@ -25,7 +26,8 @@ else
     % compute the norm of the full version
     m = size(T, 1);
     n = size(T, 2);
-    if max(T.sz) < 50 || ((size(T.U,1) + size(T.W,1) >= m) && (size(T.V,1) + size(T.Z,1) >= n) )
+    if max(T.sz) < 50 || ((size(T.U,1) + size(T.W,1) >= m) ...
+            && (size(T.V,1) + size(T.Z,1) >= n) )
         if exist('p', 'var')
             r = norm(full(T), p);
         else

@@ -50,7 +50,8 @@ if ~isinf(max(A.sz))
     hU = hU(:,1:m);
     hL = hL(1:m,:);
     
-    F = cqt([], [], [], [], hU(end:-1:1,end:-1:1), hL(end:-1:1,end:-1:1).', A.sz(1), A.sz(2));
+    F = cqt([], [], [], [], hU(end:-1:1,end:-1:1), ...
+        hL(end:-1:1,end:-1:1).', A.sz(1), A.sz(2));
     
     E = E + F;
 end

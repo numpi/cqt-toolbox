@@ -22,9 +22,13 @@ if isa(T1, 'cqt') && isa(T2, 'cqt')
     
     T.c = formatted_sum(T1.c, T2.c);
 elseif ~isa(T1, 'cqt')
-    error('Incompatible types addition. \nIf you want to add a matrix of %s with a cqt matrix T you can use cqt(A) + T',class(T1));
+    error('Incompatible types addition. \nIf you want to add a' + ...
+        'matrix of %s with a cqt matrix T you can use cqt(A) + T', ...
+        class(T1));
 elseif ~isa(T2, 'cqt')
-    error('Incompatible types addition. \nIf you want to add a cqt matrix T  with a matrix of %s you can use T + cqt(A)',class(T2));
+    error('Incompatible types addition. \nIf you want to add a' + ...
+        'cqt matrix T  with a matrix of %s you can use T + cqt(A)', ...
+        class(T2));
 end
 end
 

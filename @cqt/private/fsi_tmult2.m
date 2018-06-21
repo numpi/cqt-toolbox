@@ -3,9 +3,11 @@ function [cm,cp,cU,cV,cW,cZ]=fsi_tmult2(am, ap, bm, bp, m, p, n)
 % Compute the product C=AB between an m x p  and an p x n Toeplitz matrices
 % A and B defined by their first column and first row am,ap
 % and bm,bp, respectively
-% the matrix product C is written as toep(cm,cp) + cU*cV + cW * cZ'(end:-1:1,end:-1:1)
+% the matrix product C is written as toep(cm,cp) + cU*cV + 
+% cW * cZ'(end:-1:1,end:-1:1)
 
-lancz_param = 200; % size at which the lanczos method for compressing is triggered
+lancz_param = 200; % size at which the lanczos method for 
+                   % compressing is triggered
 lancz_debug = 0;   % check the residual of the compression
 
 if isempty(am) || isempty(bm)
@@ -54,10 +56,14 @@ h=min(nam,nbp)-1;
 
 if h <= 0
     cU=[]; cV=[];
-elseif h<=lancz_param % If at least one of the hankel matrices is small then we compress with QR
+elseif h<=lancz_param % If at least one of the hankel 
+                      % matrices is small then we compress with QR
     
-    [ cU,cV ] = compress_qr(hankel(-am(2:end),[-am(end),zeros(1,h-1)]),hankel(bp(2:h+1),[bp(h+1:end),zeros(1,h-1)]).' );
-elseif h>lancz_param   % If both the hankel matrices are big then we compress with Lanczos
+    [ cU,cV ] = compress_qr(...
+        hankel(-am(2:end),[-am(end),zeros(1,h-1)]),...
+        hankel(bp(2:h+1),[bp(h+1:end),zeros(1,h-1)]).' );
+elseif h>lancz_param   % If both the hankel matrices are big then 
+                       % we compress with Lanczos
     
     cU=-am(2:end);
     cV=bp(2:end);
@@ -69,7 +75,7 @@ elseif h>lancz_param   % If both the hankel matrices are big then we compress wi
         clear Hu, Hv;
     end
     
-    [ cU,cV ] =hankel_compress(cU, cV, cqtoption('compression')); % lanczos_hankel_product(cU,cV);
+    [ cU,cV ] =hankel_compress(cU, cV, cqtoption('compression'));
     
     if lancz_debug
         disp('*****residue upper-left corner*****')
@@ -117,9 +123,12 @@ nbm = length(bm); nbp = length(bp);
 h = min(nap,nbm)-1;
 if h == 0
     cW=[]; cZ=[];
-elseif h<=lancz_param && h>0 % If at least one of the hankel matrices is small then we compress with QR
-    [ cW,cZ ] = compress_qr(hankel(-ap(2:end),[-ap(end),zeros(1,h-1)]),hankel(bm(2:h+1),[bm(h+1:end),zeros(1,h-1)]).' );
-elseif h>lancz_param % If both the hankel matrices are big then we compress with Lanczos
+elseif h<=lancz_param && h>0 % If at least one of the hankel 
+                             % matrices is small then we compress with QR
+    [ cW,cZ ] = compress_qr(hankel(-ap(2:end),[-ap(end),zeros(1,h-1)]),...
+        hankel(bm(2:h+1),[bm(h+1:end),zeros(1,h-1)]).' );
+elseif h>lancz_param % If both the hankel matrices are big then 
+                     % we compress with Lanczos
     cW=-ap(2:end);
     cZ=bm(2:end);
     if lancz_debug
@@ -129,7 +138,7 @@ elseif h>lancz_param % If both the hankel matrices are big then we compress with
         H = Hu * Hv;
         clear Hu, Hv;
     end
-    [ cW,cZ ] = hankel_compress(cW, cZ, cqtoption('compression')); % lanczos_hankel_product(cW,cZ);
+    [ cW,cZ ] = hankel_compress(cW, cZ, cqtoption('compression')); 
     
     if lancz_debug
         disp('*****residue lower-right corner*****')

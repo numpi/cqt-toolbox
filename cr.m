@@ -1,16 +1,17 @@
 function [G, R, B0] = cr(Am1, A0, A1, max_it)
-%CR	Executes the cyclic reduction iteration for solving Am1 + A0 X + A1 X^2 = 0
+%CR	Cyclic reduction iteration for solving Am1 + A0 X + A1 X^2 = 0
 %
 %	[G, R] = CR(Am1, A0, A1) computes the matrices G and R solutions of
 %	Am1 + A0 X +A1 X^2 = 0 and A1 + A0 X +Am1 X^2 = 0, respectively
 %
-%	[G, R] = CR(Am1, A0, A1, MAX_IT) limits the number of iterations to MAX_IT,
-%	the default value is MAX_IT=20
+%	[G, R] = CR(Am1, A0, A1, MAX_IT) limits the number of iterations to 
+%   MAX_IT, the default value is MAX_IT=20
 %
-%	[G, R, B0] = CR(Am1, A0, A1) returns G, R and the limit point of the sequence A0^(h)
+%	[G, R, B0] = CR(Am1, A0, A1) returns G, R and the limit point of the 
+%    sequence A0^(h)
 %
-%	[G, R, B0] = CR(Am1, A0, A1, MAX_IT) limits the number of iterations to MAX_IT,
-%	the default value is MAX_IT=20
+%	[G, R, B0] = CR(Am1, A0, A1, MAX_IT) limits the number of iterations 
+%   to MAX_IT, the default value is MAX_IT=20
 
 if ~exist('max_it','var')
     max_it = 20;

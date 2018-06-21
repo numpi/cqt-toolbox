@@ -57,15 +57,18 @@ B = cqt([1 rand(1,2) ], [1 rand(1,2) ], 0, 0, m, n);
 C = inv(A) * B;
 D = A \ B;
 
-CheckTestResult(norm(C - D), '<', 1e3 * epsi, 'mldivide on Toeplitz and Toeplitz (finite case)');
+CheckTestResult(norm(C - D), '<', 1e3 * epsi, ...
+    'mldivide on Toeplitz and Toeplitz (finite case)');
 
 A = cqt([ 4 -1 ], [4 1], randn(4, 2), randn(3, 2), 0, 0, m, m);
-B = cqt([1 rand(1,2) ], [1 rand(1,3) ], randn(5,3), randn(7, 3), 0, 0, m, n);
+B = cqt([1 rand(1,2) ], [1 rand(1,3) ], ...
+    randn(5,3), randn(7, 3), 0, 0, m, n);
 
 C = inv(A) * B;
 D = A \ B;
 
-CheckTestResult(norm(C - D), '<', 1e3 * epsi, 'mldivide on CQT and CQT (finite case)');
+CheckTestResult(norm(C - D), '<', 1e3 * epsi, ...
+    'mldivide on CQT and CQT (finite case)');
 
 
 end

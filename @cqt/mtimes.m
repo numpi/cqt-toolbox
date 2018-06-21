@@ -14,7 +14,8 @@ if isa(T1,'cqt') && isa(T2, 'cqt')
         end
         
         if T1.sz(2) == inf
-            [cm, cp, cU, cV] = qt_mult(T1.n, T1.p, T1.U, T1.V, T2.n, T2.p, T2.U, T2.V);
+            [cm, cp, cU, cV] = qt_mult(T1.n, T1.p, T1.U, T1.V, ...
+                T2.n, T2.p, T2.U, T2.V);
             cm = cm(1:min(length(cm), T1.sz(1)));
             cp = cp(1:min(length(cp), T2.sz(2)));
             cU = cU(1:min(size(cU,1), T1.sz(1)), :);
@@ -33,14 +34,18 @@ if isa(T1,'cqt') && isa(T2, 'cqt')
                 cl = T2.sz(2);
             end
             
-            [cm, cp, cU, cV, cW, cZ] = fqt_mult2(T1.n, T1.p, T1.U, T1.V, T1.W, T1.Z, T2.n, T2.p, T2.U, T2.V, T2.W, T2.Z, rw, T1.sz(2), cl);
+            [cm, cp, cU, cV, cW, cZ] = fqt_mult2(T1.n, T1.p, T1.U, T1.V,...
+                T1.W, T1.Z, T2.n, T2.p, T2.U, T2.V, T2.W, T2.Z, rw, ...
+                T1.sz(2), cl);
             if min(T1.sz(1), T2.sz(2)) == inf
-                T = cqt(cm, cp, cU, cV, cW(end:-1:1,end:-1:1), cZ(end:-1:1,end:-1:1), rw, cl);
+                T = cqt(cm, cp, cU, cV, cW(end:-1:1,end:-1:1), ...
+                    cZ(end:-1:1,end:-1:1), rw, cl);
                 T = cqt([], [], full(T), [], T1.sz(1), T2.sz(2));
             elseif max(T1.sz(1), T2.sz(2)) == inf
                 T = cqt(cm, cp, cU, cV, [], [], T1.sz(1), T2.sz(2));
             else
-                T = cqt(cm, cp, cU, cV, cW(end:-1:1,end:-1:1), cZ(end:-1:1,end:-1:1), T1.sz(1), T2.sz(2));
+                T = cqt(cm, cp, cU, cV, cW(end:-1:1,end:-1:1), ...
+                    cZ(end:-1:1,end:-1:1), T1.sz(1), T2.sz(2));
             end
             
         end
@@ -65,24 +70,30 @@ if isa(T1,'cqt') && isa(T2, 'cqt')
         error('Incompatible inner dimensions');
     end
 elseif  isa(T1, 'cqt') && isscalar(T2)
-    T = cqt(T1.n * T2, T1.p * T2, T1.U* T2, T1.V, T1.W(end:-1:1,end:-1:1) * T2, T1.Z(end:-1:1,end:-1:1), T1.sz(1), T1.sz(2));
+    T = cqt(T1.n * T2, T1.p * T2, T1.U* T2, T1.V, ...
+        T1.W(end:-1:1,end:-1:1) * T2, T1.Z(end:-1:1,end:-1:1), ...
+        T1.sz(1), T1.sz(2));
     if ~isempty(T1.c)
         T = extend(T, T1.c * T2);
     end
 elseif isscalar(T1) && isa(T2, 'cqt')
-    T = cqt(T2.n * T1, T2.p * T1, T2.U * T1, T2.V, T2.W(end:-1:1,end:-1:1) * T1, T2.Z(end:-1:1,end:-1:1), T2.sz(1), T2.sz(2));
+    T = cqt(T2.n * T1, T2.p * T1, T2.U * T1, ...
+        T2.V, T2.W(end:-1:1,end:-1:1) * T1, ...
+        T2.Z(end:-1:1,end:-1:1), T2.sz(1), T2.sz(2));
     if ~isempty(T2.c)
         T = extend(T, T2.c * T1);
     end
 elseif isa(T1,'cqt') && T1.sz(1) == inf && ~isa(T2, 'cqt')
-    error('Incompatible types multiplication. \nIf you want to multiply a cqt matrix T with a finite matrix of %s A you can use T * cqt(A) ',class(T2));
+    error('Incompatible types multiplication. \nIf you want' + ...
+        ' to multiply a cqt matrix T with a finite matrix of' + ...
+        ' %s A you can use T * cqt(A) ', class(T2));
 elseif isa(T1,'cqt') && T1.sz(1) ~= inf && ~isa(T2, 'cqt')
     T = full(T1 * cqt([], [], T2, [], size(T2, 1), size(T2, 2)));
-    %error('Incompatible types multiplication. \nIf you want to multiply a finite cqt matrix T with a finite matrix of %s A you can use T * cqt(A) ',class(T2));
 elseif isa(T2,'cqt') && T2.sz(1) == inf && ~isa(T1, 'cqt')
-    error('Incompatible types multiplication. \nIf you want to multiply a finite matrix of %s A with a cqt matrix you can use cqt(A) * T',class(T1));
+    error('Incompatible types multiplication. \nIf you want to' + ...
+        'multiply a finite matrix of %s A with a cqt matrix you can' + ...
+        'use cqt(A) * T', class(T1));
 elseif isa(T2,'cqt') && T2.sz(1) ~= inf && ~isa(T1, 'cqt')
     T = full(cqt([], [], T1, [], size(T1, 1), size(T1, 2)) * T2);
-    %error('Incompatible types multiplication. \nIf you want to multiply a finite matrix of %s A with a finite cqt matrix you can use cqt(A) * full(T)',class(T1));
 end
 

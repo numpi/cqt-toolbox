@@ -1,5 +1,6 @@
 %   Compute the sum of two finite quasi-Toeplitz matrices
-function [ cm, cp, cu, cv, cw, cz ] = fqt_add2(am, ap, au, av,aw,az, bm, bp, bu, bv,bw,bz)
+function [ cm, cp, cu, cv, cw, cz ] = fqt_add2(am, ap, au, ...
+    av,aw,az, bm, bp, bu, bv,bw,bz)
 % sum the Toeplitz part
 nam = length(am); nap = length(ap);
 nbm = length(bm); nbp = length(bp);

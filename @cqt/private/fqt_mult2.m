@@ -1,6 +1,9 @@
-function [cm,cp,cU,cV,cW,cZ]=fqt_mult2(am, ap, aU, aV, aW, aZ, bm, bp, bU, bV, bW, bZ, m, p, n)
+function [cm,cp,cU,cV,cW,cZ]=fqt_mult2(am, ap, aU, aV, aW, aZ, bm, ...
+    bp, bU, bV, bW, bZ, m, p, n)
 % Computes the product C=AB between an m x p and an p x n
-% quasi toeplitz matrices A=toep(am,ap)+Ua*Va' + Wa *Za'(end:-1:1,end:-1:1), B=toep(bm,bp)+Ub*Vb' + Wb *Zb'(end:-1:1,end:-1:1)
+% quasi toeplitz matrices A=toep(am,ap)+Ua*Va' + Wa 
+% *Za'(end:-1:1,end:-1:1), B=toep(bm,bp)+Ub*Vb' + 
+% Wb *Zb'(end:-1:1,end:-1:1)
 % am, ap, and bm, bp are the first column and the first row
 % of the Toeplitz part of A and B, respectively
 % the vectors cm and cp are first column and first row of
@@ -126,7 +129,8 @@ if(ra2+sb1>p)
     WW = bW(end:-1:1,end:-1:1);
     rasbV = bZ(end:-1:1,end:-1:1);
     rasbU = aU*(aV(end-krasb+1:end,:).'*WW(1:krasb,:));
-    if(ra2>=sb2)  % We decide to locate the correction in the upper left or in the lower right corner
+    if(ra2>=sb2)  % We decide to locate the correction in the
+                  % upper left or in the lower right corner
         up1 = 1;
     else
         down1 = 1;
@@ -145,11 +149,13 @@ if(sa2+rb1>p)
     end
 end
 
-% sum them up % cU = [rU, TRbU, RaTU, RaRbU, rasbU,sarbU]; cV=[rV, TRbV, RaTV,RaRbV,rasbV, sarbV]
 % Compute the upper left correction
-nru = size(rU,1); ntrbu = size(TRbU,1); nratu = size(RaTU,1); nrarbu = size(RaRbU,1);
-nrv = size(rV,1); ntrbv = size(TRbV,1); nratv = size(RaTV,1); nrarbv = size(RaRbV,1);
-kru = size(rU,2); ktrbu = size(TRbU,2); kratu = size(RaTU,2); krarbu = size(RaRbU,2);
+nru = size(rU,1); ntrbu = size(TRbU,1); nratu = size(RaTU,1); 
+nrarbu = size(RaRbU,1);
+nrv = size(rV,1); ntrbv = size(TRbV,1); nratv = size(RaTV,1); 
+nrarbv = size(RaRbV,1);
+kru = size(rU,2); ktrbu = size(TRbU,2); kratu = size(RaTU,2); 
+krarbu = size(RaRbU,2);
 rc1 = max([nru,ntrbu,nratu,nrarbu,up1*ra1,up2*m]);
 rc2 = max([nrv,ntrbv,nratv,nrarbv,up1*n,up2*rb2]);
 k = kru+ktrbu+kratu+krarbu+kbs*up1+ kbr*up2;
@@ -166,16 +172,23 @@ cV(1:nrarbv,kru+ktrbu+kratu+1:kru+ktrbu+kratu+krarbu) = RaRbV;
 
 if(up1==1)   % If the result of the cross products is located up
     cU(1:ra1,kru+ktrbu+kratu+krarbu+1:kru+ktrbu+kratu+krarbu+kbs) = rasbU;
-    cV(end-sb2+1:end,kru+ktrbu+kratu+krarbu+1:kru+ktrbu+kratu+krarbu+kbs) = rasbV;
+    cV(end-sb2+1:end, ...
+        kru+ktrbu+kratu+krarbu+1:kru+ktrbu+kratu+krarbu+kbs) = rasbV;
 end
 if(up2==1)
-    cU(end-sa1+1:end,kru+ktrbu+kratu+krarbu+up1*kbs+1:kru+ktrbu+kratu+krarbu+up1*kbs+kbr) = sarbU;
-    cV(1:rb2,kru+ktrbu+kratu+krarbu+up1*kbs+1:kru+ktrbu+kratu+krarbu+up1*kbs+kbr) = sarbV;
+    cU(end-sa1+1:end, ...
+        kru+ktrbu+kratu+krarbu+up1*kbs+1 : ...
+        kru+ktrbu+kratu+krarbu+up1*kbs+kbr) = sarbU;
+    cV(1:rb2,kru+ktrbu+kratu+krarbu+up1*kbs+1 : ...
+        kru+ktrbu+kratu+krarbu+up1*kbs+kbr) = sarbV;
 end
 % Compute the lower right correction
-nsw = size(sW,1); ntsbw = size(TSbW,1); nsatw = size(SaTW,1); nsasbw = size(SaSbW,1);
-nsz = size(sZ,1); ntsbz = size(TSbZ,1); nsatz = size(SaTZ,1); nsasbz = size(SaSbZ,1);
-ksw = size(sW,2); ktsbw = size(TSbW,2); ksatw = size(SaTW,2); ksasbw = size(SaSbW,2);
+nsw = size(sW,1); ntsbw = size(TSbW,1); 
+nsatw = size(SaTW,1); nsasbw = size(SaSbW,1);
+nsz = size(sZ,1); ntsbz = size(TSbZ,1); 
+nsatz = size(SaTZ,1); nsasbz = size(SaSbZ,1);
+ksw = size(sW,2); ktsbw = size(TSbW,2); 
+ksatw = size(SaTW,2); ksasbw = size(SaSbW,2);
 sc1 = max([nsw,ntsbw,nsatw,nsasbw,down1*m,down2*sa1]);
 sc2 = max([nsz,ntsbz,nsatz,nsasbz,down1*sb2,down2*n]);
 k = ksw+ktsbw+ksatw+ksasbw+kbs*down1+ kbr*down2;
@@ -191,12 +204,17 @@ cW(1:nsasbw,ksw+ktsbw+ksatw+1:ksw+ktsbw+ksatw+ksasbw) = SaSbW;
 cZ(1:nsasbz,ksw+ktsbw+ksatw+1:ksw+ktsbw+ksatw+ksasbw) = SaSbZ;
 
 if(down1==1)    % If the result of the cross products is located down
-    cW(end-ra1+1:end,ksw+ktsbw+ksatw+ksasbw+1:ksw+ktsbw+ksatw+ksasbw+kbs) = rasbU(end:-1:1,end:-1:1);
-    cZ(1:sb2,ksw+ktsbw+ksatw+ksasbw+1:ksw+ktsbw+ksatw+ksasbw+kbs) = rasbV(end:-1:1,end:-1:1);
+    cW(end-ra1+1:end, ...
+        ksw+ktsbw+ksatw+ksasbw+1:ksw+ktsbw+ksatw+ksasbw+kbs) = ...
+        rasbU(end:-1:1,end:-1:1);
+    cZ(1:sb2,ksw+ktsbw+ksatw+ksasbw+1:ksw+ktsbw+ksatw+ksasbw+kbs) = ...
+        rasbV(end:-1:1,end:-1:1);
 end
 if(down2==1)
-    cW(1:sa1,ksw+ktsbw+ksatw+ksasbw+down1*kbs+1:ksw+ktsbw+ksatw+ksasbw+down1*kbs+kbr) = sarbU(end:-1:1,end:-1:1);
-    cZ(end-rb2+1:end,ksw+ktsbw+ksatw+ksasbw+down1*kbs+1:ksw+ktsbw+ksatw+ksasbw+down1*kbs+kbr) = sarbV(end:-1:1,end:-1:1);
+    cW(1:sa1,ksw+ktsbw+ksatw+ksasbw+down1*kbs+1 : ...
+        ksw+ktsbw+ksatw+ksasbw+down1*kbs+kbr) = sarbU(end:-1:1,end:-1:1);
+    cZ(end-rb2+1:end,ksw+ktsbw+ksatw+ksasbw+down1*kbs+1 : ...
+        ksw+ktsbw+ksatw+ksasbw+down1*kbs+kbr) = sarbV(end:-1:1,end:-1:1);
 end
 % compress and clean
 nrm = fqt_norm(cm, cp, cU, cV, cW, cZ);

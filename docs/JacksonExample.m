@@ -24,8 +24,10 @@ threshold = 1e-12;
 [G, R] = cr(Am1, A0, A1, 12);
 
 % Let's double check if these are the correct solutions
-fprintf('Residue of the right solution G: %1.2e\n', norm(Am1 + A0 * G + A1* G^2));
-fprintf('Residue of the left solution R: %1.2e\n', norm(R^2 * Am1 + R * A0 + A1));
+fprintf('Residue of the right solution G: %1.2e\n', ...
+    norm(Am1 + A0 * G + A1* G^2));
+fprintf('Residue of the left solution R: %1.2e\n', ...
+    norm(R^2 * Am1 + R * A0 + A1));
 
 %%
 % We can now compute the matrix $M = A_0 + A_1 G$ so that it is block
@@ -107,7 +109,8 @@ R = E * pi * (hA0 - A0) + J * pi * Am1 ...
     + J' * pi * A1 + pi * A0;
 
 fprintf('Residue on the computed pi: %1.2e\n', norm(R));
-fprintf('Residue on the computed pi (infty norm): %1.2e\n', norm(R(1:4096, 1:4096), inf));
+fprintf('Residue on the computed pi (infty norm): %1.2e\n', ...
+    norm(R(1:4096, 1:4096), inf));
 
 total_time = toc;
 fprintf('Total time used: %4.2f s\n', total_time);

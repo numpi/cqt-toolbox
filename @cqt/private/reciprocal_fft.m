@@ -2,8 +2,8 @@ function [ym,yp] = reciprocal_fft(am,ap)
 % function [ym,ya] = reciprocal_fft(a)
 % compute the coefficients of the reciprocal of the Laurent polynomial
 % am(1)+am(2)/z+am(3)/z^2+... +ap(2)z +ap(2)z^2+... by using evaluation/
-% interpolation at the roots of 1. The number of interpolation points is set
-% adaptively.
+% interpolation at the roots of 1. The number of interpolation points is 
+% set adaptively.
 % On output, ym, yp are the coefficients of the negative/positive  powers,
 % ym(1)=yp(1) is the constant coefficient
 % June 22, 2016. By Dario A. Bini
@@ -62,7 +62,8 @@ for iter=1:maxiter
 end
 
 if iter>=maxiter
-    disp('Warning: reciprocal_fft has reached the max number of iterations. The error is')
+    disp('Warning: reciprocal_fft has reached the max number' + ...
+        'of iterations. The error is')
     disp([erm,erp])
     %pause
 end

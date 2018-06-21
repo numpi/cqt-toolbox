@@ -72,7 +72,8 @@ nmin = min(nU1,nV1);
 Y(1:kU,1:kU) = Y(1:kU,1:kU) + aV1(1:nmin,:).' * aU1(1:nmin,:);
 nmin = min(size(aW1,1),size(aZ1,1));
 temp = aZ1(1:nmin,:).' * aW1(1:nmin,:);
-Y(end-kW+1:end,end-kW+1:end)=Y(end-kW+1:end,end-kW+1:end)+temp(end:-1:1,end:-1:1);
+Y(end-kW+1:end,end-kW+1:end)=Y(end-kW+1:end,end-kW+1:end)+...
+    temp(end:-1:1,end:-1:1);
 
 
 if(nV1+nW1<=n && nU1+nZ1<=n)
@@ -81,10 +82,12 @@ if(nV1+nW1<=n && nU1+nZ1<=n)
     aW2 = aW1/Y(1:kW,1:kW);
 else
     if(nV1+nW1>n)
-        Y(1:kU,kU+1:end) = Y(1:kU,kU+1:end)+aV1(n-nW1+1:nV1,1:kU).'*aW1(end:-1:end-(nV1+nW1-n)+1,end:-1:1);
+        Y(1:kU,kU+1:end) = Y(1:kU,kU+1:end)+aV1(n-nW1+1:nV1,1:kU).'...
+            *aW1(end:-1:end-(nV1+nW1-n)+1,end:-1:1);
     end
     if(nU1+nZ1>n)
-        Y(kU+1:end,1:kU) = Y(kU+1:end,1:kU)+aZ1(end:-1:end-(nU1+nZ1-n)+1,end:-1:1).'*aU1(n-nZ1+1:nU1,1:kU);
+        Y(kU+1:end,1:kU) = Y(kU+1:end,1:kU)+...
+            aZ1(end:-1:end-(nU1+nZ1-n)+1,end:-1:1).'*aU1(n-nZ1+1:nU1,1:kU);
     end
     Y = inv(Y);
     Y = [[aU1;zeros(n-nU1,kU)],[zeros(n-nW1,kW);aW1(end:-1:1,end:-1:1)]]*Y;

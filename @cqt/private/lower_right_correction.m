@@ -1,7 +1,9 @@
-function [ new_am, new_ap, new_bm, new_bp ] = lower_right_correction(am, ap, bm, bp, m, p, n)
+function [ new_am, new_ap, new_bm, new_bp ] = lower_right_correction(...
+    am, ap, bm, bp, m, p, n)
 %LOWER_RIGHT_CORRECTION Compute the lower right correction after product.
 %
-% [ new_am, new_ap, new_bm, new_bp ] = lower_right_correction(am, ap, bm, bp, m, p, n)
+% [ new_am, new_ap, new_bm, new_bp ] = ...
+% lower_right_correction(am, ap, bm, bp, m, p, n)
 % computes the updated symbols necessary to build the factors of the
 % correction in the product of two matrices as Hankel with coefficients
 % given from the new symbols.

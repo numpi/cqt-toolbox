@@ -36,11 +36,13 @@ for i = 1 : length(row_indices)
         
         if row_indices(i) <= size(T.U, 1) && ...
                 col_indices(j) <= size(T.V, 1)
-            M(i,j) = M(i,j) + T.U(row_indices(i), :) * T.V(col_indices(j), :).';
+            M(i,j) = M(i,j) + T.U(row_indices(i), :) * ...
+                T.V(col_indices(j), :).';
         end
         if row_indices(i) > T.sz(1) - size(T.W, 1) && ...
                 col_indices(j) > T.sz(2) - size(T.Z, 1)
-            M(i,j) = M(i,j) + T.W(T.sz(1) - row_indices(i) + 1, :) * T.Z(T.sz(2) - col_indices(j) + 1, :).';
+            M(i,j) = M(i,j) + T.W(T.sz(1) - row_indices(i) + 1, :) * ...
+                T.Z(T.sz(2) - col_indices(j) + 1, :).';
         end
     end
     

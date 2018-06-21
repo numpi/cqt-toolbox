@@ -46,7 +46,8 @@ CheckTestResult(res, '<', 4.0 * eps * norm(correction(Ssl)), ...
     'Correction after scalar multiplication');
 
 % Testing the finite case
-[T1, T2, U1, V1, W1, Z1, sn1, sp1, U2, V2, W2, Z2, sn2, sp2] = GenerateFiniteExample(80, 3, 2, 80, 100);
+[T1, T2, U1, V1, W1, Z1, sn1, sp1, U2, V2, W2, Z2, sn2, sp2] = ...
+    GenerateFiniteExample(80, 3, 2, 80, 100);
 T2 = T2.';
 S = T1 * T2;
 [v1,v2]=symbol(S);

@@ -18,10 +18,12 @@ if isa(B, 'cqt') && ~isa(A, 'cqt')
         B.sz(2) = max(size(B.V,1), length(B.p) + B.sz(1));
     end
     
-    X = cqt([], [], A \ [B.U;zeros(size(A,1)-size(B.U,1),size(B.U,2))], B.V,...
-        A \ [zeros(size(A,1)-size(B.W,1),size(B.W,2));B.W(end:-1:1,end:-1:1)], B.Z(end:-1:1,end:-1:1), size(A,1), cl);
+    X = cqt([], [], A \ [B.U;zeros(size(A,1)-size(B.U,1),size(B.U,2))], ...
+        B.V, A \ [zeros(size(A,1)-size(B.W,1),size(B.W,2)); ...
+        B.W(end:-1:1,end:-1:1)], B.Z(end:-1:1,end:-1:1), size(A,1), cl);
     if ~isempty(B.n) && ~isempty(B.p)
-        X = X + cqt([],[], A\toep([B.n],[B.p],size(A,2), length(B.p)+size(A,2)-1),[], X.sz(1),X.sz(2));
+        X = X + cqt([],[], A\toep([B.n],[B.p],size(A,2), ...
+            length(B.p)+size(A,2)-1),[], X.sz(1),X.sz(2));
     end
     return;
 end

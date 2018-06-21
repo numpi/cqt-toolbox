@@ -61,7 +61,8 @@ CheckTestResult(norm(C - D), '<', 1e3 * epsi * norm(B) * norm(inv(A)), ...
     'mldivide on Toeplitz and Toeplitz (finite case)');
 
 A = cqt([ 4 -1 ], [4 1], randn(4, 2), randn(3, 2), 0, 0, m, m);
-B = cqt([1 rand(1,2) ], [1 rand(1,3) ], randn(5,3), randn(7, 3), 0, 0, n, m);
+B = cqt([1 rand(1,2) ], [1 rand(1,3) ], randn(5,3), ...
+    randn(7, 3), 0, 0, n, m);
 
 C = B * inv(A);
 D = B / A;
