@@ -87,3 +87,10 @@ TEST
 ================================================================================
 
 To run the unit tests, move the the tests folder and call the script RunAllTests.m
+
+================================================================================
+BUG FIXES / UPDATES
+================================================================================
+
+The most recent version of this package can be found online on Github, at the
+address https://github.com/numpi/cqt-toolbox. 
