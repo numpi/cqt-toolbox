@@ -4,7 +4,7 @@ function T = plus(T1, T2)
 % T = PLUS(T1, T2) adds two CQT matrices and produces a new CQT matrix T.
 
 if isa(T1, 'cqt') && isa(T2, 'cqt')
-    if ~prod(T1.sz == T2.sz)
+    if T1.sz(1) ~= T2.sz(1) || T1.sz(2) ~= T2.sz(2) 
         error('Incompatible dimensions in the addition')
     end
     if max(T1.sz) == inf
