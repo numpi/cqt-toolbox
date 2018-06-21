@@ -66,7 +66,7 @@ The package contains the following folders:
 @cqt             - Implementation of the CQT class. 
 docs             - Documentation and guide.
 private          - A few internal implementations.
-tests            - Unit tests
+tests            - Unit tests.
 
 On the top-level, the following files are available: 
 
@@ -92,5 +92,5 @@ To run the unit tests, move the the tests folder and call the script RunAllTests
 BUG FIXES / UPDATES
 ================================================================================
 
-The most recent version of this package can be found online on Github, at the
+The most recent version of this package can be found on Github, at the
 address https://github.com/numpi/cqt-toolbox. 
