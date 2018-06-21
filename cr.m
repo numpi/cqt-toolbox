@@ -35,7 +35,7 @@ for i=1:max_it
         temp2 = BB0 * Bm1;
     else
         BB0 = B0 \ [ B1, Bm1 ];
-        temp1 = BB0(:, size(B1,2));
+        temp1 = BB0(:, 1:size(B1,2));
         temp2 = BB0(:, size(B1,2)+1:end);
     end
     
