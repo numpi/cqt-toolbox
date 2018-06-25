@@ -12,5 +12,5 @@ if isempty(cqt_html_file)
     fprintf(' done \n');
 end
 
-open(cqt_html_file);
+web(cqt_html_file);
 

@@ -30,7 +30,7 @@ else
 end
 
 for i=1:max_it
-    if ~ ismatrix(B0)
+    if ~ ismatrix(B0) || isa(B0, 'cqt')
         BB0 = inv(B0);
         temp1 = BB0 * B1;
         temp2 = BB0 * Bm1;

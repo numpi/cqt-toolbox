@@ -1,6 +1,12 @@
 function html_file = CompileGuide
 %COMPILEGUIDE Compile the toolbox guide from .m files.
 
+if exist('stylesheet.xsl', 'file')
+    publish_cmd = @(file) publish(file, 'stylesheet', 'stylesheet.xsl');
+else
+    publish_cmd = @(file) publish(file);
+end
+
 doc_files = { ...
     'ArithmeticExample.m', ...
     'JacksonExample.m', ...
@@ -11,10 +17,14 @@ doc_files = { ...
 main_file = 'Guide.m';
 
 for i = 1 : length(doc_files)
-    publish(doc_files{i});
+    publish_cmd(doc_files{i});
 end
 
-html_file = publish(main_file);
+html_file = publish_cmd(main_file);
+
+if exist('numpi.css', 'file')
+    copyfile('numpi.css', 'html/numpi.css');
+end
 
 
 end
