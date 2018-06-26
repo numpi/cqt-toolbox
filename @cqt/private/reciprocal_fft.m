@@ -62,8 +62,8 @@ for iter=1:maxiter
 end
 
 if iter>=maxiter
-    disp('Warning: reciprocal_fft has reached the max number' + ...
-        'of iterations. The error is')
+    disp([ 'Warning: reciprocal_fft has reached the max number' ...
+        'of iterations. The error is' ])
     disp([erm,erp])
     %pause
 end

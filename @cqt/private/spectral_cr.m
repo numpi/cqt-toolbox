@@ -65,8 +65,8 @@ for k=1:maxiter
 end
 
 if err > epsi
-    warning('CR did not convergence within the' + ...
-        ' maximum number of iterations');
+    warning([ 'CR did not convergence within the' ...
+        ' maximum number of iterations' ]);
 end
 
 en = zeros(n,1); e1 = en; en(n) = 1; e1(1) = 1;
