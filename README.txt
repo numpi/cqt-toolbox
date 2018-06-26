@@ -86,7 +86,21 @@ by running addpath /path/to/cqt-toolbox
 TEST
 ================================================================================
 
-To run the unit tests, move the the tests folder and call the script RunAllTests.m
+To run the unit tests, move the the tests folder and call the script
+RunAllTests.m
+
+================================================================================
+GUIDE
+================================================================================
+
+The command cqtguide compiles the documentation of the toolbox, and opens it in
+the browser of MATLAB. It provides a few examples on how to use the toolbox to
+define and operate on QT-matrices, and to solve matrix equations and compute 
+matrix functions. 
+
+The first time that cqtguide is executed it runs all the code in the examples, 
+so allow some time for it complete. Subsequent calls will open the guide 
+directly. 
 
 ================================================================================
 BUG FIXES / UPDATES
@@ -94,3 +108,4 @@ BUG FIXES / UPDATES
 
 The most recent version of this package can be found on Github, at the
 address https://github.com/numpi/cqt-toolbox. 
+
