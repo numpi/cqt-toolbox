@@ -14,8 +14,8 @@ if max(T.sz) == inf
         case 'eqt'
             r = eqt_norm(T);
         otherwise
-            error('Only CQT / EQT norms are supported' + ...
-                'for infinite matrices');
+            error([ 'Only CQT / EQT norms are supported' ...
+                'for infinite matrices' ]);
     end
 else
     if max(T.sz) == inf
