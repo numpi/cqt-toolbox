@@ -38,11 +38,11 @@ A1 = cqt(a1n, a1p, a1n(2), a1p(2), n, n);
 Am1 = cqt(am1n, am1p, am1n(2), am1p(2), n, n);
 
 %%
-% We now solve the quadratic equation $A_{-1} + A_0 G + A_1 G^2 = 0$ using
+% We now solve the quadratic equation $A_{-1} + A_0 G + A_1 G^2 = G$ using
 % cyclic reduction (which can be called using the CR function in the
 % toolbox), and we verify the solution. 
 %
-% Note that the function CR actually solves $A_{-1} + A_0 G + A_1 G^2 = G$,
+% Note that the function CR actually solves $A_{-1} + A_0 G + A_1 G^2 = 0$,
 % so we need to shift the middle coefficient with the identity. 
 
 tic; G = cr(Am1, A0 - cqt(1, 1, [], [], n, n), A1); toc
