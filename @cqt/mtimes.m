@@ -58,7 +58,7 @@ if isa(T1,'cqt') && isa(T2, 'cqt')
             T2.c = zeros(1,0); T1.c = zeros(1,0);
             
             T.c = formatted_sum(correction(cqt(c1) * T2), sum(c1) * c2);
-            T.c = formatted_sum(T.c, sa * c2);
+            T = extend(T, formatted_sum(T.c, sa * c2));
             
             Te = cumsum(na(end:-1:2)).';
             Te = Te(end:-1:1);

@@ -7,5 +7,6 @@ C = zeros(max(size(A, 1), size(B, 1)), ...
 C(1:size(A,1), 1:size(A,2)) = A;
 C(1:size(B,1), 1:size(B,2)) = C(1:size(B,1), 1:size(B,2)) + B;
 
+
 end
 
