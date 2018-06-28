@@ -8,7 +8,11 @@ if min(size(A)) ~= inf
         'infinite matrices' ]);
 end
 
-A.c = c;
+
+l = cumsum(abs(c(end:-1:1)));
+m = sum(l > norm(c, 1) * cqtoption('threshold'));
+c = c(1:m);
+A.c = reshape(c, 1, m);
 
 end
 
