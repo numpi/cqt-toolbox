@@ -13,6 +13,8 @@ if max(T.sz) == inf
             r = qt_norm(T.n, T.p, T.U, T.V);
         case 'eqt'
             r = eqt_norm(T);
+        case inf
+            r = eqt_norm_inf(T);
         otherwise
             error([ 'Only CQT / EQT norms are supported' ...
                 'for infinite matrices' ]);
