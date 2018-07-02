@@ -30,6 +30,14 @@ while res > tol
     w = w - U * (U' * w);
     
     alfa = [ alfa, norm(w) ];
+	
+	% keyboard
+	
+	if alfa(end) == 0
+		res = 0;
+		beta = [ beta, 0 ];
+		break;
+	end
     
     U = [ U , w / alfa(end) ];
     
@@ -38,11 +46,12 @@ while res > tol
     w = w - V * (V' * w);
     w = w - V * (V' * w);
     
-    beta = [ beta, norm(w) ];
+    beta = [ beta, norm(w) ];    
     V = [ V, w / beta(end) ];
     
     % Estimate the norm: if we have a good estimate, evaluate the
     % possibility of stopping the iteration.
+    % fprintf(' Norm : %e, nrm_converged: %d, res = %e\n', beta(end) / nrm);
     if ~nrm_converged
         nrm_est = norm(diag(alfa) + diag(beta(1:end-1), 1));
         if (nrm_est - nrm) / nrm < cqtoption('threshold')
@@ -59,9 +68,15 @@ end
 % Possibly perform recompressione
 rk = sum(diag(S) > tol * S(1,1));
 
-U = U * Ul(:,1:rk);
-V = V(:,1:end-1) * Vl(:,1:rk);
-S = S(1:rk, 1:rk);
+if rk == 0
+	U = [];
+	S = [];
+	V = [];
+else
+	U = U * Ul(:,1:rk);
+	V = V(:,1:end-1) * Vl(:,1:rk);
+	S = S(1:rk, 1:rk);
+end
 
 end
 

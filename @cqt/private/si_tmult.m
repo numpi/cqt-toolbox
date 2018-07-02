@@ -42,34 +42,23 @@ na = length(am); nb = length(bp);
 if na <=1 || nb <= 1
     cU = []; cV = [];
 else
-    if na>nb
-        am = am(2:end);   bm = [bp(2:end),zeros(1,na-nb)]; ...
-            bp = zeros(1,nb-1);
-        if nb>lancz_param
-            cU=-am(2:end);
-            cV=bp(2:end);
-            [ cU,cV ] = hankel_compress(cU, cV, cqtoption('compression'));
-            cV=conj(cV);
-        else
-            cU = -hankel(am); cV = hankel(bm,bp).';
-            [ cU, cV ] = compress_qr( cU, cV );
-        end
-        
-    else
-        bm = bp(2:end);
-        am = am(2:end); ap = [am(end),zeros(1,nb-2)];
-        if nb>lancz_param
-            cU=-am(2:end);
-            cV=bp(2:end);
-            [ cU,cV ] = hankel_compress(cU, cV, cqtoption('compression'));
-            cV=conj(cV);
-        else
+	if min([na nb]) > lancz_param
+		[ cU, cV ] = hankel_compress(-am(2:end), bp(2:end), ...
+			cqtoption('compression'));
+	else	
+		if na>nb
+			am = am(2:end); bm = [bp(2:end),zeros(1,na-nb)]; ...
+			bp = zeros(1,nb-1);
+			cU = -hankel(am); cV = hankel(bm,bp).';
+			[ cU, cV ] = compress_qr( cU, cV );        
+		else
+			bm = bp(2:end);
+			am = am(2:end); ap = [am(end),zeros(1,nb-2)];			
             cU = -hankel(am,ap);
             cV = hankel(bm).';
-            [ cU, cV ] = compress_qr( cU, cV );
-            
-        end
-    end
+            [ cU, cV ] = compress_qr( cU, cV );            
+		end
+	end
 end
 
 
