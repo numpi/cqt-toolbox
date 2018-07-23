@@ -16,8 +16,8 @@ if isempty(U) || isempty(V)
     return;
 end
 
-nrmU = norm(U(end,:) * S);
-nrmV = norm(V(end,:) * S);
+nrmU = norm(U(end,:) .* S);
+nrmV = norm(V(end,:) .* S);
 
 if min(nrmU, nrmV) < epsilon
     if nrmU < nrmV
