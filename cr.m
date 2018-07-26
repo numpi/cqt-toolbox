@@ -1,4 +1,4 @@
-function [G, R, B0] = cr(Am1, A0, A1, max_it)
+function [G, R, B0] = cr(Am1, A0, A1, max_it, debug)
 %CR	Cyclic reduction iteration for solving Am1 + A0 X + A1 X^2 = 0
 %
 %	[G, R] = CR(Am1, A0, A1) computes the matrices G and R solutions of
@@ -17,6 +17,10 @@ if ~exist('max_it','var')
     max_it = 20;
 end
 
+if ~exist('debug', 'var')
+    debug = false;
+end
+
 Bm1 = Am1;
 B0 = A0;
 B1 = A1;
@@ -29,9 +33,13 @@ else
     norm_type = inf;
 end
 
-for i=1:max_it
+% Iteration counter
+i = 1;
+
+while (i < max_it)
+    
     if ~ ismatrix(B0) || isa(B0, 'cqt')
-        BB0 = inv(B0);
+        BB0 = inv(B0);        
         temp1 = BB0 * B1;
         temp2 = BB0 * Bm1;
     else
@@ -48,9 +56,19 @@ for i=1:max_it
     Bm1 = -Bm1 * temp2;
     B1 = -B1 * temp1;
     
-    if min(norm(Bm1, norm_type), norm(B1, norm_type)) < eps
+    nrm_m1 = norm(Bm1, norm_type);
+    nrm_1  = norm(B1, norm_type);
+    
+    if debug
+        fprintf('It = %d, Norm(Bm1) = %e, Norm(B1) = %e\n', ...
+            i, nrm_m1, nrm_1);
+    end
+    
+    if min(nrm_m1, nrm_1) < eps
         break
     end
+    
+    i = i + 1;
 end
 
 if i==max_it
