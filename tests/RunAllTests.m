@@ -22,6 +22,7 @@ for i = 1 : length(inversion)
     TestCqtMrdivide;
     TestCqtUL;
     TestCqtEmpty;
+    TestCqtExpLog;
     
 end
 

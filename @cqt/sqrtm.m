@@ -7,7 +7,7 @@ function X = sqrtm(A)
 if size(A, 2) == inf
     nrm_type = 'cqt';
 else
-    nrm_type = 'cqt';
+    nrm_type = 2;
 end
 
 converged = false;
