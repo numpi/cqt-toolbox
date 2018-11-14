@@ -12,7 +12,9 @@ r = 0;
 
 threshold = 1e-6;
 
-while log(abs(diff)) > threshold
+steps = 0;
+
+while log(abs(diff)) > threshold && steps < 30
     y = full(T' * (T * cqt(0, 0, x, 0, n, 1)));
     
     oldr = r;
@@ -24,7 +26,14 @@ while log(abs(diff)) > threshold
         diff = r / oldr;
     end
     
-    x = y / r;
+    if r ~= 0
+      x = y / r;
+    else
+      r = 0;
+      break;
+    end
+    
+    steps = steps + 1;
 end
 
 r = sqrt(r);
