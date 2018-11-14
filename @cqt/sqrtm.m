@@ -4,11 +4,7 @@ function X = sqrtm(A)
 % Y = SQRT(X) computes a matrix Y such that Y^2 = X. The computed square
 % root is the principal branch of the square root.
 
-if size(A, 2) == inf
-    nrm_type = 'cqt';
-else
-    nrm_type = 2;
-end
+nrm_type = 'cqt';
 
 converged = false;
 threshold = 1.0e2 * cqtoption('threshold') * norm(A, nrm_type);
