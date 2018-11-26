@@ -62,7 +62,7 @@ fp = cln(ff(km:end));
 
 if realflag
     fm = real(fm);
-    rp = real(fp);
+    fp = real(fp);
 end
 
 end
