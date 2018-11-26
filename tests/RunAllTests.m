@@ -23,6 +23,7 @@ for i = 1 : length(inversion)
     TestCqtUL;
     TestCqtEmpty;
     TestCqtExpLog;
+    TestCqtLyap;
     
 end
 
