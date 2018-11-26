@@ -18,8 +18,6 @@ maxiter = 18;
 epsi = 1.e-15;
 realflag = isreal(am) && isreal(ap);
 
-fprintf('isreal = %d\n', realflag);
-
 % compute the first approximation
 k = 1 + ceil(log(a1 + a2)/log(2));
 Na = 2^k; N = Na;
