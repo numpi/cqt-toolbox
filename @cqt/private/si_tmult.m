@@ -61,6 +61,12 @@ else
 	end
 end
 
+if isreal(am) && isreal(ap) && isreal(bm) && isreal(bp)
+    cm = real(cm);
+    cp = real(cp);
+    cU = real(cU);
+    cV = real(cV);
+end
 
 
 

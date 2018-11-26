@@ -8,6 +8,5 @@ switch cqtoption('inversion')
         [l, u] = spectral_fft(vm, vp);
 end
 
-
 end
 

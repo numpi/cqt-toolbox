@@ -3,7 +3,7 @@ function C = qt_mldivide(A, B)
 
 % Handle the triangular case
 if length(A.p) == 1 || length(A.n) == 1
-    C = inv(A) \ B;
+    C = inv(A) * B;
     return;
 end
 

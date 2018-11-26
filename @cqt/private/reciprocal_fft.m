@@ -16,7 +16,10 @@ ap = reshape(ap, 1, a2);
 % constants:
 maxiter = 18;
 epsi = 1.e-15;
-realflag=isreal(am)*isreal(ap);
+realflag = isreal(am) && isreal(ap);
+
+fprintf('isreal = %d\n', realflag);
+
 % compute the first approximation
 k = 1 + ceil(log(a1 + a2)/log(2));
 Na = 2^k; N = Na;
@@ -29,7 +32,7 @@ scl = 2*mod([1:N],2)-1;
 % evaluation-interpolation
 s = 1./fft(scl.*v);
 y = ifft(s);   y = y./scl;
-if(realflag == 1)
+if realflag
     y = real(y);
 end
 ym = y(cntr:-1:1);   yp = y(cntr:end);
@@ -46,7 +49,8 @@ for iter=1:maxiter
     % evaluation-interpolation
     s = 1./fft(scl.*v);
     yn = ifft(s); yn = yn./scl;
-    if(realflag == 1)
+    
+    if realflag
         yn = real(yn);
     end
     ynm = yn(cntr:-1:1);   ynp = yn(cntr:end);
@@ -59,6 +63,11 @@ for iter=1:maxiter
         % ym = cln(ym); yp = cln(yp);
         break
     end
+end
+
+if realflag
+    ym = real(ym);
+    yp = real(yp);
 end
 
 if iter>=maxiter
