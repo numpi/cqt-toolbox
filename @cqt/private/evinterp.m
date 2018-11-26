@@ -1,10 +1,19 @@
 function [fm, fp] = evinterp(f, varargin)
 %EVINTERP Evaluation / interpolation scheme
+%
+% This implementation assumes that f maps the real axis into
+% itself, so that if real input is given then real output is
+% expected. 
 
 tol = cqtoption('threshold');
 
 % Number of arguments of the function f
 n = length(varargin) / 2;
+
+realflag = true;
+for j = 1 : n
+    realflag = realflag && isreal(varargin{j});
+end
 
 am = varargin(1:2:end);
 ap = varargin(2:2:end);
@@ -50,6 +59,11 @@ end
 
 fm = cln(ff(km:-1:1));
 fp = cln(ff(km:end));
+
+if realflag
+    fm = real(fm);
+    rp = real(fp);
+end
 
 end
 
