@@ -31,11 +31,7 @@ end
 
 A = A - cqt(1, 1, [], [], A.sz(1), A.sz(2));
 
-if isinf(max(A.sz))
-    L = polyvalm(q, A) \ polyvalm(p, A);
-else
-    L = inv(polyvalm(q, A)) * polyvalm(p, A);
-end
+L = polyvalm(q, A) \ polyvalm(p, A);
 
 % Scaling
 L = r * L;
