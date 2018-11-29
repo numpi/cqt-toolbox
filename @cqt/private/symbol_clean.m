@@ -42,19 +42,18 @@ end
 end
 
 function r = minimal_cut(am, ap)
+
     r = 0.0;
+
+    % Distinguish a few cases
+    nam = length(am); nap = length(ap);
     
-    if length(am) == 1
+    if nam == 1 && nap == 1
         r = abs(am(1));
-    else
-        r = abs(am(end));
+    elseif (nam == 1 && am(1) == 0) || (nap == 1 && ap(1) == 0)
+        r = max(abs(am(end)), abs(ap(end)));
+    elseif nam > 1 || nap > 1
+        r = min(abs(am(end)), abs(ap(end)));
     end
-    
-    if length(ap) == 1 && length(am) > 1
-        r = r + abs(ap(1));
-    else
-        r = r + abs(ap(end));
-    end
-    
     
 end
