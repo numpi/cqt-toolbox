@@ -7,18 +7,12 @@ function X = cqtstein(A, B, C, poles)
 %
 %     under the assumption that both A and B have spectral radius strictly
 %     smaller than 1. 
-%
-% X = CQTSTEIN(A, B, C, POLES) specifies the poles to use in the Sylvester
-% equation constructed by left and right multiplying by shifted inverses of
-% A and B. 
 
-M1 = inv(A + cqt(1,1));
-M2 = inv(cqt(1,1) - B);
+I = cqt(1,1);
 
-if ~exist('poles', 'var')
-    X = cqtlyap(M1, B * M2, - M1 * C * M2);
-else
-    X = cqtlyap(M1, B * M2, - M1 * C * M2, poles);
-end
+M1 = inv(A - I);
+M2 = inv(B + I);
+
+X = cqtlyap(M1 * (A + I), M2 * (B - I), 2 * M1 * C * M2);
 
 end
