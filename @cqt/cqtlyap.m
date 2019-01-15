@@ -1,7 +1,7 @@
 function X = cqtlyap(varargin)
 %CQTLYAP Lyapunov and Sylvester Solver
 
-debug = true;
+debug = false;
 
 A = varargin{1};
 B = varargin{2};
