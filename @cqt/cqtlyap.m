@@ -1,7 +1,15 @@
-function X = cqtlyap(A, B, C)
+function X = cqtlyap(varargin)
 %CQTLYAP Lyapunov and Sylvester Solver
 
 debug = false;
+
+A = varargin{1};
+B = varargin{2};
+C = varargin{3};
+
+if nargin > 3
+    poles = varargin{4};
+end
 
 if ~isinf(max(size(A)))
     error('cqtlyap is only supported for infinite matrices');
@@ -13,7 +21,12 @@ end
 [cm, cp] = symbol(C);
 
 % Construct the symbol of X
-[xm, xp] = evinterp(@(a,b,c) c ./ (a + b), am, ap, bm, bp, -cm, -cp);
+if isempty(cm) && isempty(cp)
+    xm = [];
+    xp = [];
+else
+    [xm, xp] = evinterp(@(a,b,c) c ./ (a + b), am, ap, bm, bp, -cm, -cp);
+end
 
 % Solve the correction equation
 X = cqt(xm, xp);
@@ -22,8 +35,13 @@ R = A*X + X*B + C;
 [RU, RV] = correction(R);
 
 % Solve the equation for the correction
-[Xu, Xv] = ek_sylv(A, B, RU, RV, inf, ...
-    cqtoption('threshold'), debug, 'cqt');
+if ~exist('poles', 'var')
+    [Xu, Xv] = ek_sylv(A, B, RU, RV, inf, ...
+        cqtoption('threshold'), debug, 'cqt');
+else
+    [Xu, Xv] = rk_sylv(poles, A, B, RU, RV, inf, ...
+        cqtoption('threshold'), debug, 'cqt');
+end
 
 X = X + cqt([], [], Xu, Xv);
 

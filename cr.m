@@ -1,4 +1,4 @@
-function [G, R, B0] = cr(Am1, A0, A1, max_it, debug)
+function [G, R, B0, i, history] = cr(Am1, A0, A1, max_it, debug)
 %CR	Cyclic reduction iteration for solving Am1 + A0 X + A1 X^2 = 0
 %
 %	[G, R] = CR(Am1, A0, A1) computes the matrices G and R solutions of
@@ -12,6 +12,9 @@ function [G, R, B0] = cr(Am1, A0, A1, max_it, debug)
 %
 %	[G, R, B0] = CR(Am1, A0, A1, MAX_IT) limits the number of iterations 
 %   to MAX_IT, the default value is MAX_IT=20
+%
+%   [G, R, B0, its] = CT(AM1, A0, A1, MAX_IT) returns the number of
+%       iterations that were performed to achieve convergence. 
 
 if ~exist('max_it','var')
     max_it = 20;
@@ -24,6 +27,11 @@ end
 Bm1 = Am1;
 B0 = A0;
 B1 = A1;
+
+if nargout >= 5
+    history = [ min(norm(Bm1, 'eqt'), norm(B1, 'eqt')) ];
+    debug = true;
+end
 
 hB0 = B0;
 
@@ -62,6 +70,9 @@ while (i < max_it)
     if debug
         fprintf('It = %d, Norm(Bm1) = %e, Norm(B1) = %e\n', ...
             i, nrm_m1, nrm_1);
+        if nargout >= 5
+            history = [ history, min(nrm_m1, nrm_1) ];
+        end
     end
     
     if min(nrm_m1, nrm_1) < eps

@@ -32,7 +32,8 @@ am1n = am1n / rowsum; am1p = am1p / rowsum;
 %%
 % Now that we know the symbols, we can create the CQT objects. We create
 % them finite of dimension $n$, and in this case we choose $n = 2^{15}$. 
-n = 2^15;
+% n = 2^15;
+n = 128;
 A0 = cqt(a0n, a0p, a0n(2), a0p(2), n, n);
 A1 = cqt(a1n, a1p, a1n(2), a1p(2), n, n);
 Am1 = cqt(am1n, am1p, am1n(2), am1p(2), n, n);
