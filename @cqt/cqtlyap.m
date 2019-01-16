@@ -12,10 +12,10 @@ if nargin > 3
 end
 
 if ~isinf(max(size(A)))
-    error('cqtlyap is only supported for infinite matrices');
+    % error('cqtlyap is only supported for infinite matrices');
 end
 
-% Solve the equation on the Toeplitz partby evaluation / interpolation
+% Solve the equation on the Toeplitz part by evaluation / interpolation
 [am, ap] = symbol(A);
 [bm, bp] = symbol(B);
 [cm, cp] = symbol(C);
@@ -29,7 +29,7 @@ else
 end
 
 % Solve the correction equation
-X = cqt(xm, xp);
+X = cqt(xm, xp, [], [], size(A, 2), size(B, 1));
 R = A*X + X*B + C;
 
 [RU, RV] = correction(R);
