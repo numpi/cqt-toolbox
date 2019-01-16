@@ -37,10 +37,10 @@ R = A*X + X*B + C;
 % Solve the equation for the correction
 if ~exist('poles', 'var')
     [Xu, Xv] = ek_sylv(A, B, RU, RV, inf, ...
-        cqtoption('threshold'), debug, 'cqt');
+        cqtoption('threshold'), debug, inf);
 else
     [Xu, Xv] = rk_sylv(poles, A, B, RU, RV, inf, ...
-        cqtoption('threshold'), debug, 'cqt');
+        cqtoption('threshold'), debug, inf);
 end
 
 X = X + cqt([], [], Xu, Xv);

@@ -24,6 +24,7 @@ for i = 1 : length(inversion)
     TestCqtEmpty;
     TestCqtExpLog;
     TestCqtLyap;
+    TestCqtQuadratic;
     
 end
 

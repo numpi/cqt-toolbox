@@ -39,11 +39,11 @@ um = U(:,1);  up = U(end:-1:1,2);
 % um = cln(um); up = cln(up);
 n = min(length(um), length(up));
 th = sum(um(1:n).*up(1:n));
-if vm(1)/th<0 && realflag
-    disp('Warning: in spectral_fft th<0')
-    th
-    %pause
-end
+%if vm(1)/th<0 && realflag
+%    disp('Warning: in spectral_fft th<0')
+%    th
+%    %pause
+%end
 th = sqrt(vm(1)/th);
 um = th*um;  up = th*up;
 end
