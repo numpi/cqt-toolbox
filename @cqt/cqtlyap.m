@@ -12,7 +12,7 @@ if nargin > 3
 end
 
 if ~isinf(max(size(A)))
-    % error('cqtlyap is only supported for infinite matrices');
+    error('cqtlyap is only supported for infinite matrices');
 end
 
 % Solve the equation on the Toeplitz part by evaluation / interpolation
@@ -37,10 +37,10 @@ R = A*X + X*B + C;
 % Solve the equation for the correction
 if ~exist('poles', 'var')
     [Xu, Xv] = ek_sylv(A, B, RU, RV, inf, ...
-        cqtoption('threshold'), debug, inf);
+        @(r, n) r < cqtoption('threshold'), debug, 2);
 else
     [Xu, Xv] = rk_sylv(poles, A, B, RU, RV, inf, ...
-        cqtoption('threshold'), debug, inf);
+        @(r, n) r < cqtoption('threshold'), debug, inf);
 end
 
 X = X + cqt([], [], Xu, Xv);
