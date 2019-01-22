@@ -20,6 +20,8 @@ function X = quadnewt(Am1, A0, A1, varargin)
 %                 the iterations. The default is false. 
 %      - 'maxit': Maximum number of allowed Newton iterations. The default
 %                 is 15. 
+%      - 'X': An optional input parameter -- if not given, the iteration
+%             starts from the zero matrix. 
 
 % parse Inputs
 p = inputParser;
@@ -27,6 +29,7 @@ p = inputParser;
 addParameter(p, 'debug', false);
 addParameter(p, 'tol', 1e1 * ( cqtoption('threshold') ));
 addParameter(p, 'maxit', 15);
+addParameter(p, 'X', Am1);
 
 parse(p, varargin{:});
 
@@ -34,9 +37,7 @@ debug = p.Results.debug;
 maxit = p.Results.maxit;
 tol   = p.Results.tol;
 
-% Compute the residual -- we save S because it will be useful later on, and
-% in this way we can perform the first iteration right away. 
-X = Am1;
+X = p.Results.X;
 
 j = 1;
 
