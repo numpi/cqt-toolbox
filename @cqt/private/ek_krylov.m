@@ -68,7 +68,12 @@ function [V, K, H, w] = add_zero_pole(V, K, H, A, w)
     if isstruct(A)
         w = A.solve(1.0, 0.0, w);
     else
+        lbs = size(w, 2);
         w = correction(A \ cqt(w));
+        if size(w, 2) < lbs
+            w(1, lbs) = 0;
+        end
+        w = w(:, 1:lbs);
     end
     
     % At this point, it might happen that w has more rows than V, so we
@@ -101,7 +106,12 @@ function [V, K, H, w] = add_inf_pole(V, K, H, A, w)
     if isstruct(A)
         w = A.multiply(1.0, 0.0, w);
     else
+        lbs = size(w, 2);
         w = correction(A * cqt(w));
+        if size(w, 2) < lbs
+            w(1, lbs) = 0;
+        end
+        w = w(:, 1:lbs);
     end
     
     % At this point, it might happen that w has more rows than V, so we

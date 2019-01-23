@@ -52,7 +52,7 @@ while j < maxit
     [rm, rp] = symbol(R);
     
     % If the symbol
-    if norm(rm, 1) + norm(rp, 1) < tol
+    if norm(rm, 1) + norm(rp, 1) < cqtoption('threshold')
         [U, V] = correction(R);
         R = cqt([], [], U, V);
     end

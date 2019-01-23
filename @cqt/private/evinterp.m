@@ -1,11 +1,13 @@
-function [fm, fp] = evinterp(f, varargin)
+function [fm, fp] = evinterp(f, tol, varargin)
 %EVINTERP Evaluation / interpolation scheme
 %
 % This implementation assumes that f maps the real axis into
 % itself, so that if real input is given then real output is
 % expected. 
 
-tol = cqtoption('threshold');
+if ~exist('tol', 'var')
+    tol = cqtoption('threshold');
+end
 
 % Number of arguments of the function f
 n = length(varargin) / 2;
@@ -49,7 +51,7 @@ while ~converged
     
     % Check if the decay is strong enough
     if norm(ff(1:ceil(km/2)), 1) + norm(ff(end-ceil(kp/2)+1:end), 1) < ...
-            norm(ff, 1) * tol
+            tol
         converged = true;
     else
         km = 2 * km;

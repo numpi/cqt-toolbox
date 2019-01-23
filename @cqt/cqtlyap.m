@@ -31,7 +31,7 @@ if isempty(cm) && isempty(cp)
     xm = [];
     xp = [];
 else
-    [xm, xp] = evinterp(@(a,b,c) c ./ (a + b), am, ap, bm, bp, -cm, -cp);
+    [xm, xp] = evinterp(@(a,b,c) c ./ (a + b), tol, am, ap, bm, bp, -cm, -cp);
 end
 
 % Solve the correction equation
