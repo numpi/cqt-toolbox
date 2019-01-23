@@ -49,6 +49,14 @@ while j < maxit
     
     nrmR = norm(R, inf);
     
+    [rm, rp] = symbol(R);
+    
+    % If the symbol
+    if norm(rm, 1) + norm(rp, 1) < tol
+        [U, V] = correction(R);
+        R = cqt([], [], U, V);
+    end
+    
     if debug
         fprintf('Newton :: it %d, res = %e\n', j, nrmR);
     end
@@ -62,7 +70,8 @@ while j < maxit
     gamma = sqrt( norm(M, inf) / norm(X, inf) );
     
     % Here we use the fact that iS * R = X + iS * Am1;
-    D = cqtstein(M / gamma, X * gamma, X + iS * Am1);
+    D = cqtstein(M / gamma, X * gamma, X + iS * Am1, 'tol', ...
+        max(tol / 10, nrmR^2));
     
     X = X + D;
     
