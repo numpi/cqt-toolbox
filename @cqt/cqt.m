@@ -51,6 +51,38 @@ classdef cqt
         
         function obj = cqt(varargin)
             %CQT Create a a QuasiToeplitz matrix in the Wiener class
+			
+			if ~isempty(varargin) && ischar(varargin{1})
+				switch varargin{1}
+					case 'hankel'
+						if length(varargin) < 2
+							error('Please specify a symbol for ' + ...
+								  'the Hankel matrix');
+						end
+						
+						[U, V] = hankel_compress(varargin{2}, [], ...
+							cqtoption('compression'));
+						
+						obj = cqt([], [], U, V);
+						
+					case 'handle'
+						if length(varargin) < 2
+							error('Please specify a function to ' + ...
+								'evaluate the symbol');
+						end
+						
+						[fm, fp] = evinterp(varargin{2}, ...
+							cqtoption('threshold'), [0 1], 0);
+						
+						obj = cqt(fm, fp);
+						
+					otherwise
+						error('Unsupported constructor option');
+				end
+				
+				return
+			end
+			
             switch length(varargin)
                 case 1
                     obj.n = 0;

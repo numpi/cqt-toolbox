@@ -28,14 +28,16 @@ p = inputParser;
 
 addParameter(p, 'debug', false);
 addParameter(p, 'tol', 1e1 * ( cqtoption('threshold') ));
-addParameter(p, 'maxit', 15);
-addParameter(p, 'X', Am1);
+addParameter(p, 'maxit', 100);
+addParameter(p, 'X', -A0 \ Am1);
+addParameter(p, 'method', 'galerkin');
 
 parse(p, varargin{:});
 
 debug = p.Results.debug;
 maxit = p.Results.maxit;
 tol   = p.Results.tol;
+method = p.Results.method;
 
 X = p.Results.X;
 
@@ -71,7 +73,7 @@ while j < maxit
     
     % Here we use the fact that iS * R = X + iS * Am1;
     D = cqtstein(M / gamma, X * gamma, X + iS * Am1, 'tol', ...
-        max(tol / 10, nrmR^2));
+        min(sqrt(tol), max(tol / 10, nrmR^2)), 'method', method, 'debug', debug);
     
     X = X + D;
     

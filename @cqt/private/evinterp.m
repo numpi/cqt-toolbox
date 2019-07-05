@@ -50,7 +50,7 @@ while ~converged
     ff = fft(ev);
     
     % Check if the decay is strong enough
-    if norm(ff(1:ceil(km/2)), 1) + norm(ff(end-ceil(kp/2)+1:end), 1) < ...
+    if norm(ff(1:ceil(km/2)), inf) + norm(ff(end-ceil(kp/2)+1:end), inf) < ...
             tol
         converged = true;
     else

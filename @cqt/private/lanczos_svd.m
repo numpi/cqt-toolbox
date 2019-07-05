@@ -9,7 +9,7 @@ U = zeros(n, 0);
 res = inf;
 
 if ~exist('tol', 'var')
-    tol = eps;
+    tol = cqtoption('threshold');
 end
 
 alfa = [];
@@ -46,8 +46,13 @@ while res > tol
     w = w - V * (V' * w);
     w = w - V * (V' * w);
     
-    beta = [ beta, norm(w) ];    
+    beta = [ beta, norm(w) ];
+	
     V = [ V, w / beta(end) ];
+	
+	if size(V, 2) > size(V, 1)
+		break;
+	end	
     
     % Estimate the norm: if we have a good estimate, evaluate the
     % possibility of stopping the iteration.

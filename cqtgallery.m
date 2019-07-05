@@ -29,6 +29,15 @@ switch name
         [Am1, A0, A1, hA0] = jackson(varargin{1});
         
         varargout = {Am1, A0, A1, hA0};
+	case 'rand'
+		if length(varargin) >= 1 && ~isnumeric(varargin{1})
+			error('Invalid argument to the rand constructor');
+		end
+		
+		am = rand(1, 5);
+		ap = rand(1, 5); ap(1) = am(1);
+		
+		varargout{1} = cqt(am, ap, rand(10));
     otherwise
         error('Invalid problem name specified');
 end

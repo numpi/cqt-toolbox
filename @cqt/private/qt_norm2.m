@@ -2,7 +2,8 @@ function nrm = qt_norm2(A)
 %QT_NORM2 Norm 2 estimator
 
 [am, ap] = symbol(A);
-n = max([ am, ap, size(correction(A)) ]);
+n = max([ length(am), length(ap), size(correction(A)) ]);
+
 v = randn(n, 1);
 
 At = A';

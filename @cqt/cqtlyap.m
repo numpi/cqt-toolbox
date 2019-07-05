@@ -1,7 +1,7 @@
 function X = cqtlyap(varargin)
-%CQTLYAP Lyapunov and Sylvester Solver
-
-debug = false;
+%CQTLYAP Lyapunov and Sylvester Solver%
+% 
+% X = CQT(A, B, C) solves the Sylvester equation AX + XB + C = 0.
 
 A = varargin{1};
 B = varargin{2};
@@ -11,11 +11,13 @@ p = inputParser;
 
 addParameter(p, 'poles', []);
 addParameter(p, 'tol', cqtoption('threshold'));
+addParameter(p, 'debug', false);
 
 parse(p, varargin{4:end});
 
 poles = p.Results.poles;
 tol   = p.Results.tol;
+debug = p.Results.debug;
 
 if ~isinf(max(size(A)))
     error('cqtlyap is only supported for infinite matrices');
