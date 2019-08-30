@@ -1,9 +1,8 @@
 language: generic
 before_install:
-  - sudo add-apt-repository ppa:octave/stable -y
   - sudo apt-get update -qq
-  - sudo apt-get install -qq -y octave octave-control
+  - sudo apt-get install -qq -y octave
 
-dist: trusty
+dist: bionic
 
-script: octave --no-gui --eval "pkg load control; addpath tests; RunAllTests;"
+script: octave --no-gui --eval "pkg install -forge control; pkg load control; addpath tests; RunAllTests;"

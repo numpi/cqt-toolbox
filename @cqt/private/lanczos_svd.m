@@ -59,7 +59,7 @@ while res > tol
     % fprintf(' Norm : %e, nrm_converged: %d, res = %e\n', beta(end) / nrm);
     if ~nrm_converged
         nrm_est = norm(diag(alfa) + diag(beta(1:end-1), 1));
-        if (nrm_est - nrm) / nrm < cqtoption('threshold')
+        if (nrm_est - nrm) < cqtoption('threshold') * nrm
             nrm_converged = true;
         end
         nrm = nrm_est;
