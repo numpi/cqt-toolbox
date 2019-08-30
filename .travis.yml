@@ -1,7 +1,7 @@
 language: generic
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq -y octave
+  - sudo apt-get install -qq -y octave liboctave-dev
 
 dist: bionic
 
