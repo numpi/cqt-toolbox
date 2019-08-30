@@ -21,6 +21,22 @@ classdef cqt
     %
     %     T = CQT(A) creates the semi-infinite CQT-matrix with a symbol 
     %     equal to 0  and finite correction equal to A
+	%
+	%     All the constructors can be called using the syntax:
+	%
+	%       T = CQT('extended', arg1, ..., argk, v); 
+	%
+	%     This is equivalent to the commands:
+	%
+	%       T = CQT(arg1, ..., argk);
+	%       T = EXTEND(T, v);
+	%
+	%     which constructs a quasi-Toeplitz matrix plus a rank 1 correction
+	%     of the form ev^T, where e is the vector of all ones. 
+	%
+	%     T = CQT('hankel', f) constructs the Hankel matrix with symbol
+	%     given by f. 
+	%
     properties
         % Vector containing the nonnegative coefficients of the symbol
         p
@@ -64,6 +80,10 @@ classdef cqt
 							cqtoption('compression'));
 						
 						obj = cqt([], [], U, V);
+						
+					case 'extended'
+						obj = extend(cqt(varargin{2:end-1}), ...
+									 varargin{end});
 						
 					case 'handle'
 						if length(varargin) < 2
