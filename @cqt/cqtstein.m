@@ -52,7 +52,7 @@ M2 = inv(B + IB);
 switch method
     case 'galerkin'
         X = cqtlyap(M1 * (A + IA), M2 * (IB - B), 2 * M1 * C * M2, ...
-            'tol', tol, 'debug', debug, 'poles', [-ones(1,11) inf ]);
+            'tol', tol, 'debug', debug);
     case 'adi'
         s = max(norm(A, inf), norm(B, inf));
 

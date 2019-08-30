@@ -53,9 +53,11 @@ for k=1:maxiter
     nrmC = norm(C, 'inf');
     
     % Adjust the scaling to account for splitting on non-unitary circles.
-    alpha = sqrt(nrmB / nrmC);
-    B = B / alpha;
-    C = C * alpha;
+    if nrmC ~= 0 && nrmB ~= 0
+      alpha = sqrt(nrmB / nrmC);
+      B = B / alpha;
+      C = C * alpha;
+    end
     
     err = min(nrmB, nrmC);
     
