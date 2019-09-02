@@ -56,14 +56,22 @@ if isa(T1,'cqt') && isa(T2, 'cqt')
             
             c2 = T2.c; c1 = T1.c;
             T2.c = zeros(1,0); T1.c = zeros(1,0);
+			
+			% Make sure we only keep 1 row here -- because in principle it
+			% might happen -- due to roundoff,  that the correction has
+			% more than 1 row. 
+			ff = correction(cqt(c1) * T2);
+			if ~isempty(ff)
+				ff = ff(1, :);
+			end
             
-            T.c = formatted_sum(correction(cqt(c1) * T2), sum(c1) * c2);
+            T.c = formatted_sum(ff, sum(c1) * c2);
             T = extend(T, formatted_sum(T.c, sa * c2));
             
             Te = cumsum(na(end:-1:2)).';
             Te = Te(end:-1:1);
             [U1,V1] = correction(T1);
-            T = T + cqt([], [], formatted_sum(-Te, U1 * sum(V1, 1)'), c2');
+            T = T + cqt([], [], formatted_sum(-Te, U1 * sum(V1, 1).'), c2.');
         end
         
     else
