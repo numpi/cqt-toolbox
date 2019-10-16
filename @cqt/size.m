@@ -9,7 +9,11 @@ if exist('idx', 'var')
     end
     varargout{1} = sz;
 else
-    varargout{1} = T.sz(1);
-    varargout{2} = T.sz(2);
+    if nargout == 2
+        varargout{1} = T.sz(1);
+        varargout{2} = T.sz(2);
+    else
+        varargout{1} = [ T.sz(1), T.sz(2) ];
+    end
 end
 

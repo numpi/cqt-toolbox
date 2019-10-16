@@ -17,13 +17,32 @@ E2 = cqt([], [], E.V, [], inf, size(E.V, 2));
 
 Linv = inv(L);
 Uinv = inv(U);
-LUinv = Linv * Uinv;
-LUB  = LUinv * B;
-LUE1 = LUinv * E1;
 
-S = eye(size(E.U, 2)) + full(E2.' * LUE1);
+explicit_inverse = false;
 
-LUE1SE2 = - LUE1 * (S \ E2.');
+if explicit_inverse
+    LUinv = Linv * Uinv;
+    LUB  = LUinv * B;
+    LUE1 = LUinv * E1;
+else
+    LUB = Linv * (Uinv * B);    
+    LUE1 = Linv * (Uinv * E1);
+end
+
+% S = eye(size(E.U, 2)) + full(E2.' * LUE1);
+E1U = LUE1.U; 
+if size(E1U, 1) < size(E.V, 1)
+    E1U(size(E.V, 1), 1) = 0;
+else
+    E1U = E1U(1:size(E.V, 1), :);
+end
+S = eye(size(E.V, 2)) + ( (E.V).' * E1U ) * LUE1.V.';
+
+% LUE1SE2 = - LUE1 * (S \ E2.');
+SV = LUE1.V.' * (S \ E.V.');
+SU = -LUE1.U;
+LUE1SE2 = cqt([], [], SU, SV.');
+
 LUE1SE2.p = 1;
 LUE1SE2.n = 1;
 C = LUE1SE2 * LUB;

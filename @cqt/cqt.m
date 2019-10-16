@@ -105,8 +105,8 @@ classdef cqt
 			
             switch length(varargin)
                 case 1
-                    obj.n = 0;
-                    obj.p = 0;
+                    obj.n = [];
+                    obj.p = [];
                     obj.U = varargin{1};
                     obj.V = eye(size(varargin{1},2));
                     obj.sz = [inf,inf];

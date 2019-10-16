@@ -10,13 +10,32 @@ while ~isempty(am) && minimal_cut(am, ap) < epsilon
             am = 0.0;
             ap(1) = 0.0;
         else
-            if abs(ap(end)) < epsilon
-                epsilon = epsilon - abs(ap(end));
-                ap = ap(1:end-1);
+            bs = min(256, max(16, length(ap) / 16));
+            if length(ap) > bs
+                % Do it in blocks, that will likely be much more efficient
                 
-                if isempty(ap)
-                    am = [];
-                    ap = [];
+                ee = abs(ap(end:-1:end-bs+1));
+                e1 = cumsum(ee) < epsilon;
+                
+                idx = find(e1 == 0);
+                
+                if isempty(idx)
+                    idx = bs;
+                else
+                    idx = idx - 1;
+                end
+                
+                epsilon = epsilon - sum(ee(1:idx));
+                ap = ap(1:end-idx);
+            else
+                if abs(ap(end)) < epsilon
+                    epsilon = epsilon - abs(ap(end));
+                    ap = ap(1:end-1);
+
+                    if isempty(ap)
+                        am = [];
+                        ap = [];
+                    end
                 end
             end
         end
