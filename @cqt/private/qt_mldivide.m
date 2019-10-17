@@ -26,11 +26,19 @@ if explicit_inverse
     LUE1 = LUinv * E1;
 else
     LUB = Linv * (Uinv * B);    
-    LUE1 = Linv * (Uinv * E1);
+    
+    % LUE1 = Linv * (Uinv * E1);
+    E1U = E.U; nrmE = norm(E1U);
+    E1U = toepmult_fft(Uinv.n, Uinv.p, ...
+          size(E1U, 1) + length(Uinv.p) - 1, size(E1U, 1), E1U);
+    [E1U, ~] = svd_clean(E1U, eye(size(E1U, 2)), eye(size(E1U, 2)), nrmE * norm(Uinv.p, 1));
+    E1U = toepmult_fft(Linv.n, Linv.p, ...
+        size(E1U, 1) + length(Linv.n) - 1, size(E1U, 1), E1U);
+    LUE1 = cqt([], [], E1U, [], inf, size(E1U, 2));  
 end
 
 % S = eye(size(E.U, 2)) + full(E2.' * LUE1);
-E1U = LUE1.U; 
+% E1U = LUE1.U; 
 if size(E1U, 1) < size(E.V, 1)
     E1U(size(E.V, 1), 1) = 0;
 else

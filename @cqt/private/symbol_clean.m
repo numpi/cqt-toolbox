@@ -10,14 +10,15 @@ while ~isempty(am) && minimal_cut(am, ap) < epsilon
             am = 0.0;
             ap(1) = 0.0;
         else
-            bs = min(256, max(16, length(ap) / 16));
-            if length(ap) > bs
-                % Do it in blocks, that will likely be much more efficient
-                
+            % Do it in blocks, that will likely be much more efficient. We
+            % select a block-size depending on the size of the symbol
+            bs = min(256, max(16, ceil(length(ap) / 16)));
+            
+            if length(ap) > bs                
                 ee = abs(ap(end:-1:end-bs+1));
                 e1 = cumsum(ee) < epsilon;
                 
-                idx = find(e1 == 0);
+                idx = find(e1 == 0, 1);
                 
                 if isempty(idx)
                     idx = bs;
