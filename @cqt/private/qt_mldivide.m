@@ -25,7 +25,17 @@ if explicit_inverse
     LUB  = LUinv * B;
     LUE1 = LUinv * E1;
 else
-    LUB = Linv * (Uinv * B);    
+    if isempty(B.p) && isempty(B.n)
+        BU = B.U; nrmB = norm(BU);
+        BU = toepmult_fft(Uinv.n, Uinv.p, ...
+          size(BU, 1) + length(Uinv.p) - 1, size(BU, 1), BU);
+        [BU, ~] = svd_clean(BU, eye(size(BU, 2)), eye(size(BU, 2)), nrmB * norm(Uinv.p, 1));
+        BU = toepmult_fft(Linv.n, Linv.p, ...
+            size(BU, 1) + length(Linv.n) - 1, size(BU, 1), BU);
+        LUB = cqt([], [], BU, B.V, [], [], size(B, 1), size(B, 2)); 
+    else
+        LUB = Linv * (Uinv * B);    
+    end
     
     % LUE1 = Linv * (Uinv * E1);
     E1U = E.U; nrmE = norm(E1U);
@@ -49,8 +59,24 @@ S = eye(size(E.V, 2)) + ( (E.V).' * E1U ) * LUE1.V.';
 % LUE1SE2 = - LUE1 * (S \ E2.');
 SV = LUE1.V.' * (S \ E.V.');
 SU = -LUE1.U;
-LUE1SE2 = cqt([], [], SU, SV.');
 
-LUE1SE2.p = 1;
-LUE1SE2.n = 1;
-C = LUE1SE2 * LUB;
+if isempty(LUB.n) && isempty(LUB.p)
+    [BU, BV ] = correction(LUB);
+    
+    l1 = min(size(SV, 2), size(BU, 1));
+    
+    L = SU * (conj(SV(:,1:l1)) * BU(1:l1,:));
+    if size(L, 1) < size(BU, 1)
+        L(size(BU, 1), 1) = 0;
+    end
+    if size(BU, 1) < size(L, 1)
+        BU(size(L, 1), 1) = 0;
+    end
+    
+    C = cqt([], [], BU + L, BV);
+else
+    LUE1SE2 = cqt([], [], SU, SV.');
+    LUE1SE2.p = 1;
+    LUE1SE2.n = 1;
+    C = LUE1SE2 * LUB;
+end

@@ -107,8 +107,15 @@ classdef cqt
                 case 1
                     obj.n = [];
                     obj.p = [];
-                    obj.U = varargin{1};
-                    obj.V = eye(size(varargin{1},2));
+                    
+                    if size(varargin{1}, 1) <= size(varargin{1}, 2)
+                        obj.U = eye(size(varargin{1}, 1));
+                        obj.V = varargin{1}';
+                    else                    
+                        obj.U = varargin{1};
+                        obj.V = eye(size(varargin{1}, 2));
+                    end
+                    
                     obj.sz = [inf,inf];
                     obj.c = zeros(1, 0);
                 case 2
@@ -129,8 +136,15 @@ classdef cqt
                     end
                     obj.n = varargin{1};
                     obj.p = varargin{2};
-                    obj.U = varargin{3};
-                    obj.V = eye(size(varargin{3},2));
+                    
+                    if size(varargin{3}, 1) <= size(varargin{3}, 2)
+                        obj.U = eye(size(varargin{3}, 1));
+                        obj.V = varargin{3}';
+                    else                    
+                        obj.U = varargin{3};
+                        obj.V = eye(size(varargin{3}, 2));
+                    end
+                    
                     obj.sz = [inf,inf];
                     obj.c = zeros(1, 0);
                 case 4
@@ -175,11 +189,23 @@ classdef cqt
                     end
                     obj.n = varargin{1};
                     obj.p = varargin{2};
-                    obj.U = varargin{3};
-                    obj.V = eye(size(varargin{3},2));
+                    
+                    if size(varargin{3}, 1) <= size(varargin{3}, 2)
+                        obj.U = eye(size(varargin{3}, 1));
+                        obj.V = varargin{3};
+                    else                    
+                        obj.U = varargin{3};
+                        obj.V = eye(size(varargin{3},2));
+                    end
+                    
                     if max (varargin{5},varargin{6}) ~=inf
-                        obj.W = varargin{4}(end:-1:1,end:-1:1);
-                        obj.Z = eye(size(varargin{4},2));
+                        if size(varargin{4}, 1) <= size(varargin{4}, 2)
+                            obj.W = eye(size(varargin{4}, 1));
+                            obj.Z = varargin{4}(end:-1:1, end:-1:1);
+                        else
+                            obj.W = varargin{4}(end:-1:1,end:-1:1);
+                            obj.Z = eye(size(varargin{4},2));
+                        end
                     elseif ~isempty(varargin{4})
                         warning(['The bottom right correction is' ...
                             'ignored due to the infinite dimension ' ...

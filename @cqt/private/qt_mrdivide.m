@@ -7,6 +7,11 @@ if length(A.p) == 1 || length(A.n) == 1
     return;
 end
 
+% Simple way until we properly implement the same approach that we have in
+% mldivide. 
+C = ((A.') \ B.').';
+return;
+
 [U, L, E] = ul(A);
 
 % Factor E as the outer product E1 * E2.', with E1 and E2 CQT matrices.

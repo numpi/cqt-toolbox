@@ -8,6 +8,11 @@ function u = toepmult_fft(am, ap, m, n, v)
 
 realflag = isreal(am) && isreal(ap) && isreal(v);
 
+if isempty(am) && isempty(ap)
+    %u = zeros(size(v));
+    %return;
+end
+
 n1=length(am);
 n2=length(ap);
 
