@@ -40,6 +40,7 @@ end
 
 if isa(A,'cqt') && isa(B,'cqt')
     if isinf(A.sz(1))
+        % X = qt_mldivide2(A, B);
         X = qt_mldivide(A, B);
     else
         X = fqt_mldivide(A, B);

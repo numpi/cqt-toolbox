@@ -1,5 +1,4 @@
 function C = qt_mldivide(A, B)
-%QT_MLDIVIDE Compute inv(A) * B.
 
 % Handle the triangular case
 if length(A.p) == 1 || length(A.n) == 1
@@ -9,74 +8,59 @@ end
 
 [U, L, E] = ul(A);
 
-% Factor E as the outer product E1 * E2.', with E1 and E2 CQT matrices.
-E1 = cqt([], [], E.U, [], inf, size(E.U, 2));
-E2 = cqt([], [], E.V, [], inf, size(E.V, 2));
+c = limit(E)';
+UE = E.U; VE = E.V;
 
-% Compute A \ B by Sherman-Morrison
-
-Linv = inv(L);
 Uinv = inv(U);
+Linv = inv(L);
 
-explicit_inverse = false;
+UB = Uinv * B;
 
-if explicit_inverse
-    LUinv = Linv * Uinv;
-    LUB  = LUinv * B;
-    LUE1 = LUinv * E1;
-else
-    if isempty(B.p) && isempty(B.n)
-        BU = B.U; nrmB = norm(BU);
-        BU = toepmult_fft(Uinv.n, Uinv.p, ...
-          size(BU, 1) + length(Uinv.p) - 1, size(BU, 1), BU);
-        [BU, ~] = svd_clean(BU, eye(size(BU, 2)), eye(size(BU, 2)), nrmB * norm(Uinv.p, 1));
-        BU = toepmult_fft(Linv.n, Linv.p, ...
-            size(BU, 1) + length(Linv.n) - 1, size(BU, 1), BU);
-        LUB = cqt([], [], BU, B.V, [], [], size(B, 1), size(B, 2)); 
-    else
-        LUB = Linv * (Uinv * B);    
+if ~isempty(c)
+    if size(VE, 1) < length(c)
+        VE = [ VE ; zeros(length(c) - size(VE, 1), size(VE, 2)) ];
+    elseif size(VE, 1) > length(c)
+        c(size(VE, 1)) = 0;
+        
     end
     
-    % LUE1 = Linv * (Uinv * E1);
-    E1U = E.U; nrmE = norm(E1U);
-    E1U = toepmult_fft(Uinv.n, Uinv.p, ...
-          size(E1U, 1) + length(Uinv.p) - 1, size(E1U, 1), E1U);
-    [E1U, ~] = svd_clean(E1U, eye(size(E1U, 2)), eye(size(E1U, 2)), nrmE * norm(Uinv.p, 1));
-    E1U = toepmult_fft(Linv.n, Linv.p, ...
-        size(E1U, 1) + length(Linv.n) - 1, size(E1U, 1), E1U);
-    LUE1 = cqt([], [], E1U, [], inf, size(E1U, 2));  
+    Vh = [ VE, c(:) ];
+else
+    Vh = VE;
 end
 
-% S = eye(size(E.U, 2)) + full(E2.' * LUE1);
-% E1U = LUE1.U; 
-if size(E1U, 1) < size(E.V, 1)
-    E1U(size(E.V, 1), 1) = 0;
-else
-    E1U = E1U(1:size(E.V, 1), :);
+[ku1, ku2] = size(UE);
+[kv1, kv2] = size(VE);
+
+UE0 = Uinv  * cqt(UE); 
+VE0 = Linv' * cqt(Vh);
+
+if ~isempty(c)
+    kv2 = kv2 + 1;
+    gamma = sum(Uinv.p);
 end
-S = eye(size(E.V, 2)) + ( (E.V).' * E1U ) * LUE1.V.';
 
-% LUE1SE2 = - LUE1 * (S \ E2.');
-SV = LUE1.V.' * (S \ E.V.');
-SU = -LUE1.U;
+UE0 = slicemat(UE0, { 1:ku1, 1:ku2 });
+VE0 = slicemat(VE0, { 1:kv1, 1:kv2 });
 
-if isempty(LUB.n) && isempty(LUB.p)
-    [BU, BV ] = correction(LUB);
-    
-    l1 = min(size(SV, 2), size(BU, 1));
-    
-    L = SU * (conj(SV(:,1:l1)) * BU(1:l1,:));
-    if size(L, 1) < size(BU, 1)
-        L(size(BU, 1), 1) = 0;
-    end
-    if size(BU, 1) < size(L, 1)
-        BU(size(L, 1), 1) = 0;
-    end
-    
-    C = cqt([], [], BU + L, BV);
+if size(UE0, 1) < kv1
+    UE0 = [ UE0 ; zeros(kv1 - size(UE0, 1), size(UE0, 2)) ];
+end
+
+if ~isempty(c)
+    S = eye(kv2) + VE0' * [ UE0(1:kv1,:), gamma * ones(kv1, 1) ];
 else
-    LUE1SE2 = cqt([], [], SU, SV.');
-    LUE1SE2.p = 1;
-    LUE1SE2.n = 1;
-    C = LUE1SE2 * LUB;
+    S = eye(kv2) + VE0' * UE0(1:kv1,:);
+end
+
+VE0 = VE0 / S';
+
+if ~isempty(c)
+    C = cqt('extended', 1, 1, -UE0, VE0(:,1:end-1), -gamma * VE0(:,end)');
+else
+    C = cqt(1, 1, -UE0, VE0);
+end
+
+C = Linv * (C * UB);
+
 end

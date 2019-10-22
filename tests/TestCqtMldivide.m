@@ -44,6 +44,15 @@ D = A \ B;
 CheckTestResult(norm(C - D), '<', 1e3 * epsi * norm(inv(A)) * norm(B), ...
     'mldivide on CQT and finite matrix');
 
+
+A = cqt('extended', [ 4 -1 ], [4 1], rand(4,2), rand(3,2), rand(1, 10));
+B = cqtgallery('rand', 10);
+C = inv(A) * B;
+D = A \ B;
+
+CheckTestResult(norm(C - D), '<', 1e3 * epsi * norm(inv(A)) * norm(B), ...
+    'mldivide on Extended CQT');
+
 %
 % FINITE CASE
 %

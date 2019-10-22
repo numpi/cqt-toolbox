@@ -8,6 +8,11 @@ end
 row_indices = idx{1};
 col_indices = idx{2};
 
+if isempty(row_indices) || isempty(col_indices)
+    M = zeros(length(row_indices), length(col_indices));
+    return;
+end
+
 if max(row_indices) > T.sz(1) || max(col_indices) > T.sz(2)
     error('Index exceeds matrix dimension')
 end

@@ -8,13 +8,13 @@ function [U, L, E] = ul(A)
 % Compute the required correction E
 if max(A.sz) == inf
     [E1, E2] = correction(A);
-    E = cqt([], [], E1, E2, [], [], A.sz(1), A.sz(2));
+    E = cqt('extended', [], [], E1, E2, [], [], A.sz(1), A.sz(2), A.c);
 else
     [E1, E2, E3, E4] = correction(A);
     E = cqt([], [], E1, E2, E3, E4, A.sz(1), A.sz(2));
 end
 
-if length(A.n) == 0 % empty symbol
+if isempty(A.n) % empty symbol
     L = cqt([], [], [], [], min(A.sz), A.sz(2));
     U = cqt([], [], [], [], A.sz(1), min(A.sz));
     return
