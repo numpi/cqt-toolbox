@@ -104,6 +104,8 @@ classdef cqt
 			end
 			
             switch length(varargin)
+                case 0
+                    obj = cqt([], []);
                 case 1
                     obj.n = [];
                     obj.p = [];
