@@ -47,10 +47,10 @@ while max(sa-2*bsa, sb-2*bsb) < k
     if ~exist('VA', 'var')
         [VA, KA, HA, param_A] = ek_krylov(A, u);
         [VB, KB, HB, param_B] = ek_krylov(B', v);
+    else    
+        [VA, KA, HA, param_A] = ek_krylov(VA, KA, HA, param_A);
+        [VB, KB, HB, param_B] = ek_krylov(VB, KB, HB, param_B);
     end
-    
-    [VA, KA, HA, param_A] = ek_krylov(VA, KA, HA, param_A);
-    [VB, KB, HB, param_B] = ek_krylov(VB, KB, HB, param_B);
     
     sa = size(VA, 2);
     sb = size(VB, 2);
@@ -70,7 +70,12 @@ while max(sa-2*bsa, sb-2*bsb) < k
     
     % You might want to enable this for debugging purposes
     if debug
-        fprintf('%d Residue: %e (norm(X) = %e)\n', it, res, norm(Y));
+        Xu = VA(:,1:size(Y,1)) * Y;
+        Xv = VB(:,1:size(Y,2));
+        X = cqt([], [], Xu, Xv);
+        C = cqt([], [], u, v);
+        fprintf('%d %e\n', 2*it-1, norm(A*X + X*B + C, 2));
+        fprintf('%d %e\n', 2*it, norm(A*X + X*B + C, 2));
     end
     
     if tol(res, norm(Y, nrm_type)) % res < norm(Y) * tol
