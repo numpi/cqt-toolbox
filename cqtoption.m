@@ -18,6 +18,9 @@ function optval = cqtoption(keyword, value)
 %   'threshold':
 %      The threshold used in truncation.
 %
+%   'wiener-hopf': [ 'cr', 'newton' ]
+%      Select the algorithm used to compute the Wiener-Hopf factorization
+%
 
 switch keyword
     case 'inversion'
@@ -38,6 +41,16 @@ switch keyword
             end
         else
             setoption('sqrt', value);
+        end
+
+    case 'wiener-hopf'
+        if nargin == 1
+            optval = getoption('wiener-hopf');
+            if isempty(optval)
+                optval = 'cr';
+            end
+        else
+            setoption('wiener-hopf', value);
         end
         
     case 'compression'

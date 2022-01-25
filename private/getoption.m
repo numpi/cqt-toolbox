@@ -5,6 +5,7 @@ global cqt_inversion;
 global cqt_sqrt;
 global cqt_compression;
 global cqt_threshold;
+global cqt_wiener_hopf;
 
 switch keyword
     case 'inversion'
@@ -12,6 +13,9 @@ switch keyword
         
     case 'sqrt'
         value = cqt_sqrt;
+
+    case 'wiener-hopf'
+        value = cqt_wiener_hopf;
         
     case 'compression'
         if isempty(cqt_compression)
