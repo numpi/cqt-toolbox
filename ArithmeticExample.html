@@ -1,0 +1,73 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Arithmetic with infinite matrices</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Arithmetic with infinite matrices</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./examples.html">Home Page</a></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">The first steps with CQT matrices</a></li><li><a href="#2">Adding a finite perturbation</a></li></ul></div><h2 id="1">The first steps with CQT matrices</h2><p>The CQT toolbox allows to represent infinite Quasi-Toeplitz matrices directly in MATLAB. Assume that we have a semi-infinite Toeplitz matrix T with symbol <i>s(z)</i> defined as follows:</p><p>$$ s(z) = 2 z^{-2} + z^{-1} - 3 - z + 4z^2 $$</p><p>We can represent this matrix using the CQT toolbox as</p><pre class="codeinput">T = cqt([ -3 1 2 ], [ -3 -1 4 ])
+</pre><pre class="codeoutput">
+T = 
+
+CQT Matrix of size Inf x Inf
+
+
+ - Toeplitz part (leading 5 x 5 block): 
+    -3    -1     4     0     0
+     1    -3    -1     4     0
+     2     1    -3    -1     4
+     0     2     1    -3    -1
+     0     0     2     1    -3
+
+</pre><h2 id="2">Adding a finite perturbation</h2><p>We can add a perturbation in the top-left corner, by specifying it as a dense $m \times n$ matrix E.</p><pre class="codeinput">E = randn(3, 4);
+T = cqt([ -3 1 2 ], [ -3 -1 4 ], E)
+</pre><pre class="codeoutput">
+T = 
+
+CQT Matrix of size Inf x Inf
+
+  Rank of top-left correction: 3
+
+ - Toeplitz part (leading 5 x 5 block): 
+    -3    -1     4     0     0
+     1    -3    -1     4     0
+     2     1    -3    -1     4
+     0     2     1    -3    -1
+     0     0     2     1    -3
+
+
+ - Finite correction (top-left corner): 
+    0.5377    0.8622   -0.4336    2.7694
+    1.8339    0.3188    0.3426   -1.3499
+   -2.2588   -1.3077    3.5784    3.0349
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Arithmetic with infinite matrices
+%
+%% The first steps with CQT matrices
+% The CQT toolbox allows to represent infinite Quasi-Toeplitz matrices
+% directly in MATLAB. Assume that we have a semi-infinite Toeplitz matrix T
+% with symbol _s(z)_ defined as follows:
+%
+% $$ s(z) = 2 z^{-2} + z^{-1} - 3 - z + 4z^2 $$
+%
+% We can represent this matrix using the CQT toolbox as
+
+T = cqt([ -3 1 2 ], [ -3 -1 4 ])
+
+%% Adding a finite perturbation
+% We can add a perturbation in the top-left corner, by specifying it as a
+% dense $m \times n$ matrix E.
+
+E = randn(3, 4);
+T = cqt([ -3 1 2 ], [ -3 -1 4 ], E)
+
+##### SOURCE END #####
+--></body></html>
