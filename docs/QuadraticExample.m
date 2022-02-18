@@ -30,12 +30,11 @@ a0n = a0n / rowsum; a0p = a0p / rowsum;
 am1n = am1n / rowsum; am1p = am1p / rowsum;
 
 %%
-% Now that we know the symbols, we can create the CQT objects. We create
-% them finite of dimension $n$, and in this case we choose $n = 2^{15}$. 
-n = 2^15;
-A0 = cqt(a0n, a0p, a0n(2), a0p(2), n, n);
-A1 = cqt(a1n, a1p, a1n(2), a1p(2), n, n);
-Am1 = cqt(am1n, am1p, am1n(2), am1p(2), n, n);
+% Now that we know the symbols, we can create the CQT objects. 
+%
+A0 = cqt(a0n, a0p, a0n(2), a0p(2));
+A1 = cqt(a1n, a1p, a1n(2), a1p(2));
+Am1 = cqt(am1n, am1p, am1n(2), am1p(2));
 
 %%
 % We now solve the quadratic equation $A_{-1} + A_0 G + A_1 G^2 = G$ using
@@ -45,11 +44,11 @@ Am1 = cqt(am1n, am1p, am1n(2), am1p(2), n, n);
 % Note that the function CR actually solves $A_{-1} + A_0 G + A_1 G^2 = 0$,
 % so we need to shift the middle coefficient with the identity. 
 
-tic; G = cr(Am1, A0 - cqt(1, 1, [], [], n, n), A1); toc
+tic; G = cr(Am1, A0 - cqt(1, 1), A1); toc
 norm(Am1 + A0 *G + A1 * G^2 - G)
 
 %% Using Newton iteration
 % The same problem can be solved using the Newton iteration, which is
 % implemented in the function QUADNEWT. 
-tic; G = quadnewt(Am1, A0 - cqt(1, 1, [], [], n, n), A1); toc
+tic; G = quadnewt(Am1, A0 - cqt(1, 1), A1); toc
 norm(Am1 + A0 *G + A1 * G^2 - G)
