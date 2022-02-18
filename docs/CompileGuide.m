@@ -14,7 +14,7 @@ doc_files = { ...
     'QuadraticExample.m' ...
     };
 
-main_file = 'Guide.m';
+main_file = 'index.m';
 
 for i = 1 : length(doc_files)
     publish_cmd(doc_files{i});

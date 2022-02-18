@@ -7,8 +7,6 @@
 % equal to 2.  We also start a timer using the function TIC, so we will
 % measure how long it takes to solve the entire problem. 
 
-tic;
-
 [Am1, A0, A1, hA0] = cqtgallery('jackson', 2);
 
 %%
@@ -111,6 +109,3 @@ R = E * pi * (hA0 - A0) + J * pi * Am1 ...
 fprintf('Residue on the computed pi: %1.2e\n', norm(R));
 fprintf('Residue on the computed pi (infty norm): %1.2e\n', ...
     norm(R(1:4096, 1:4096), inf));
-
-total_time = toc;
-fprintf('Total time used: %4.2f s\n', total_time);
