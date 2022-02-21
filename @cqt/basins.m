@@ -1,8 +1,27 @@
-function [AA,v,iter] = basins(A,n,x0,x1,y0,y1,algo,plotfig,advpx,digits)
-% function [A,v,iter]  = qtbasins(am,ap,E,n,x0,x1,y0,y1,algo,plotfig,advpx,digits)
+function [AA,v,iter] = basins(A,n,x0,x1,y0,y1,varargin) 
+% function [A,v,iter]  = basins(A,n,x0,x1,y0,y1,varargin) 
 % If plotfig is true then the function draws the basins of attraction of the 
 % fixed point iteration given by algorithm algo, where algo=1,2,3,4,
-% applied to the matrix CQT(am,ap,E) in the range x0<re(x)<x1, y0<im(x)<y1
+% applied to the CQT matrix A in the range x0<re(x)<x1, y0<im(x)<y1
+% 
+% Optional parameters:
+% 'algo', a,  where a = 1,2,3,4, according to the algorithm used:
+%       1 Newton's iteration applied to det(WV)=0 (Vandermonde version)
+%       2 Newton's iteration applied to det(W[I;G;G^2;...)=0 (Frobenius version)
+%       3 Newton's iteration applied to det(HV-x V)=0 (Vandermonde version)
+%       4 Newton's iteration applied to det(H(G)-x I)=0 (Frobenius version)
+%       default value: 1
+% 'maxit', m, where m is the maximum number of iterations, default m=20
+% 'epsilon', ep, where ep is the relative precision for the halt criterion,
+%        default ep=1.e-11
+% 'verbose', ver, if ver=true, some information is printed at run time,
+%        default ver=false
+% 'advpx', ad, if ad=true, the multiprecision toolbox advanpix is used, 
+%        default ad=false
+% 'digits', dig, where dig is the number of decimal digits precision used in 
+%        advanpix, default  dig=34
+% 'plotfig', if true, the figure is plotted, default true
+
 % On output: A is the nxn matrix of unint n: A(k,j) contains the integer s 
 % such that the fixed point sequence obtained by starting from the point 
 % z0 = x0+(k-1)(x1-x0)/(n-1) + i(y0+(j-1)(y1-y0)/(n-1)), k,j=1:n
@@ -23,10 +42,30 @@ function [AA,v,iter] = basins(A,n,x0,x1,y0,y1,algo,plotfig,advpx,digits)
 
 % By D.A. Bini, May 3, 2021
 
+info = struct;
+
+p = inputParser;%algo,maxit, epsilon,verbose,plotfig,advpx,digits)
+
+addOptional(p, 'algo', 1);
+addOptional(p, 'maxit', 20);
+addOptional(p, 'epsilon', 1.e-11);
+addOptional(p, 'verbose', false);
+addOptional(p, 'plotfig', true);
+addOptional(p, 'advpx', false);
+addOptional(p, 'digits', 34);
+
+parse(p, varargin{:});
+
+algo = p.Results.algo;
+maxit = p.Results.maxit;
+epsi = p.Results.epsilon;
+verbose = p.Results.verbose;
+advpx = p.Results.advpx;
+digits = p.Results.digits;
+plotfig = p.Results.plotfig;
+
   [am, ap] = symbol(A);
   E = correction(A);
-
-  verbose = true; maxit = 30; epsi=1.e-11; residual=false;
   AA = uint8(zeros(n));
   v = []; 
   
@@ -46,13 +85,13 @@ function [AA,v,iter] = basins(A,n,x0,x1,y0,y1,algo,plotfig,advpx,digits)
   end
   
   % compute the eigenvalues 
-  v = eig_all(A,  algo, 20, 1.e-12, 4, false, false, residual, advpx, digits);
+  v = eig_all(A, 'algo',algo);
   nz = length(v);
   
   % choose the color palette
    MP = rand(256,3);
-   MP(256,:) = [0.4 0.9 0.4];   %  continuous set
-   MP(255,:) = [0.8,0.8,0.8];   % out of the component
+   MP(256,:) = [0 1 0];   %  continuous set
+   MP(255,:) = [0.5,0.5,0.5];   % out of the component
    MP(254,:) = [0 0 0];         % non-converging sequence
 
 % construct the basins  
@@ -60,7 +99,8 @@ function [AA,v,iter] = basins(A,n,x0,x1,y0,y1,algo,plotfig,advpx,digits)
   for k=1:n
     for j=1:n
        z0 = x0+(j-1)*(x1-x0)/(n-1) + 1i*(y0+(k-1)*(y1-y0)/(n-1));
-       [z, flg, ~, ~,~,it, ~, ~, ~] = eig(A,z0,algo,maxit,epsi,false,residual,advpx,digits);
+       [z, ~,~,info]= eig_single(A,z0,'algo',algo,'maxit',maxit,'epsilon',epsi,'advpx',advpx,'digits',digits);
+       flg = info.flg; it = info.it;
        iter = iter+it;
        if verbose && j==1 &&  mod(k,10)==1
           fprintf('[k,j,flg]=[%d,%d,%d] \n',k,j,flg);
@@ -84,6 +124,9 @@ function [AA,v,iter] = basins(A,n,x0,x1,y0,y1,algo,plotfig,advpx,digits)
   if plotfig
      figure; image([x0,x1],[y0,y1],AA); %title(' Basins ');
      colormap(MP);
+     hold on;
+     range(A);
+     hold off;
      ax = gca;
      ax.YDir = 'normal';
   end

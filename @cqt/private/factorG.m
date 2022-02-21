@@ -7,8 +7,8 @@ function G = factorG(am,ap,p,x,advpx)
 
 % By D.A. Bini, December, 2021 
 
-  nwtwh = strcmp(cqtoption('wiener-hopf'), 'newton');
-
+%  nwtwh = strcmp(cqtoption('wiener-hopf'), 'newton');
+   nwtwh = false;
  % adjust the input size
   if size(am,2)~=1
      am = am.';

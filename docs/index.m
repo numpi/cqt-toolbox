@@ -23,3 +23,8 @@
 %   Toeplitz matrices with a low-rank correction. 
 % * <QuadraticExample.html Solving a quadratix matrix equation> using 
 %   cyclic reduction and CQT matrices. 
+%
+%
+%% Computing eigenvalues of QT matrices
+% * <doc_eig.html Computing eigenvalues> of QT matrices. 
+
