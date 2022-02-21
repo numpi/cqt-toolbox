@@ -104,14 +104,45 @@ res_frob =
 xhigh = eig_single(A, x0, <span class="string">'algo'</span>, 2, <span class="string">'advpx'</span>, true, <span class="string">'digits'</span>,64);
 err_vand = abs((xv-xhigh)/xhigh)
 err_frob = abs((xf-xhigh)/xhigh)
-</pre><pre class="codeoutput error">Undefined function 'mp' for input arguments of type 'double'.
+</pre><pre class="codeoutput">
+err_vand = 
 
-Error in cqt/eig_single (line 84)
-        epsil = mp(10)^(-digits+3);
+    1.908905786113654574480772639276569517087212030991874000273515467e-15
 
-Error in doc_eig (line 105)
-xhigh = eig_single(A, x0, 'algo', 2, 'advpx', true, 'digits',64);
+
+err_frob = 
+
+    1.036279957753138210500569410937567863347783968077289029871566048e-16
+
 </pre><p>In order to see the flow of the computation, one can activate the "verbose" mode as follows</p><pre class="codeinput">x = eig_single(A, x0, <span class="string">'verbose'</span>, true);
+</pre><pre class="codeoutput">step = 1, q = 3,  p= 3, x0=-5.000000e-01 +4.300000e+00i
+      rel_correction = 6.02959e-02, flag = 1
+      resalt = 1.06058e-02 
+step = 2, q = 3,  p= 3, x0=-6.549420e-01 +4.510057e+00i
+      rel_correction = 5.32818e-02, flag = 1
+      resalt = 8.29359e-03 
+step = 3, q = 3,  p= 3, x0=-4.670769e-01 +4.663909e+00i
+      rel_correction = 3.55759e-02, flag = 1
+      resalt = 3.59777e-03 
+step = 4, q = 3,  p= 3, x0=-5.235872e-01 +4.507024e+00i
+      rel_correction = 1.34904e-02, flag = 1
+      resalt = 1.14193e-03 
+step = 5, q = 3,  p= 3, x0=-4.974534e-01 +4.562375e+00i
+      rel_correction = 4.05144e-03, flag = 1
+      resalt = 9.88062e-05 
+step = 6, q = 3,  p= 3, x0=-4.823172e-01 +4.551576e+00i
+      rel_correction = 3.25709e-04, flag = 1
+      resalt = 7.98328e-07 
+step = 7, q = 3,  p= 3, x0=-4.837336e-01 +4.552041e+00i
+      rel_correction = 2.64787e-06, flag = 1
+      resalt = 5.18453e-11 
+step = 8, q = 3,  p= 3, x0=-4.837450e-01 +4.552037e+00i
+      rel_correction = 1.71964e-10, flag = 1
+      resalt = 6.37333e-16 
+step = 9, q = 3,  p= 3, x0=-4.837450e-01 +4.552037e+00i
+      rel_correction = 2.17745e-15, flag = 1
+      resalt = 9.92111e-16 
+return 4, flg=1: x is eigenvalue with p=q
 </pre><h2 id="10">The function  eig_all</h2><p>eig_all computes all the eigenvalues of A. The syntax is</p><pre class="codeinput"><span class="comment">% [x, xcont, res, it, ei] = eig_all(A, varargin);</span>
 
 <span class="comment">% In Input:</span>
@@ -143,16 +174,147 @@ xhigh = eig_single(A, x0, 'algo', 2, 'advpx', true, 'digits',64);
 <span class="comment">% it: vector with the number of iterations</span>
 <span class="comment">% ei: vector with the eigenvalues of the finite section A_N</span>
 </pre><h2 id="11">Examples</h2><p>Compute all the eigenvalues of A</p><pre class="codeinput">x = eig_all(A)
+</pre><pre class="codeoutput">
+x =
+
+  Column 1
+
+     -4.837450062897881e-01 + 4.552036737687123e+00i
+
+  Column 2
+
+     -4.837450062897881e-01 - 4.552036737687123e+00i
+
+  Column 3
+
+      8.256318409116011e-01 + 1.618550197572259e+00i
+
+  Column 4
+
+      8.256318409116011e-01 - 1.618550197572259e+00i
+
+  Column 5
+
+      2.044401070062734e+00 - 2.039299381415869e-15i
+
 </pre><p>The plot of all the eigenvalues is obtained as follows</p><pre class="codeinput">x = eig_all(A, <span class="string">'plotfig'</span>, true);
-</pre><p>The red circles represent the eigenvalues of the truncated NxN matrix A_N, the blue dots represent the isolated eigenvalues, the red circles containing a green dot indicate those eigenvalues of A_N belonging to components  of C-a(T) formed by continuous set of eigenvalues. The light blue curve is the image of the unit circle through the symbol a(z)</p><p>Compute all the eigenvalues with 64-digit precision</p><pre class="codeinput">x = eig_all(A, <span class="string">'advpx'</span>, true, <span class="string">'digits'</span>, 64)
+</pre><img vspace="5" hspace="5" src="doc_eig_03.png" alt=""> <p>The red circles represent the eigenvalues of the truncated NxN matrix A_N, the blue dots represent the isolated eigenvalues, the red circles containing a green dot indicate those eigenvalues of A_N belonging to components  of C-a(T) formed by continuous set of eigenvalues. The light blue curve is the image of the unit circle through the symbol a(z)</p><p>Compute all the eigenvalues with 64-digit precision</p><pre class="codeinput">x = eig_all(A, <span class="string">'advpx'</span>, true, <span class="string">'digits'</span>, 64)
+</pre><pre class="codeoutput">
+x = 
+
+
+Columns 1 through 1
+
+        -0.4837450062897878931551738734026592210148039039766253255264661779 +         4.552036737687121021739665863777545084238060342967413944214153211i    
+
+Columns 2 through 2
+
+        -0.4837450062897878931551738734026592210148039039766253255264661779 -         4.552036737687121021739665863777545084238060342967413944214153211i    
+
+Columns 3 through 3
+
+         0.8256318409116022793646952400506428023240841992175627290626963363 +         1.618550197572258141669890157618701594665856546827627583684380355i    
+
+Columns 4 through 4
+
+         0.8256318409116022793646952400506428023240841992175627290626963363 -         1.618550197572258141669890157618701594665856546827627583684380355i    
+
+Columns 5 through 5
+
+          2.044401070062739712910280326211573782029955502698339316248895371 -     3.593562207405955120545109965543825556446549849448356727901879464e-63i    
+
 </pre><p>A more interesting situation is to consider a random correction like this</p><pre class="codeinput">A1 = cqt(am,ap,5*(rand(3,100)-0.5));
 x = eig_all(A1, <span class="string">'plotfig'</span>, true);
-</pre><p>More information, say, the residual error and the number of iterations for each computed eigenvalue for the Vandermonde and the Frobenius versions, can be obtained in the following way</p><pre class="codeinput">[xv,~,resv,itv,~] = eig_all(A1,<span class="string">'algo'</span>,1);
+</pre><img vspace="5" hspace="5" src="doc_eig_04.png" alt=""> <p>More information, say, the residual error and the number of iterations for each computed eigenvalue for the Vandermonde and the Frobenius versions, can be obtained in the following way</p><pre class="codeinput">[xv,~,resv,itv,~] = eig_all(A1,<span class="string">'algo'</span>,1);
 [xf,~,resf,itf,~] = eig_all(A1,<span class="string">'algo'</span>,2);
 resv
 resf
 itv
 itf
+</pre><pre class="codeoutput">
+resv =
+
+  Columns 1 through 3
+
+     1.657278552060770e-16     1.657278552060770e-16     2.295512699370041e-16
+
+  Columns 4 through 6
+
+     2.295512699370041e-16     5.991862014048909e-16     5.991862014048909e-16
+
+  Columns 7 through 9
+
+     2.682603766061638e-16     2.682603766061638e-16     1.704276399993623e-16
+
+  Columns 10 through 12
+
+     1.704276399993623e-16     8.760557977680735e-17     8.760557977680735e-17
+
+  Columns 13 through 15
+
+     6.567911600532109e-16     6.567911600532109e-16     3.206330197040246e-16
+
+  Columns 16 through 18
+
+     3.206330197040246e-16     2.434270697876538e-16     2.434270697876538e-16
+
+  Columns 19 through 20
+
+     1.184830513435348e-16     1.184830513435348e-16
+
+
+resf =
+
+  Columns 1 through 3
+
+     2.174783984902670e-17     2.174783984902670e-17     1.081759217338643e-17
+
+  Columns 4 through 6
+
+     1.081759217338643e-17     9.768121944005581e-17     9.768121944005581e-17
+
+  Columns 7 through 9
+
+     9.930267082944412e-16     9.930267082944412e-16     1.806986847852890e-15
+
+  Columns 10 through 12
+
+     1.806986847852890e-15     2.207200475102450e-16     2.207200475102450e-16
+
+  Columns 13 through 15
+
+     7.467426420704473e-17     7.467426420704473e-17     4.313895020955645e-16
+
+  Columns 16 through 18
+
+     4.313895020955645e-16     2.800364787770121e-17     2.800364787770121e-17
+
+  Columns 19 through 20
+
+     1.615062215234737e-16     1.615062215234737e-16
+
+
+itv =
+
+  Columns 1 through 13
+
+     3     3     3     3     4     4     3     3     8     8     3     3     3
+
+  Columns 14 through 20
+
+     3     6     6     3     3     3     3
+
+
+itf =
+
+  Columns 1 through 13
+
+     3     3     3     3     4     4     3     3     3     3     3     3     3
+
+  Columns 14 through 20
+
+     3     7     7     6     6     3     3
+
 </pre><h2 id="17">The function basins</h2><p>This function draws the picture with the basins of attraction of the Newton iteration in a rectangle of the complex plane. The syntax is</p><pre class="codeinput"><span class="comment">% [F, v, iter] = basins(A, n, x0, x1, y0, y1, varargin)</span>
 
 <span class="comment">% The function draws the basins of attraction of the</span>
@@ -208,7 +370,7 @@ figure; image([x0,x1],[y0,y1],F1); title(<span class="string">' Algorithm 1 '</s
 figure; image([x0,x1],[y0,y1],F2);  title(<span class="string">' Algorithm 2 '</span>); colormap(MP);
 figure; image([x0,x1],[y0,y1],F3);  title(<span class="string">' Algorithm 3 '</span>); colormap(MP);
 figure; image([x0,x1],[y0,y1],F4);  title(<span class="string">' Algorithm 4 '</span>); colormap(MP);
-</pre><h2 id="19">The function distances</h2><p>For each eigenvalue x of the QT matrix A, this function computes the distance of x from the closest eigenvalue of the truncated matrix A_N, for different values of N. The syntax is</p><pre class="codeinput"><span class="comment">% [Dist, x] = distances(A, algo, N0, nsamp, advpx, dig)</span>
+</pre><img vspace="5" hspace="5" src="doc_eig_05.png" alt=""> <img vspace="5" hspace="5" src="doc_eig_06.png" alt=""> <img vspace="5" hspace="5" src="doc_eig_07.png" alt=""> <img vspace="5" hspace="5" src="doc_eig_08.png" alt=""> <h2 id="19">The function distances</h2><p>For each eigenvalue x of the QT matrix A, this function computes the distance of x from the closest eigenvalue of the truncated matrix A_N, for different values of N. The syntax is</p><pre class="codeinput"><span class="comment">% [Dist, x] = distances(A, algo, N0, nsamp, advpx, dig)</span>
 <span class="comment">%</span>
 <span class="comment">% This function computes all the eigenvalues of A by means of the algorithm algo</span>
 <span class="comment">% together with the distances of each eigenvalue from the closest eigenvalue of</span>
@@ -221,6 +383,16 @@ figure; image([x0,x1],[y0,y1],F4);  title(<span class="string">' Algorithm 4 '</
 </pre><h2 id="20">Example</h2><pre class="codeinput">D = distances(A, 1, 25, 5, false, 34);
 format <span class="string">short</span> <span class="string">e</span>;
 D
+</pre><pre class="codeoutput">
+D =
+
+   2.5000e+01   5.0000e+01   1.0000e+02   2.0000e+02   4.0000e+02
+   8.5436e-02   1.8914e-02   1.7902e-04   2.5299e-07   6.6872e-13
+   1.8403e-01   2.1532e-02   6.0751e-04   1.6422e-07   5.7205e-14
+   5.1548e-02   2.5128e-03   2.1654e-07   1.1901e-14            0
+   3.5689e-02   1.7733e-03   3.9146e-07   8.8486e-14            0
+   8.8708e-03   1.1205e-03   3.6716e-07   9.1696e-14            0
+
 </pre></div><!--
 ##### SOURCE BEGIN #####
 %% Computing eigenvalues of a QT matrix
