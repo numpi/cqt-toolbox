@@ -25,3 +25,8 @@ T = cqt([ -3 1 2 ], [ -3 -1 4 ], E)
 % arrays and matrices:
 
 T_top = T(1:6, 1:6)
+
+%% Tuning the truncation threshold 
+% 
+% Most arithmetic operations cannot be performed exactly in floating point
+% arithmetic, and some truncation threshold needs to be used. 

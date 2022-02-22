@@ -18,7 +18,7 @@
 %
 % and $E_a$ is a compact correction. Although $A$ is a matrix of infinite
 % size, we assume that its symbol $a(z)$ admits a convergent Laurent series
-% and that ${\rm vec}(E)$ % is in $l^1(N)$. This allows to operate
+% and that ${\rm vec}(E)$ is in $l^1(N)$. This allows to operate
 % numerically on these objects by appropriately truncating these matrices.
 %
 % The CQT toolbox allows to represent and operate these matrices directly 
