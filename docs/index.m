@@ -1,29 +1,50 @@
 %% User guide to the CQT toolbox
 %
-%% The basics
+%% Introduction
 %
 % The CQT toolbox implements the arithmetic of $\mathcal{CQT}$ matrices, 
 % which are defined as the set of matrices obtained summing a semi-infinite
 % Toeplitz matrix and a correction to the top-left corner.
 %
-% More precisely, we say that $X$ is $\mathcal{CQT}$ if $X = T + E$ with
-% $T$ semi-infinite Toeplitz and $E$ is a matrix such that ${\rm vec}(E)$
-% is in $l^1(N)$.
+% A $\mathcal{CQT}$ matrix has the structure $A =  T(a(z))+ E_a$ where 
 %
-% The CQT toolbox allows to represent these matrices directly in MATLAB.
+% $$ T(a(z)) := \left[ \begin{array}{cccc}
+%            a_0 & a_1 & a_2 &  \cdots  \\
+%            a_{-1} & a_0 &  \ddots & \ddots \\
+%            a_{-2} &  \ddots & \ddots\\
+%            \vdots & \ddots
+%          \end{array} \right],
+% $$
 %
-% * <ArithmeticExample.html First steps with CQT matrices>
+% and $E_a$ is a compact correction. Although $A$ is a matrix of infinite
+% size, we assume that its symbol $a(z)$ admits a convergent Laurent series
+% and that ${\rm vec}(E)$ % is in $l^1(N)$. This allows to operate
+% numerically on these objects by appropriately truncating these matrices.
 %
-%% Some more involved examples
+% The CQT toolbox allows to represent and operate these matrices directly 
+% in the MATLAB environment.
+%
+% If you are unfamiliar with QT matrices, visit the following link to
+% understand how to interact with infinite matrices in MATLAB; later on,
+% you may be interested in checking out some applications that can be
+% treated in this framework. 
+%
+% * <QTDefinition.html First steps with QT matrices>
+% * <Arithmetic.html Arithmetic operations between QT matrices>
+% * <LinearSystems.html Solving linear systems with QT matrices>
+%
+%% Markov chains with infinite-dimensional state spaces
 % 
 % * <JacksonExample.html Computing invariant probabilities> for certain 
 %   Quasi-Birth-and-Death
 %   Markov processes involving quadratic matrix equations.  
-% * <SquareRoot.html Computing the matrix square root> of semi-infinite
-%   Toeplitz matrices with a low-rank correction. 
 % * <QuadraticExample.html Solving a quadratix matrix equation> using 
 %   cyclic reduction and CQT matrices. 
 %
+%%  Matrix functions of infinite matrices
+%
+% * <SquareRoot.html Computing the matrix square root> of semi-infinite
+%   Toeplitz matrices with a low-rank correction. 
 %
 %% Computing eigenvalues of QT matrices
 % * <doc_eig.html Computing eigenvalues> of QT matrices. 

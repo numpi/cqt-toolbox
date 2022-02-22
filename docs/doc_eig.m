@@ -235,7 +235,10 @@ itf
 
 %% Example
 % Consider the original matrix A and compute the basins for algorithms
-% 1,2,3,4 on a grid of 500x500 pixels
+% 1,2,3,4 on a grid of 500x500 pixels. We fix the random number generator
+% to ensure the images are consistent across multiple runs. 
+
+rng(1);
 
 n = 200;  x0 = -7;  x1 = 6;  y0 = -6;  y1 = 6;
 F1 = basins(A, n, x0, x1, y0, y1, 'algo', 1, 'verbose',false, 'plotfig', false);
