@@ -1,0 +1,196 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Arithmetic operations between QT matrices</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Arithmetic operations between QT matrices</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Additions and multiplications</a></li><li><a href="#3">Computing inverses</a></li><li><a href="#7">Linear systems</a></li></ul></div><h2 id="1">Additions and multiplications</h2><p>If we define two QT matrices $A$ and $B$, we can easily compute $C = A \pm B$ using the familiar matrix operations in MATLAB.</p><pre class="codeinput">A = cqt([ 4 2 1 ], [4 -1 2]); B = cqt([ 6 3 1 1 ], [ 6 1 ]);
+C = A + B
+</pre><pre class="codeoutput">
+C = 
+
+CQT Matrix of size Inf x Inf
+
+
+ - Toeplitz part (leading 6 x 5 block): 
+    10     0     2     0     0
+     5    10     0     2     0
+     2     5    10     0     2
+     1     2     5    10     0
+     0     1     2     5    10
+     0     0     1     2     5
+
+</pre><p>Matrix multiplication can be handled in a similar way. Note however that in this case the bandwidth of the result is larger, since the symbol $c(z)$ of the product $C = AB$ is the product of the symbols of $A$ and $B$, and therefore has higher degree.</p><pre class="codeinput">C = A * B
+</pre><pre class="codeoutput">
+C = 
+
+CQT Matrix of size Inf x Inf
+
+  Rank of top-left correction: 1
+
+ - Toeplitz part (leading 8 x 6 block): 
+   25.0000    4.0000   11.0000    2.0000         0         0
+   26.0000   25.0000    4.0000   11.0000    2.0000         0
+   15.0000   26.0000   25.0000    4.0000   11.0000    2.0000
+    9.0000   15.0000   26.0000   25.0000    4.0000   11.0000
+    3.0000    9.0000   15.0000   26.0000   25.0000    4.0000
+    1.0000    3.0000    9.0000   15.0000   26.0000   25.0000
+         0    1.0000    3.0000    9.0000   15.0000   26.0000
+         0         0    1.0000    3.0000    9.0000   15.0000
+
+
+ - Finite correction (top-left corner): 
+   -2.0000
+   -1.0000
+
+</pre><h2 id="3">Computing inverses</h2><p>The <tt>inv</tt> command is overloaded. Although it is rarely a good idea to compute inverses directly, it may sometimes be useful. If a QT matrix is invertible, then its inverse is again in the QT class. The invertibility is equivalent (for infinite matrices) to asking that $a(z) \neq 0$ for $|z| = 1$. This condition is satisfied by both $A$ and $B$ defined above, so we may compute their inverses.</p><pre class="codeinput">iA = inv(A);
+</pre><p>It's importante to notice that in this case the symbol of <tt>iA</tt>$ is not of finite length, since it is the Laurent expansion of $a(z)^{-1}$. In practice, the toolbox automatically truncate the symbol to the necessary length. We can visualize the exponential decay of the symbol entries by plotting a finite section of the inverse.</p><pre class="codeinput">surf(abs(iA(1:30, 1:30)));
+set(gca,<span class="string">'zscale'</span>,<span class="string">'log'</span>); <span class="comment">% log-scale to appreciate the exponential decay</span>
+title(gca, <span class="string">'Decay in the entries of A^{-1}'</span>);
+</pre><img vspace="5" hspace="5" src="Arithmetic_01.png" alt=""> <p>To check how long is the symbol, or how large is the support of the low-rank correction, we may use the command <tt>symbol</tt> and <tt>correction</tt>:</p><pre class="codeinput">[am, ap] = symbol(iA);
+nm = length(am), np = length(ap), nc = size(correction(iA))
+</pre><pre class="codeoutput">
+nm =
+
+    35
+
+
+np =
+
+    63
+
+
+nc =
+
+    34    62
+
+</pre><p>These lengths are not symmetric because the symbol of $A$ was not symmetric in the first place.</p><h2 id="7">Linear systems</h2><p>Quite often, we do not need to explicitly compute the inverse, but rather to solve a linear system of the form</p><p>$$ Ax = b, $$</p><p>where $A$ is QT, and $x$ and $b$ vectors of infinite length. If this is the case, we may resort to computing a $UL$ factorization instead, and solve the system by running the following commands.</p><pre class="codeinput">b = randn(4, 1);
+b = cqt(b); <span class="comment">% We interpret b as a vector of infite size.</span>
+x = A \ b;
+x = correction(x) <span class="comment">% Automatically truncate x to the necessary length</span>
+</pre><pre class="codeoutput">
+x =
+
+    0.1268
+   -0.0019
+    0.1081
+   -0.1005
+    0.0295
+    0.0061
+   -0.0096
+    0.0037
+    0.0001
+   -0.0009
+    0.0004
+   -0.0000
+   -0.0001
+    0.0000
+   -0.0000
+   -0.0000
+    0.0000
+   -0.0000
+   -0.0000
+    0.0000
+   -0.0000
+   -0.0000
+    0.0000
+   -0.0000
+    0.0000
+    0.0000
+   -0.0000
+    0.0000
+    0.0000
+   -0.0000
+    0.0000
+    0.0000
+   -0.0000
+    0.0000
+    0.0000
+   -0.0000
+    0.0000
+
+</pre><p>Please visit <a href="LinearSystems.html">the chapter on linear systems</a> for further details on this matter.</p></div><!--
+##### SOURCE BEGIN #####
+%% Arithmetic operations between QT matrices
+%
+%
+%% Additions and multiplications
+%
+% If we define two QT matrices $A$ and $B$, we can easily compute $C = A
+% \pm B$ using the familiar matrix operations in MATLAB.
+
+A = cqt([ 4 2 1 ], [4 -1 2]); B = cqt([ 6 3 1 1 ], [ 6 1 ]);
+C = A + B
+
+%%
+% Matrix multiplication can be handled in a similar way. Note however that 
+% in this case the bandwidth of the result is larger, since the symbol 
+% $c(z)$ of the product $C = AB$ is the product of the symbols of $A$ and 
+% $B$, and therefore has higher degree. 
+
+C = A * B
+
+%% Computing inverses
+%
+% The |inv| command is overloaded. Although it is rarely a good idea to
+% compute inverses directly, it may sometimes be useful. If a QT matrix is
+% invertible, then its inverse is again in the QT class. The invertibility
+% is equivalent (for infinite matrices) to asking that $a(z) \neq 0$ for 
+% $|z| = 1$. This condition is satisfied by both $A$ and $B$ defined
+% above, so we may compute their inverses. 
+
+iA = inv(A); 
+
+%% 
+% It's importante to notice that in this case the symbol of |iA|$ is not of
+% finite length, since it is the Laurent expansion of $a(z)^{-1}$. In
+% practice, the toolbox automatically truncate the symbol to the necessary
+% length. We can visualize the exponential decay of the symbol entries by
+% plotting a finite section of the inverse. 
+
+surf(abs(iA(1:30, 1:30)));
+set(gca,'zscale','log'); % log-scale to appreciate the exponential decay
+title(gca, 'Decay in the entries of A^{-1}');
+
+%%
+% To check how long is the symbol, or how large is the support of the 
+% low-rank correction, we may use the command |symbol| and |correction|:
+
+[am, ap] = symbol(iA); 
+nm = length(am), np = length(ap), nc = size(correction(iA))
+
+%%
+% These lengths are not symmetric because the symbol of $A$ was not
+% symmetric in the first place. 
+
+%% Linear systems
+%
+% Quite often, we do not need to explicitly compute the inverse, but rather
+% to solve a linear system of the form
+%
+% $$ Ax = b, $$
+%
+% where $A$ is QT, and $x$ and $b$ vectors of infinite length. If this is
+% the case, we may resort to computing a $UL$ factorization instead, and
+% solve the system by running the following commands. 
+
+b = randn(4, 1); 
+b = cqt(b); % We interpret b as a vector of infite size. 
+x = A \ b;
+x = correction(x) % Automatically truncate x to the necessary length
+
+%% 
+% Please visit <LinearSystems.html the chapter on linear systems> for
+% further details on this matter. 
+
+
+
+##### SOURCE END #####
+--></body></html>

@@ -11,7 +11,7 @@
           jax: ["input/TeX", "output/HTML-CSS"],
           displayAlign: "center",
      });
-   </script></head><body><div class="content"><h1>Computing eigenvalues of a QT matrix</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./examples.html">Home Page</a></p><p>The main functions for computing the eigenvalues of a QT matrix A are eig_single and  eig_all. Other useful functions are basins, and distances.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">The function eig_single</a></li><li><a href="#2">Examples</a></li><li><a href="#10">The function  eig_all</a></li><li><a href="#11">Examples</a></li><li><a href="#17">The function basins</a></li><li><a href="#18">Example</a></li><li><a href="#19">The function distances</a></li><li><a href="#20">Example</a></li></ul></div><h2 id="1">The function eig_single</h2><p>eig_single computes a single eigenvalue starting from an initial estimate. The syntax is</p><pre class="codeinput"><span class="comment">% [x, U, y, info] = eig_single(A, x0, varargin);</span>
+   </script></head><body><div class="content"><h1>Computing eigenvalues of a QT matrix</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The main functions for computing the eigenvalues of a QT matrix A are eig_single and  eig_all. Other useful functions are basins, and distances.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">The function eig_single</a></li><li><a href="#2">Examples</a></li><li><a href="#10">The function  eig_all</a></li><li><a href="#11">Examples</a></li><li><a href="#17">The function basins</a></li><li><a href="#18">Example</a></li><li><a href="#19">The function distances</a></li><li><a href="#20">Example</a></li></ul></div><h2 id="1">The function eig_single</h2><p>eig_single computes a single eigenvalue starting from an initial estimate. The syntax is</p><pre class="codeinput"><span class="comment">% [x, U, y, info] = eig_single(A, x0, varargin);</span>
 
 <span class="comment">% Input:</span>
 <span class="comment">%   A = cqt(am,ap,E)</span>
@@ -236,84 +236,48 @@ resv =
 
   Columns 1 through 3
 
-     1.657278552060770e-16     1.657278552060770e-16     2.295512699370041e-16
+     4.145831962086829e-16     2.445560212635485e-16     2.445560212635485e-16
 
   Columns 4 through 6
 
-     2.295512699370041e-16     5.991862014048909e-16     5.991862014048909e-16
+     2.942152234843889e-16     2.942152234843889e-16     2.136477861343872e-16
 
   Columns 7 through 9
 
-     2.682603766061638e-16     2.682603766061638e-16     1.704276399993623e-16
+     2.136477861343872e-16     6.806248347053268e-16     6.806248347053268e-16
 
-  Columns 10 through 12
+  Columns 10 through 11
 
-     1.704276399993623e-16     8.760557977680735e-17     8.760557977680735e-17
-
-  Columns 13 through 15
-
-     6.567911600532109e-16     6.567911600532109e-16     3.206330197040246e-16
-
-  Columns 16 through 18
-
-     3.206330197040246e-16     2.434270697876538e-16     2.434270697876538e-16
-
-  Columns 19 through 20
-
-     1.184830513435348e-16     1.184830513435348e-16
+     2.506985764491840e-16     2.506985764491840e-16
 
 
 resf =
 
   Columns 1 through 3
 
-     2.174783984902670e-17     2.174783984902670e-17     1.081759217338643e-17
+     8.862198535180640e-17     2.317450085617516e-17     2.317450085617516e-17
 
   Columns 4 through 6
 
-     1.081759217338643e-17     9.768121944005581e-17     9.768121944005581e-17
+     7.699723953538953e-16     7.699723953538953e-16     4.227627877941294e-16
 
   Columns 7 through 9
 
-     9.930267082944412e-16     9.930267082944412e-16     1.806986847852890e-15
+     4.227627877941294e-16     1.606093062739933e-16     1.606093062739933e-16
 
-  Columns 10 through 12
+  Columns 10 through 11
 
-     1.806986847852890e-15     2.207200475102450e-16     2.207200475102450e-16
-
-  Columns 13 through 15
-
-     7.467426420704473e-17     7.467426420704473e-17     4.313895020955645e-16
-
-  Columns 16 through 18
-
-     4.313895020955645e-16     2.800364787770121e-17     2.800364787770121e-17
-
-  Columns 19 through 20
-
-     1.615062215234737e-16     1.615062215234737e-16
+     2.373782154680410e-16     2.373782154680410e-16
 
 
 itv =
 
-  Columns 1 through 13
-
-     3     3     3     3     4     4     3     3     8     8     3     3     3
-
-  Columns 14 through 20
-
-     3     6     6     3     3     3     3
+     3     3     3     3     3     8     8     4     4     3     3
 
 
 itf =
 
-  Columns 1 through 13
-
-     3     3     3     3     4     4     3     3     3     3     3     3     3
-
-  Columns 14 through 20
-
-     3     7     7     6     6     3     3
+     3     3     3     3     3     7     7     4     4     3     3
 
 </pre><h2 id="17">The function basins</h2><p>This function draws the picture with the basins of attraction of the Newton iteration in a rectangle of the complex plane. The syntax is</p><pre class="codeinput"><span class="comment">% [F, v, iter] = basins(A, n, x0, x1, y0, y1, varargin)</span>
 
@@ -356,7 +320,9 @@ itf =
 <span class="comment">% 253 p&lt;q not an eig :      black           (flag 4)</span>
 <span class="comment">% 253 Exceeded iter:        black           (flag 6)</span>
 <span class="comment">% 253 Diverging seq.        black           (flag 7)</span>
-</pre><h2 id="18">Example</h2><p>Consider the original matrix A and compute the basins for algorithms 1,2,3,4 on a grid of 500x500 pixels</p><pre class="codeinput">n = 200;  x0 = -7;  x1 = 6;  y0 = -6;  y1 = 6;
+</pre><h2 id="18">Example</h2><p>Consider the original matrix A and compute the basins for algorithms 1,2,3,4 on a grid of 500x500 pixels. We fix the random number generator to ensure the images are consistent across multiple runs.</p><pre class="codeinput">rng(1);
+
+n = 200;  x0 = -7;  x1 = 6;  y0 = -6;  y1 = 6;
 F1 = basins(A, n, x0, x1, y0, y1, <span class="string">'algo'</span>, 1, <span class="string">'verbose'</span>,false, <span class="string">'plotfig'</span>, false);
 F2 = basins(A, n, x0, x1, y0, y1, <span class="string">'algo'</span>, 2, <span class="string">'verbose'</span>,false, <span class="string">'plotfig'</span>, false);
 F3 = basins(A, n, x0, x1, y0, y1, <span class="string">'algo'</span>, 3, <span class="string">'verbose'</span>,false, <span class="string">'plotfig'</span>, false);
@@ -387,11 +353,11 @@ D
 D =
 
    2.5000e+01   5.0000e+01   1.0000e+02   2.0000e+02   4.0000e+02
-   8.5436e-02   1.8914e-02   1.7902e-04   2.5299e-07   6.6872e-13
-   1.8403e-01   2.1532e-02   6.0751e-04   1.6422e-07   5.7205e-14
-   5.1548e-02   2.5128e-03   2.1654e-07   1.1901e-14            0
-   3.5689e-02   1.7733e-03   3.9146e-07   8.8486e-14            0
-   8.8708e-03   1.1205e-03   3.6716e-07   9.1696e-14            0
+   7.5844e-01   1.6052e-02   1.7850e-04   3.2819e-07   6.1923e-14
+   2.7271e-01   7.7273e-03   1.9634e-04   8.8716e-08   8.0959e-14
+   3.8595e-02   1.1208e-03   4.9457e-07   2.3429e-14            0
+   2.6531e-02   9.7195e-04   1.7372e-07   1.3495e-14            0
+   1.9835e-02   8.5097e-04   1.3665e-07   6.1633e-14            0
 
 </pre></div><!--
 ##### SOURCE BEGIN #####
@@ -632,7 +598,10 @@ itf
 
 %% Example
 % Consider the original matrix A and compute the basins for algorithms
-% 1,2,3,4 on a grid of 500x500 pixels
+% 1,2,3,4 on a grid of 500x500 pixels. We fix the random number generator
+% to ensure the images are consistent across multiple runs. 
+
+rng(1);
 
 n = 200;  x0 = -7;  x1 = 6;  y0 = -6;  y1 = 6;
 F1 = basins(A, n, x0, x1, y0, y1, 'algo', 1, 'verbose',false, 'plotfig', false);
