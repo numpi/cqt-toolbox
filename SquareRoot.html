@@ -11,7 +11,7 @@
           jax: ["input/TeX", "output/HTML-CSS"],
           displayAlign: "center",
      });
-   </script></head><body><div class="content"><h1>Computing the matrix square root</h1><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>We consider the computation of the matrix square root described in the paper</p><p>"Quasi-Toeplitz matrix arithmetic: a MATLAB toolbox", by D. A. Bini, S. Massei, L. Robol, Numerical Algorithms, 2018.</p><p>We construct a semi-infinite Toeplitz matrix $A$ with symbol</p><p>$$ a(z) = \frac{1}{4} \cdot \left( z^{-2} + z^{-1} + 4 + 2z +
+   </script></head><body><div class="content"><h1>Computing the matrix square root</h1><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./examples.html">Home Page</a></p><p>We consider the computation of the matrix square root described in the paper</p><p>"Quasi-Toeplitz matrix arithmetic: a MATLAB toolbox", by D. A. Bini, S. Massei, L. Robol, Numerical Algorithms, 2018.</p><p>We construct a semi-infinite Toeplitz matrix $A$ with symbol</p><p>$$ a(z) = \frac{1}{4} \cdot \left( z^{-2} + z^{-1} + 4 + 2z +
 z^2 \right),  $$</p><p>and we want to compute $B = A^{\frac{1}{2}}$. Let us start by defining the symbols</p><pre class="codeinput">am = [1 .25 .25];
 ap = [1 .5 .25];
 </pre><p>We then choose a correction with a support of 1024 entries, but only rank 3.</p><pre class="codeinput">corr_size = 1024;
@@ -22,12 +22,12 @@ V = randn(corr_size, 3);
 
 A = cqt(am, ap, U, V);
 tic; B = sqrtm(A); toc;
-</pre><pre class="codeoutput">Elapsed time is 0.162898 seconds.
+</pre><pre class="codeoutput">Elapsed time is 0.326463 seconds.
 </pre><p>And finally, we check if the result is correct (up to some threshold).</p><pre class="codeinput">norm(A - B^2) / norm(A)
 </pre><pre class="codeoutput">
 ans =
 
-   3.6955e-12
+   3.6951e-12
 
 </pre></div><!--
 ##### SOURCE BEGIN #####

@@ -11,7 +11,7 @@
           jax: ["input/TeX", "output/HTML-CSS"],
           displayAlign: "center",
      });
-   </script></head><body><div class="content"><h1>Solving Jackson waiting Queues.</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Generating the problem</a></li></ul></div><h2 id="1">Generating the problem</h2><p>We use the function CQTGALLERY to construct the problems from the paper of Motyer and Taylor [1]. In this case we choose the example with index equal to 2.  We also start a timer using the function TIC, so we will measure how long it takes to solve the entire problem.</p><pre class="codeinput">[Am1, A0, A1, hA0] = cqtgallery(<span class="string">'jackson'</span>, 2);
+   </script></head><body><div class="content"><h1>Solving Jackson waiting Queues.</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./examples.html">Home Page</a></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Generating the problem</a></li></ul></div><h2 id="1">Generating the problem</h2><p>We use the function CQTGALLERY to construct the problems from the paper of Motyer and Taylor [1]. In this case we choose the example with index equal to 2.  We also start a timer using the function TIC, so we will measure how long it takes to solve the entire problem.</p><pre class="codeinput">[Am1, A0, A1, hA0] = cqtgallery(<span class="string">'jackson'</span>, 2);
 </pre><p>We will need a certain threshold to regulate the truncation of the output, which can be set here.</p><pre class="codeinput">threshold = 1e-12;
 </pre><p>We solve the associated matrix equations $A_{-1} + A_0 G + A_1 G^2 = 0$ and $R^2  A_{-1} + R A_0 + A_1 = 0$ by means of cyclic reduction.</p><pre class="codeinput">[G, R] = cr(Am1, A0, A1, 12);
 
@@ -47,7 +47,7 @@ nrm_pi0 = norm(pi0, inf);
 <span class="comment">% want to increase m).</span>
 res = cqt(pi0) * M;
 fprintf (<span class="string">'Residual norm on pi0: %e\n'</span>, norm(res));
-</pre><pre class="codeoutput">Residual norm on pi0: 4.949672e-11
+</pre><pre class="codeoutput">Residual norm on pi0: 4.949725e-11
 </pre><p>We can now compute the other rows of the vector $\pi$ by multiplying $\pi_0$ on the right by the matrix $R$. Notice that these are all infinite vectors, therefore we will need to store them truncated in the output.</p><pre class="codeinput"><span class="comment">% Normalization</span>
 s = cqt(pi0) / (cqt(1,1) - R);
 s = sum(s(1,1:1024));
