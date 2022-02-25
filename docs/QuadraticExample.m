@@ -1,8 +1,56 @@
 %% Solving a quadratic matrix equation
 %
+% QT matrices are particularly useful in the numerical treatment of random
+% walks over the positive orthant ${\bf N}^2$. Suppose that a walker
+% can move over all points of non-negative integer coordinates, and:
+%
+% * moves to the left or right with probabilities $l$ and $r$;
+% * moves to the top and bottom with probabilities $t$ and $b$; 
+% * stays in the current entry with probability $s$;
+% * is given suitable boundary conditions when reaches $\{ 0 \} \times \bf N$ or 
+%   ${\bf N} \times \{ 0 \}$.
+%
+% If we consider a semi-infinite matrix $X_t$ that represents the probability 
+% of being in a given state of indices $(i,j)$ at a given time $t$, then after
+% one discrete time step the walker will have be in a new state with
+% probabilities
+%
+% $$ X_{t+1} = sX_t + 
+%  \left[\begin{array}{cccc} 
+%   & b && \\ t && b & \\ & t & & \ddots \\ & & \ddots &  \\
+%   \end{array}\right] X_t
+%    + X_t \left[\begin{array}{cccc} 
+%   & r && \\ l && r & \\ & l & & \ddots \\ & & \ddots &  \\ \end{array}\right]
+%   = sI + VX + XH, 
+%  $$
+%  where $V$ encodes vertical movements, and $H$ the horizontal ones. 
+%    
+% Under these assumptions, the probability transition matrix for the Markov
+% chain can be written as follows, up to rearranging the entries in $X_t$ by stacking
+% a sequence of (infinite) vectors one of top of the other:
+%
+% $$
+%   P = sI + H \otimes I + I \otimes V = \left[ \begin{array}{cccc}
+%     \hat A_0 & A_1 && \\ 
+%      A_{-1} & A_0 & A_1 & \\ 
+%      & A_{-1} & \ddots & \ddots \\
+%      & & \ddots & \ddots \\
+%   \end{array} \right], \qquad 
+%   A_0 = sI + V, \ A_1 = r\cdot I, \ A_2 = l\cdot I.
+% $$
+%
+% In particular, the blocks $A_i$ are infinite tridiagonal QT matrices, and $P$ has the
+% same block structure. The invariant probability vector of the Markov
+% chain can be computed by the Matrix Analytic Method by M. Neuts [1],
+% which requires to solve the matrix equation $ X = A_{-1} + A_0 + A_1 X^2
+% $.
+%
 % We consider the matrix equation associated with a QBD process and a
-% random walk on $\{1 \ldots n\} \times \{ 1 \ldots \infty\}$. 
-% These are finite matrices ($n  \times n$). 
+% random walk on $\{1 \ldots \infty\} \times \{ 1 \ldots \infty\}$. 
+%
+% We now show how to obtain an equation of this form, that may be obtained
+% by allowing even more freedom enabling diagonal movements (which gives a
+% tridiagonal structure in $A_1$ and $A_{-1}$ as well).
 %
 % To begin with, we define three CQT matrices with symbols 
 %

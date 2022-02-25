@@ -34,6 +34,10 @@
 % * <LinearSystems.html Solving linear systems with QT matrices>
 %
 %% Markov chains with infinite-dimensional state spaces
+%
+% QT matrices are a natural tool for analyzing Markov chains and random
+% walks on infinite state spaces. We present a few examples of such
+% analyses here.
 % 
 % * <JacksonExample.html Computing invariant probabilities> for certain 
 %   Quasi-Birth-and-Death
