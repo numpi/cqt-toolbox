@@ -16,12 +16,18 @@
 </pre><p>We solve the associated matrix equations $A_{-1} + A_0 G + A_1 G^2 = 0$ and $R^2  A_{-1} + R A_0 + A_1 = 0$ by means of cyclic reduction.</p><pre class="codeinput">[G, R] = cr(Am1, A0, A1, 12);
 
 <span class="comment">% Let's double check if these are the correct solutions</span>
-fprintf(<span class="string">'Residue of the right solution G: %1.2e\n'</span>, <span class="keyword">...</span>
-    norm(Am1 + A0 * G + A1* G^2));
-fprintf(<span class="string">'Residue of the left solution R: %1.2e\n'</span>, <span class="keyword">...</span>
-    norm(R^2 * Am1 + R * A0 + A1));
-</pre><pre class="codeoutput">Residue of the right solution G: 5.93e-11
-Residue of the left solution R: 3.02e-11
+norm(Am1 + A0 * G + A1* G^2)
+norm(R^2 * Am1 + R * A0 + A1)
+</pre><pre class="codeoutput">
+ans =
+
+   5.9296e-11
+
+
+ans =
+
+   3.0192e-11
+
 </pre><p>We can now compute the matrix $M = A_0 + A_1 G$ so that it is block tridiagonal and block Toeplitz, with at most the top-left block different from the other diagonal ones. We need to find an integer $m$ such that the correction is contained in the first $m$ rows and columns, and such that the numerical band of $M$ is less than $m$.</p><pre class="codeinput">M = hA0 + A1 * G;
 [Mm, Mp] = symbol(M);
 
@@ -46,8 +52,12 @@ nrm_pi0 = norm(pi0, inf);
 <span class="comment">% Check if we computed the vector accurately enough (otherwise you might</span>
 <span class="comment">% want to increase m).</span>
 res = cqt(pi0) * M;
-fprintf (<span class="string">'Residual norm on pi0: %e\n'</span>, norm(res));
-</pre><pre class="codeoutput">Residual norm on pi0: 4.949672e-11
+norm(res)
+</pre><pre class="codeoutput">
+ans =
+
+   4.9497e-11
+
 </pre><p>We can now compute the other rows of the vector $\pi$ by multiplying $\pi_0$ on the right by the matrix $R$. Notice that these are all infinite vectors, therefore we will need to store them truncated in the output.</p><pre class="codeinput"><span class="comment">% Normalization</span>
 s = cqt(pi0) / (cqt(1,1) - R);
 s = sum(s(1,1:1024));
@@ -60,18 +70,19 @@ pi = pi0';
     infinite_pi0 = infinite_pi0 * R;
     pi = [ pi , infinite_pi0(1, 1:size(pi,1))' ];
 <span class="keyword">end</span>
-</pre><p>We can now check the residual on the computed vector.</p><pre class="codeinput">E = cqt([], [], 1);
+</pre><p>We can now check the residual on the computed vector, and we use the infinite norm.</p><pre class="codeinput">E = cqt([], [], 1);
 J = cqt(0, [0 1]);
 
 pi = cqt(pi)';
 R = E * pi * (hA0 - A0) + J * pi * Am1 <span class="keyword">...</span>
     + J' * pi * A1 + pi * A0;
 
-fprintf(<span class="string">'Residue on the computed pi: %1.2e\n'</span>, norm(R));
-fprintf(<span class="string">'Residue on the computed pi (infty norm): %1.2e\n'</span>, <span class="keyword">...</span>
-    norm(R(1:4096, 1:4096), inf));
-</pre><pre class="codeoutput">Residue on the computed pi: 1.11e-11
-Residue on the computed pi (infty norm): 1.57e-11
+norm(R, inf)
+</pre><pre class="codeoutput">
+ans =
+
+   1.5702e-11
+
 </pre></div><!--
 ##### SOURCE BEGIN #####
 %% Solving Jackson waiting Queues.
@@ -98,10 +109,8 @@ threshold = 1e-12;
 [G, R] = cr(Am1, A0, A1, 12);
 
 % Let's double check if these are the correct solutions
-fprintf('Residue of the right solution G: %1.2e\n', ...
-    norm(Am1 + A0 * G + A1* G^2));
-fprintf('Residue of the left solution R: %1.2e\n', ...
-    norm(R^2 * Am1 + R * A0 + A1));
+norm(Am1 + A0 * G + A1* G^2)
+norm(R^2 * Am1 + R * A0 + A1)
 
 %%
 % We can now compute the matrix $M = A_0 + A_1 G$ so that it is block
@@ -151,7 +160,7 @@ end
 % Check if we computed the vector accurately enough (otherwise you might
 % want to increase m).
 res = cqt(pi0) * M;
-fprintf ('Residual norm on pi0: %e\n', norm(res));
+norm(res)
 
 %%
 % We can now compute the other rows of the vector $\pi$ by multiplying
@@ -173,7 +182,8 @@ while norm(infinite_pi0) > threshold
 end
 
 %%
-% We can now check the residual on the computed vector.
+% We can now check the residual on the computed vector, and we use the
+% infinite norm.
 
 E = cqt([], [], 1);
 J = cqt(0, [0 1]);
@@ -182,8 +192,6 @@ pi = cqt(pi)';
 R = E * pi * (hA0 - A0) + J * pi * Am1 ...
     + J' * pi * A1 + pi * A0;
 
-fprintf('Residue on the computed pi: %1.2e\n', norm(R));
-fprintf('Residue on the computed pi (infty norm): %1.2e\n', ...
-    norm(R(1:4096, 1:4096), inf));
+norm(R, inf)
 ##### SOURCE END #####
 --></body></html>
