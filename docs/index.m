@@ -2,11 +2,11 @@
 %
 %% Introduction
 %
-% The CQT toolbox implements the arithmetic of $\mathcal{CQT}$ matrices, 
+% The CQT toolbox implements the arithmetic of $\mathcal{QT}$ matrices, 
 % which are defined as the set of matrices obtained summing a semi-infinite
 % Toeplitz matrix and a correction to the top-left corner.
 %
-% A $\mathcal{CQT}$ matrix has the structure $A =  T(a(z))+ E_a$ where 
+% A $\mathcal{QT}$ matrix has the structure $A =  T(a(z))+ E_a$ where 
 %
 % $$ T(a(z)) := \left[ \begin{array}{cccc}
 %            a_0 & a_1 & a_2 &  \cdots  \\
@@ -25,18 +25,16 @@
 % in the MATLAB environment.
 %
 % If you are unfamiliar with QT matrices, visit the following link to
-% understand how to interact with infinite matrices in MATLAB; later on,
-% you may be interested in checking out some applications that can be
-% treated in this framework. 
+% understand how to interact with infinite matrices in MATLAB.
 %
 % * <QTDefinition.html First steps with QT matrices>
 % * <Arithmetic.html Arithmetic operations between QT matrices>
-% * <commands.html Overview of all commands and functions available in the toolbox>
+% * <commands.html Commands and functions available in the toolbox>
 % * <LinearSystems.html Solving linear systems with QT matrices>
 %
 %% Markov chains with infinite-dimensional state spaces
 %
-% QT matrices are a natural tool for analyzing Markov chains and random
+% $\mathcal{QT}$ matrices are a natural tool for analyzing Markov chains and random
 % walks on infinite state spaces. We present a few examples of such
 % analyses here.
 % 
@@ -44,7 +42,7 @@
 %   Quasi-Birth-and-Death
 %   Markov processes involving quadratic matrix equations.  
 % * <QuadraticExample.html Solving a quadratix matrix equation> using 
-%   cyclic reduction and CQT matrices. 
+%   cyclic reduction and ${\mathcal QT} matrices. 
 %
 %%  Matrix functions of infinite matrices
 %
@@ -52,5 +50,5 @@
 %   Toeplitz matrices with a low-rank correction. 
 %
 %% Computing eigenvalues of QT matrices
-% * <doc_eig.html Computing eigenvalues> of QT matrices. 
+% * <doc_eig.html Computing eigenvalues> of ${\mathcal QT}$ matrices. 
 
