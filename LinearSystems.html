@@ -24,7 +24,7 @@ ans =
 </pre><pre class="codeoutput">
 ans =
 
-   4.9947e-13
+   4.9952e-13
 
 </pre><p>In practice, one can also check that the residual is small on a "large" enough finite section of $A$. If $n$ is not chosen large enough, then the result will be inaccurate.</p><pre class="codeinput">n = 10;
 norm(A(1:n, 1:n) * x(1:n, 1) - b(1:n, 1)) / norm(b(1:n, 1))
@@ -39,14 +39,14 @@ ans =
 
 ans =
 
-   8.8691e-13
+   8.8694e-13
 
 </pre><h2 id="6">UL factorizations</h2><p>In practice, linear systems are not solved by explicitly computing the inverse. Rather, we factorize $A$ into an UL factorization plus a low-rank correction, by computing matrices U, L, E such that</p><p>$$ A = UL + E $$</p><p>where $U$ is upper triangular and Toeplitz, $L$ is lower triangular and Toeplitz, and $E = WZ^*$ is a low-rank correction. Without the correction, this allows to solve linear systems by a (properly truncated) backsubstitution scheme. When $E \neq 0$, we use a Sherman-Morrison-Woodbury formulate to evaluate $x = A^{-1}b$.</p><p>The factorization can be computed in MATLAB by using the <tt>ul</tt> command:</p><pre class="codeinput">[U, L, E] = ul(A);
 norm(U*L + E - A)
 </pre><pre class="codeoutput">
 ans =
 
-   2.3358e-15
+   2.3748e-15
 
 </pre></div><!--
 ##### SOURCE BEGIN #####
