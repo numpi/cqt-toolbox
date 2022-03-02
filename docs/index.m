@@ -31,6 +31,7 @@
 %
 % * <QTDefinition.html First steps with QT matrices>
 % * <Arithmetic.html Arithmetic operations between QT matrices>
+% * <commands.html Overview of all commands and functions available in the toolbox>
 % * <LinearSystems.html Solving linear systems with QT matrices>
 %
 %% Markov chains with infinite-dimensional state spaces

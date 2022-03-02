@@ -15,6 +15,8 @@ if max(T.sz) == inf
             r = eqt_norm(T);
         case inf
             r = eqt_norm_inf(T);
+        case 1
+            r = eqt_norm_inf(T');
         case 2
             r = qt_norm2(T);
         otherwise
