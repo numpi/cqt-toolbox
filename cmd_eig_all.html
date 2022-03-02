@@ -1,0 +1,72 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Eigenvalues of QT matrices</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Eigenvalues of QT matrices</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The function <tt>eig_all</tt> computes the spectrum of a QT matrix $A$. This is returned decomposed as the isolated eigenvalues, and the continuous part.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>xisolated = eig_all(A)</tt> computes the isolated eigenvalues.</li><li><tt>[xisolated, xcont, res, it</tt> = eig_all(A)| also returns the   eigenvalues of a finite truncation that belong to the continuous   spectrum of <tt>A</tt> in the vector <tt>xcont</tt>, the   residuals for the isolated eigenvalues, the number of iterations   required for their approximation.</li><li><tt>eig_all(A, opt1, value1, ...)</tt> allows to specify some optional   parameters, listed below.</li></ul></div><p>The optionl parameter are pairs <tt>'option'</tt> and <tt>value</tt> as follows:</p><div><ul><li><tt>'algo'</tt> is an integer from <tt>1</tt> to <tt>4</tt> that identifies the matrix   iteration used to compute the eigenvalues (see below).</li><li><tt>'maxit'</tt> is the maximum number of iterations (default <tt>m = 20</tt>).</li><li><tt>'epsilon'</tt> is the relative precision used for the stopping criterion.   The default is to use <tt>1e3 * eps</tt>, where <tt>eps</tt> is the current machine   precision.</li><li><tt>'fact'</tt> is an integer factor such that a matrix of size <tt>N = f*m</tt> is   chosen as the size of a finite truncation where initial approximation   are chosen, and <tt>m</tt> is the maximum among the length of the Laurent   polynomial for the symbol, and the number of rows and columns for the   correction. The default if <tt>'fact'</tt> set to <tt>3</tt>.</li><li><tt>'verbose'</tt> enables debugging messages when set to <tt>true</tt>.</li><li><tt>'advpx'</tt> uses the Advanpix precision toolbox to compute the   eigenvalues at an increased precision. The toolbox should be configured   and installed in MATLAB.</li><li><tt>'digits'</tt> selects the number of digits to use when the Advanpix   precision toolbox is selected. The default is <tt>34</tt>.</li></ul></div><h2 id="2">Example</h2><pre class="codeinput">E = [ zeros(3, 7) , diag([ 8, -8, 8 ]) ];
+A = cqt([0 1 -2 1], [0 1 1 0 -1 0 0 1], E);
+
+xisolated = eig_all(A);
+plot(xisolated, <span class="string">'r*'</span>); hold <span class="string">on</span>;
+</pre><img vspace="5" hspace="5" src="cmd_eig_all_01.png" alt=""> <p>It is possible to directly plot the eigenvalues and the boundary of the spectrum (obtained using the command <a href="cmd_range.html">range</a>) by supplying the parameter <tt>'plotfig'</tt> set to <tt>true</tt>.</p><pre class="codeinput">eig_all(A, <span class="string">'plotfig'</span>, true);
+</pre><img vspace="5" hspace="5" src="cmd_eig_all_02.png" alt=""> </div><!--
+##### SOURCE BEGIN #####
+%% Eigenvalues of QT matrices
+%
+% The function |eig_all| computes the spectrum of a QT matrix $A$. This is
+% returned decomposed as the isolated eigenvalues, and the continuous part.
+% 
+
+%% Syntax
+% * |xisolated = eig_all(A)| computes the isolated eigenvalues. 
+% * |[xisolated, xcont, res, it| = eig_all(A)| also returns the
+%   eigenvalues of a finite truncation that belong to the continuous
+%   spectrum of |A| in the vector |xcont|, the
+%   residuals for the isolated eigenvalues, the number of iterations
+%   required for their approximation.
+% * |eig_all(A, opt1, value1, ...)| allows to specify some optional
+%   parameters, listed below. 
+% 
+% The optionl parameter are pairs |'option'| and |value| as follows:
+% 
+% * |'algo'| is an integer from |1| to |4| that identifies the matrix
+%   iteration used to compute the eigenvalues (see below). 
+% * |'maxit'| is the maximum number of iterations (default |m = 20|).
+% * |'epsilon'| is the relative precision used for the stopping criterion.
+%   The default is to use |1e3 * eps|, where |eps| is the current machine
+%   precision. 
+% * |'fact'| is an integer factor such that a matrix of size |N = f*m| is
+%   chosen as the size of a finite truncation where initial approximation
+%   are chosen, and |m| is the maximum among the length of the Laurent
+%   polynomial for the symbol, and the number of rows and columns for the
+%   correction. The default if |'fact'| set to |3|. 
+% * |'verbose'| enables debugging messages when set to |true|. 
+% * |'advpx'| uses the Advanpix precision toolbox to compute the
+%   eigenvalues at an increased precision. The toolbox should be configured
+%   and installed in MATLAB. 
+% * |'digits'| selects the number of digits to use when the Advanpix
+%   precision toolbox is selected. The default is |34|. 
+
+%% Example
+E = [ zeros(3, 7) , diag([ 8, -8, 8 ]) ];
+A = cqt([0 1 -2 1], [0 1 1 0 -1 0 0 1], E);
+
+xisolated = eig_all(A);
+plot(xisolated, 'r*'); hold on;
+
+%% 
+% It is possible to directly plot the eigenvalues and the boundary of the
+% spectrum (obtained using the command <cmd_range.html range>) 
+% by supplying the parameter |'plotfig'| set to |true|. 
+eig_all(A, 'plotfig', true);
+
+##### SOURCE END #####
+--></body></html>

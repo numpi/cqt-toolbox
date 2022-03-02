@@ -1,0 +1,37 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Boundary of the continuous spectrum</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Boundary of the continuous spectrum</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The continuous spectrum of a $\mathcal{QT}$ matrix $A$ is given by the image of the unit circle through $a(z)$, the symbol, and the part of the complex plane that have winding number different from zero.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>R = range(A)</tt> returns a sampling of points obtained by evaluating the symbol of $A$ at points on the unit circle.</p><h2 id="2">Example</h2><pre class="codeinput">E = [ zeros(3, 7) , diag([ 8, -8, 8 ]) ];
+A = cqt([0 1 -2 1], [0 1 1 0 -1 0 0 1], E);
+
+plot(range(A));
+</pre><img vspace="5" hspace="5" src="cmd_range_01.png" alt=""> </div><!--
+##### SOURCE BEGIN #####
+%% Boundary of the continuous spectrum
+%
+% The continuous spectrum of a $\mathcal{QT}$ matrix $A$ is given by the
+% image of the unit circle through $a(z)$, the symbol, and the part of the
+% complex plane that have winding number different from zero. 
+
+%% Syntax
+% |R = range(A)| returns a sampling of points obtained by evaluating the
+% symbol of $A$ at points on the unit circle. 
+
+%% Example
+%
+E = [ zeros(3, 7) , diag([ 8, -8, 8 ]) ];
+A = cqt([0 1 -2 1], [0 1 1 0 -1 0 0 1], E);
+
+plot(range(A));
+##### SOURCE END #####
+--></body></html>

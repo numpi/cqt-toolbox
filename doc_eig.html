@@ -100,8 +100,7 @@ res_frob =
 
      5.197966865444977e-16
 
-</pre><p>The high precision computation can be carried out relying on the Advanpix package In this case we have to add the path of the Advanpix folder</p><pre class="codeinput">addpath(<span class="string">'~/Software/AdvanpixMCT-4.8.5.14569/'</span>);
-xhigh = eig_single(A, x0, <span class="string">'algo'</span>, 2, <span class="string">'advpx'</span>, true, <span class="string">'digits'</span>,64);
+</pre><p>The high precision computation can be carried out relying on the Advanpix package In this case we have to add the path of the Advanpix folder</p><pre class="codeinput">xhigh = eig_single(A, x0, <span class="string">'algo'</span>, 2, <span class="string">'advpx'</span>, true, <span class="string">'digits'</span>,64);
 err_vand = abs((xv-xhigh)/xhigh)
 err_frob = abs((xf-xhigh)/xhigh)
 </pre><pre class="codeoutput">
@@ -236,68 +235,84 @@ resv =
 
   Columns 1 through 3
 
-     8.410585828923835e-16     8.410585828923835e-16     4.444998344768015e-16
+     4.032043652446081e-16     4.032043652446081e-16     8.560112432275140e-16
 
   Columns 4 through 6
 
-     4.444998344768015e-16     8.993154925514699e-17     8.993154925514699e-17
+     8.560112432275140e-16     2.301632017803088e-16     2.301632017803088e-16
 
   Columns 7 through 9
 
-     1.482051603427906e-16     1.482051603427906e-16     1.774365444674296e-16
+     3.893935019687203e-16     3.893935019687203e-16     2.657860042895397e-16
 
   Columns 10 through 12
 
-     1.774365444674296e-16     1.380662692648417e-16     1.380662692648417e-16
+     2.657860042895397e-16     1.341766842815025e-15     1.341766842815025e-15
 
   Columns 13 through 15
 
-     4.073623365553447e-17     4.073623365553447e-17     8.496303856702382e-17
+     4.266319059109168e-17     4.266319059109168e-17     9.884198494447511e-17
+
+  Columns 16 through 18
+
+     9.884198494447511e-17     1.604562885141140e-16     1.604562885141140e-16
+
+  Column 19
+
+     5.121254434306492e-17
 
 
 resf =
 
   Columns 1 through 3
 
-     3.387555659106488e-16     3.387555659106488e-16     5.381607042755730e-17
+     1.285867527421112e-17     1.285867527421112e-17     1.463844882178004e-16
 
   Columns 4 through 6
 
-     5.381607042755730e-17     3.751557246368560e-17     3.751557246368560e-17
+     1.463844882178004e-16     9.607768402618110e-17     9.607768402618110e-17
 
   Columns 7 through 9
 
-     2.814925227215123e-17     2.814925227215123e-17     1.498284225328788e-16
+     8.684778680916420e-17     8.684778680916420e-17     2.141033652135890e-16
 
   Columns 10 through 12
 
-     1.498284225328788e-16     1.557486729838021e-16     1.557486729838021e-16
+     2.141033652135890e-16     1.032582278001415e-16     1.032582278001415e-16
 
   Columns 13 through 15
 
-     9.031831679331280e-17     9.031831679331280e-17     5.464476535247922e-17
+     2.249842584819132e-16     2.249842584819132e-16     1.959874305792388e-16
+
+  Columns 16 through 18
+
+     1.959874305792388e-16     9.765818716075084e-17     9.765818716075084e-17
+
+  Column 19
+
+     1.201297521838251e-17
 
 
 itv =
 
   Columns 1 through 13
 
-     5     5     3     3     3     3     3     3     5     5     3     3     3
+     3     3     3     3     3     3     4     4     3     3     4     4     3
 
-  Columns 14 through 15
+  Columns 14 through 19
 
-     3     3
+     3     8     8     3     3     3
 
 
 itf =
 
   Columns 1 through 13
 
-     5     5     3     3     3     3     3     3     5     5     3     3     3
+     3     3     3     3     3     3     4     4     3     3     4     4     3
 
-  Columns 14 through 15
+  Columns 14 through 19
 
-     3     3
+     3     7     7     3     3     3
 
 </pre><h2 id="17">The function basins</h2><p>This function draws the picture with the basins of attraction of the Newton iteration in a rectangle of the complex plane. The syntax is</p><pre class="codeinput"><span class="comment">% [F, v, iter] = basins(A, n, x0, x1, y0, y1, varargin)</span>
 
@@ -340,7 +355,7 @@ itf =
 <span class="comment">% 253 p&lt;q not an eig :      black           (flag 4)</span>
 <span class="comment">% 253 Exceeded iter:        black           (flag 6)</span>
 <span class="comment">% 253 Diverging seq.        black           (flag 7)</span>
-</pre><h2 id="18">Example</h2><p>Consider the original matrix A and compute the basins for algorithms 1,2,3,4 on a grid of 500x500 pixels. We fix the random number generator to ensure the images are consistent across multiple runs.</p><pre class="codeinput">rng(1);
+</pre><h2 id="18">Example</h2><p>Consider the original matrix A and compute the basins for algorithms 1,2,3,4 on a grid of 200x200 pixels. We fix the random number generator to ensure the images are consistent across multiple runs.</p><pre class="codeinput">rng(1);
 
 n = 200;  x0 = -7;  x1 = 6;  y0 = -6;  y1 = 6;
 F1 = basins(A, n, x0, x1, y0, y1, <span class="string">'algo'</span>, 1, <span class="string">'verbose'</span>,false, <span class="string">'plotfig'</span>, false);
@@ -484,7 +499,6 @@ res_frob = info.res
 % The high precision computation can be carried out relying on the Advanpix package
 % In this case we have to add the path of the Advanpix folder
 
-addpath('~/Software/AdvanpixMCT-4.8.5.14569/');
 xhigh = eig_single(A, x0, 'algo', 2, 'advpx', true, 'digits',64);
 err_vand = abs((xv-xhigh)/xhigh)
 err_frob = abs((xf-xhigh)/xhigh)
@@ -618,7 +632,7 @@ itf
 
 %% Example
 % Consider the original matrix A and compute the basins for algorithms
-% 1,2,3,4 on a grid of 500x500 pixels. We fix the random number generator
+% 1,2,3,4 on a grid of 200x200 pixels. We fix the random number generator
 % to ensure the images are consistent across multiple runs. 
 
 rng(1);

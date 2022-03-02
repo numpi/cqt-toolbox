@@ -1,0 +1,33 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Distances from truncated matrices</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Distances from truncated matrices</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>Given an infinite size QT matrix $A$, its finite truncation may (or may not) well approximate the spectrum of the infinite-dimensional operator.</p><p>The function <tt>distance</tt> computes the distance between the eigenvalues of the truncated matrix and the closest eigenvalue of the infinite-dimensional operator.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>[D, x] = distances(A, algo, N0, nsamp, advpx, dig)</tt></p><h2 id="2">Example</h2><p>See <a href="doc_eig.html">the documentation on computing eigenvalues</a> for further details on the use of this function.</p></div><!--
+##### SOURCE BEGIN #####
+%% Distances from truncated matrices
+%
+% Given an infinite size QT matrix $A$, its finite truncation may (or may
+% not) well approximate the spectrum of the infinite-dimensional operator. 
+%
+% The function |distance| computes the distance between the eigenvalues of
+% the truncated matrix and the closest eigenvalue of the
+% infinite-dimensional operator. 
+
+%% Syntax
+%
+% |[D, x] = distances(A, algo, N0, nsamp, advpx, dig)|
+
+%% Example
+% See <doc_eig.html the documentation on computing eigenvalues> for further
+% details on the use of this function. 
+##### SOURCE END #####
+--></body></html>

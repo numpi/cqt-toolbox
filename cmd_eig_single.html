@@ -1,0 +1,47 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Approximating a single eigenvalue</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Approximating a single eigenvalue</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The command <tt>eig_single</tt> can be used to approximate an isolated eigenvalue of a $\mathcal{QT}$ matrix $A$.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>x = eig_single(A, x0)</tt> approximates an eigenvalue of <tt>A</tt> close to <tt>x0</tt>.</p><h2 id="2">Example</h2><p>In this example we approximate two complex conjugate eigenalues of a real matrix $A$, and plot the boundary of the continuous spectrum using the <a href="cmd_range.html">range</a> function.</p><pre class="codeinput">E = [ zeros(3, 7) , diag([ 8, -8, 8 ]) ];
+A = cqt([0 1 -2 1], [0 1 1 0 -1 0 0 1], E);
+
+x1 = eig_single(A, 1 + 1i);
+x2 = eig_single(A, 1 - 1i);
+plot([ x1, x2 ], <span class="string">'r*'</span>); hold <span class="string">on</span>;
+
+plot(range(A));
+</pre><img vspace="5" hspace="5" src="cmd_eig_single_01.png" alt=""> </div><!--
+##### SOURCE BEGIN #####
+%% Approximating a single eigenvalue
+%
+% The command |eig_single| can be used to approximate an isolated
+% eigenvalue of a $\mathcal{QT}$ matrix $A$. 
+
+%% Syntax
+% |x = eig_single(A, x0)| approximates an eigenvalue of |A| close to |x0|. 
+
+%% Example
+%
+% In this example we approximate two complex conjugate eigenalues of a real 
+% matrix $A$, and plot the boundary of the continuous spectrum using the 
+% <cmd_range.html range> function. 
+
+E = [ zeros(3, 7) , diag([ 8, -8, 8 ]) ];
+A = cqt([0 1 -2 1], [0 1 1 0 -1 0 0 1], E);
+
+x1 = eig_single(A, 1 + 1i);
+x2 = eig_single(A, 1 - 1i);
+plot([ x1, x2 ], 'r*'); hold on;
+
+plot(range(A));
+##### SOURCE END #####
+--></body></html>
