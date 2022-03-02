@@ -137,10 +137,10 @@ E = correction(AA);
 % plot figures
   if plotfig
      figure; 
-     plot(ei, 'ro');  hold on;
-     plot(x+1.e-200*1i,'b.', 'markersize',10);
+     plot(complex(ei), 'ro');  hold on;
+     plot(complex(x),'b.', 'markersize',10);
      ax = gca; ax.FontSize = 16;
-     plot(xcont+1.e-20*1i, '.c');
+     plot(complex(xcont), '.c');
      range(AA);
      drawnow;
      hold off;

@@ -44,17 +44,23 @@
 % * <cmd_symbol.html symbol> accesses the symbol of the QT matrix under
 %   consideration. 
 % * <cmd_transpose.html transpose> computes the transpose of a QT matrix
-% * <cmd_ul.html ul> Computes the UL factorization, that is used (among 
+% * <cmd_ul.html ul> computes the UL factorization, that is used (among 
 %   other things) to solve linear systems and compute the inverse. 
 
 %% Eigenvalue computations
 %
-% * |basins|: Compute the basin of attraction for the fixed point iteration
-%   used when computing eigenvalues of QT matrices. 
-% * |distances|:
-% * |eig_all|: 
-% * |eig_single|
-% * |range|
+% * <cmd_basins.html basins> computes the basin of attraction for the
+%   matrix iterations used when computing eigenvalues of QT matrices. 
+% * <cmd_distances.html distances> computes the distance between the
+%   eigenvalues of finite truncations of the infinite-dimensional operator,
+%   and its true eigenvalues. 
+% * <cmd_eig_all.html eig_all> computes the spectrum of a QT matrix
+%   (decomposed as the continuous part and the isolated eigenvalues). 
+% * <cmd_eig_single.html eig_single> computes a single isolated eigenvalue
+%   of a QT matrix starting from an initial approximation. 
+% * <cmd_range.html range> plots the boundary of the continuous spectrum of
+%   $A$, which coincides with the symbol evaluated at all the points in the
+%   unit circle. 
 
 %% Matrix equations and matrix functions
 %

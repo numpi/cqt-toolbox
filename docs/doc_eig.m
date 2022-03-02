@@ -101,7 +101,6 @@ res_frob = info.res
 % The high precision computation can be carried out relying on the Advanpix package
 % In this case we have to add the path of the Advanpix folder
 
-addpath('~/Software/AdvanpixMCT-4.8.5.14569/');
 xhigh = eig_single(A, x0, 'algo', 2, 'advpx', true, 'digits',64);
 err_vand = abs((xv-xhigh)/xhigh)
 err_frob = abs((xf-xhigh)/xhigh)
@@ -235,7 +234,7 @@ itf
 
 %% Example
 % Consider the original matrix A and compute the basins for algorithms
-% 1,2,3,4 on a grid of 500x500 pixels. We fix the random number generator
+% 1,2,3,4 on a grid of 200x200 pixels. We fix the random number generator
 % to ensure the images are consistent across multiple runs. 
 
 rng(1);

@@ -52,7 +52,7 @@ function w = wind(am,ap,x,advpx)
   nz = length(a)-ind;
   m = length(am)-1;
   w = nz-m;
-  fprintf('Warning: in wind, max number of Graeffe steps reached\n');
+  % fprintf('Warning: in wind, max number of Graeffe steps reached\n');
   return
 end
 
