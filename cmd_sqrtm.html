@@ -1,0 +1,78 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Matrix square root</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Matrix square root</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The function <tt>sqrtm</tt> evaluates the matrix square root of a $\mathcal{QT}$ matrix $A$. This can be done using either the Denman-Beaver iteration, or the Cyclic Reduction. In most cases, the two algorithms should deliver similar results, although the Cyclic Reduction may be preferable for matrices closer to singularity.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>X = sqrtm(A)</tt> evaluate the matrix square root.</li><li><tt>cqtoption('sqrt', method')</tt> selects the method used for the computation (see <a href="cmd_cqtoption.html">cqtoption</a>); the valid options are either <tt>'cr'</tt> or <tt>'db'</tt>.</li></ul></div><h2 id="2">Example</h2><p>In the first example we take a fairly well-conditioned matrix, and rely on Denman-Beavers (the default algorithm).</p><pre class="codeinput">A = cqt([ 2 .8 ], [ 2 .8 ]);
+sA = sqrtm(A);
+res = norm(sA^2 - A) / norm(A)
+</pre><pre class="codeoutput">
+res =
+
+   7.0808e-12
+
+</pre><p>We may consider a matrix closer to singularity, and compare the accuracy of Denman-Beavers vs the Cyclic Reduction.</p><pre class="codeinput">A = cqt([ 2 .99 ], [ 2 .99 ]);
+cqtoption(<span class="string">'sqrt'</span>, <span class="string">'db'</span>);
+sA = sqrtm(A);
+resDB = norm(sA^2 - A) / norm(A)
+
+cqtoption(<span class="string">'sqrt'</span>, <span class="string">'cr'</span>);
+sA = sqrtm(A);
+resCR = norm(sA^2 - A) / norm(A)
+</pre><pre class="codeoutput">
+resDB =
+
+   1.1275e-11
+
+
+resCR =
+
+   6.1964e-12
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Matrix square root
+%
+% The function |sqrtm| evaluates the matrix square root of a $\mathcal{QT}$
+% matrix $A$. This can be done using either the Denman-Beaver iteration, or
+% the Cyclic Reduction. In most cases, the two algorithms should deliver
+% similar results, although the Cyclic Reduction may be preferable for
+% matrices closer to singularity. 
+
+%% Syntax
+% * |X = sqrtm(A)| evaluate the matrix square root. 
+% * |cqtoption('sqrt', method')| selects the method used for the
+% computation (see <cmd_cqtoption.html cqtoption>); the valid options are
+% either |'cr'| or |'db'|. 
+
+%% Example
+%
+% In the first example we take a fairly well-conditioned matrix, and rely
+% on Denman-Beavers (the default algorithm).
+A = cqt([ 2 .8 ], [ 2 .8 ]);
+sA = sqrtm(A);
+res = norm(sA^2 - A) / norm(A)
+
+%%
+% We may consider a matrix closer to singularity, and compare the accuracy
+% of Denman-Beavers vs the Cyclic Reduction.
+A = cqt([ 2 .99 ], [ 2 .99 ]);
+cqtoption('sqrt', 'db');
+sA = sqrtm(A);
+resDB = norm(sA^2 - A) / norm(A)
+
+cqtoption('sqrt', 'cr');
+sA = sqrtm(A);
+resCR = norm(sA^2 - A) / norm(A)
+
+
+##### SOURCE END #####
+--></body></html>

@@ -1,0 +1,55 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Lyapunov and Sylvester equations</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Lyapunov and Sylvester equations</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>If $A,B,C$ are $\mathcal{QT}$ matrices such that the spectra of $A$ and $-B$ are separated, then the solution of the matrix equation $AX + XB + C= 0$ is again a $\mathcal{QT}$ matrix.</p><p>The solution can be computed numerically by calling the function <tt>cqtlyap</tt>.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><p><tt>X = cqtlyap(A, B, C)</tt> returns <tt>X</tt> that satisfies <tt>A*X+X*B+C=0</tt>, up to a   small truncation error.</p><h2 id="2">Example</h2><p>We generate a matrix $A$ which is positive definite, so that setting $B = A$ guarantees the separation of the spectra between $A$ and $-B$. We solve with $C = I$, the identity.</p><pre class="codeinput">A = cqt([ 2.5, 1 ], [ 2.5, 1 ], rand(4));
+B = A;
+C = cqt(1, 1);
+
+X = cqtlyap(A, B, C);
+
+norm(A*X + X*B + C) / norm(C)
+</pre><pre class="codeoutput">
+ans =
+
+   5.4662e-12
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Lyapunov and Sylvester equations
+%
+% If $A,B,C$ are $\mathcal{QT}$ matrices such that the spectra of $A$ and
+% $-B$ are separated, then the solution of the matrix equation $AX + XB +
+% C= 0$ is again a $\mathcal{QT}$ matrix. 
+%
+% The solution can be computed numerically by calling the function
+% |cqtlyap|. 
+
+%% Syntax
+% |X = cqtlyap(A, B, C)| returns |X| that satisfies |A*X+X*B+C=0|, up to a
+%   small truncation error. 
+
+%% Example
+%
+% We generate a matrix $A$ which is positive definite, so that setting $B =
+% A$ guarantees the separation of the spectra between $A$ and $-B$. We
+% solve with $C = I$, the identity. 
+
+A = cqt([ 2.5, 1 ], [ 2.5, 1 ], rand(4));
+B = A;
+C = cqt(1, 1); 
+
+X = cqtlyap(A, B, C);
+
+norm(A*X + X*B + C) / norm(C)
+##### SOURCE END #####
+--></body></html>

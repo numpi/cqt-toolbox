@@ -1,0 +1,72 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Evaluating a matrix polynomial</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Evaluating a matrix polynomial</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The function <tt>polyvalm</tt> is the matrix version of <tt>polyval</tt>. It evaluates a matrix polynomial of the form</p><p>$$ p(A) = p_0 I + p_1 A + p_2 A^2 + \ldots + p_d A^d, $$</p><p>where $A$ is allowed to be a $\mathcal{QT}$ matrix.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>P = polyvalm(p, A)</tt></li></ul></div><h2 id="2">Example</h2><p>As a small example, we check the quality of a low-degree truncated Taylor approximant for the matrix exponential. We choose a matrix of small norm to ensure a fast convergence.</p><p>At some point, the approximation cannot be improved beyond the truncation threshold in use in the toolbox.</p><pre class="codeinput">A = cqt([ .5 .5 ], [ .5 .5 ], rand(8) / 10);
+eA = expm(A);
+
+max_degree = 20;
+res = zeros(1, max_degree);
+<span class="keyword">for</span> d = 1 : max_degree
+    p = 1 ./ factorial(d : -1 : 0);
+    res(d) = norm(polyvalm(p, A) - eA) / norm(eA);
+<span class="keyword">end</span>
+
+semilogy(1 : max_degree, res, <span class="string">'r-'</span>);
+hold <span class="string">on</span>;
+plot(1 : max_degree, cqtoption(<span class="string">'threshold'</span>) * ones(1, max_degree), <span class="string">'k--'</span>);
+legend(<span class="string">'Error'</span>, <span class="string">'Truncation threshold'</span>);
+xlabel(<span class="string">'Degree'</span>); ylabel(<span class="string">'Approximation error'</span>);
+title(<span class="string">'Truncated Taylor approximation to e^A'</span>);
+axis([ 1 max_degree 1e-1*cqtoption(<span class="string">'threshold'</span>), 1 ]);
+</pre><img vspace="5" hspace="5" src="cmd_polyvalm_01.png" alt=""> </div><!--
+##### SOURCE BEGIN #####
+%% Evaluating a matrix polynomial
+%
+% The function |polyvalm| is the matrix version of |polyval|. It evaluates
+% a matrix polynomial of the form 
+%
+% $$ p(A) = p_0 I + p_1 A + p_2 A^2 + \ldots + p_d A^d, $$
+%
+% where $A$ is allowed to be a $\mathcal{QT}$ matrix. 
+
+%% Syntax 
+% * |P = polyvalm(p, A)|
+
+%% Example
+% 
+% As a small example, we check the quality of a low-degree truncated Taylor 
+% approximant for the matrix exponential. We choose a matrix of small norm
+% to ensure a fast convergence. 
+%
+% At some point, the approximation cannot be improved beyond the truncation
+% threshold in use in the toolbox. 
+
+A = cqt([ .5 .5 ], [ .5 .5 ], rand(8) / 10);
+eA = expm(A);
+
+max_degree = 20;
+res = zeros(1, max_degree);
+for d = 1 : max_degree
+    p = 1 ./ factorial(d : -1 : 0);
+    res(d) = norm(polyvalm(p, A) - eA) / norm(eA);
+end
+
+semilogy(1 : max_degree, res, 'r-'); 
+hold on; 
+plot(1 : max_degree, cqtoption('threshold') * ones(1, max_degree), 'kREPLACE_WITH_DASH_DASH');
+legend('Error', 'Truncation threshold');
+xlabel('Degree'); ylabel('Approximation error');
+title('Truncated Taylor approximation to e^A');
+axis([ 1 max_degree 1e-1*cqtoption('threshold'), 1 ]);
+##### SOURCE END #####
+--></body></html>

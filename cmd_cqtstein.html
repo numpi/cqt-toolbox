@@ -1,0 +1,53 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Solving Stein equations in QT format</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Solving Stein equations in QT format</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The theory for the solution of Stein equations is related with the one for solving Lyapunov and Sylvester equations, which can be done with the command <a href="cmd_cqtlyap.m">cqtlyap</a>.</p><p>A Stein equation has the form $AXB + X + C = 0$, for given matrices $A,B,C$. If the latter are $\mathcal{QT}$ matrices and the product of any two elements in the spectra of $A$ and $B$ is always smaller than $1 - \epsilon$ for some $\epsilon &gt; 0$, then the solution $X$ is representable in $\mathcal{QT}$ format as well.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>X = cqtstein(A, B, C)</tt> computes a matrix <tt>X</tt> that satisfies <tt>A*X*B + X   + C = 0</tt>, up to a small truncation error.</li></ul></div><h2 id="2">Example</h2><pre class="codeinput">A = cqt([ .5 .2 ], [.5 .2 ]);
+B = A;
+C = cqt(1, 1);
+
+X = cqtstein(A, B, C);
+
+norm(A*X*B + X + C) / norm(C)
+</pre><pre class="codeoutput">
+ans =
+
+   8.3250e-12
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Solving Stein equations in QT format
+%
+% The theory for the solution of Stein equations is related with the one
+% for solving Lyapunov and Sylvester equations, which can be done with the
+% command <cmd_cqtlyap.m cqtlyap>. 
+%
+% A Stein equation has the form $AXB + X + C = 0$, for given matrices
+% $A,B,C$. If the latter are $\mathcal{QT}$ matrices and the product of any
+% two elements in the spectra of $A$ and $B$ is always smaller than $1 -
+% \epsilon$ for some $\epsilon > 0$, then the solution $X$ is representable
+% in $\mathcal{QT}$ format as well. 
+
+%% Syntax
+% * |X = cqtstein(A, B, C)| computes a matrix |X| that satisfies |A*X*B + X
+%   + C = 0|, up to a small truncation error. 
+
+%% Example
+A = cqt([ .5 .2 ], [.5 .2 ]);
+B = A;
+C = cqt(1, 1);
+
+X = cqtstein(A, B, C);
+
+norm(A*X*B + X + C) / norm(C)
+##### SOURCE END #####
+--></body></html>

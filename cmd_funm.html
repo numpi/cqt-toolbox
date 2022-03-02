@@ -1,0 +1,54 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Evaluation of generic matrix functions</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Evaluation of generic matrix functions</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The function <tt>funm</tt> evaluates a generic matrix function $f(A)$ for some $f(z)$ analytic over the ball centered at zero and of radius equal to the norm of $A$.</p><p>The approach uses a contour integral on the boundary of such ball to evaluate the function.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>X = funm(A, f)</tt> evaluate the function $f(z)$ at $A$.</li><li><tt>X = funm(A, f, 'opt1', value1, 'opt2', value2, ...</tt> allows to specify further options. In particular, <tt>'max_it'</tt> is the maximum number of quadrature points to use, and <tt>'poles'</tt> is a list of the poles of the function in case it's meromorphic; these are taken into account by computing the required correction to the function.</li></ul></div><h2 id="2">Example</h2><p>As an example we evaluate the matrix exponential, and compare with the (much more efficient) implementation in <tt>expm</tt>.</p><pre class="codeinput">A = cqt([ 2 1 1], [ 2 1 ]);
+eA = funm(A, @(z) exp(z));
+eA2 = expm(A);
+
+res = norm(eA - eA2) / norm(eA2)
+</pre><pre class="codeoutput">
+res =
+
+   4.1748e-11
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Evaluation of generic matrix functions
+%
+% The function |funm| evaluates a generic matrix function $f(A)$ for some
+% $f(z)$ analytic over the ball centered at zero and of radius equal to the
+% norm of $A$. 
+%
+% The approach uses a contour integral on the boundary of such ball to
+% evaluate the function. 
+
+%% Syntax
+% * |X = funm(A, f)| evaluate the function $f(z)$ at $A$. 
+% * |X = funm(A, f, 'opt1', value1, 'opt2', value2, ...| allows to specify
+% further options. In particular, |'max_it'| is the maximum number of
+% quadrature points to use, and |'poles'| is a list of the poles of the
+% function in case it's meromorphic; these are taken into account by
+% computing the required correction to the function. 
+
+%% Example
+%
+% As an example we evaluate the matrix exponential, and compare with the
+% (much more efficient) implementation in |expm|. 
+
+A = cqt([ 2 1 1], [ 2 1 ]);
+eA = funm(A, @(z) exp(z));
+eA2 = expm(A);
+
+res = norm(eA - eA2) / norm(eA2)
+##### SOURCE END #####
+--></body></html>
