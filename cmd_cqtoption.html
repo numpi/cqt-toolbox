@@ -1,0 +1,53 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Global options for the QT toolbox</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Global options for the QT toolbox</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>A few options can be set globally in the QT toolbox through the <tt>cqtoption</tt> command.</p><p>The supported options are the following:</p><div><ul><li><tt>'threshold'</tt>: The truncation threshold in the operations. This is   indicative of the accuracy that will be attained by the methods. The   default value is <tt>1e-12</tt>.</li><li><tt>'inversion'</tt>: Method used for the inversion of the symbol (and   therefore of QT matrices); can be either <tt>'cr'</tt> (for Cyclic Reduction) or   <tt>'fft'</tt> (Fast Fourier Transform).</li><li><tt>'sqrt'</tt>: Method used to compute the matrix square root. Can be either   <tt>'db'</tt> (Denman-Beavers) or <tt>'cr'</tt> (Cyclic Reduction).</li><li><tt>'compression'</tt>: The compression algorithm for the compact correction;   can be either <tt>'lanczos'</tt> for the Golub-Kahan-Lanczos algorithm for the   SVD, or <tt>'random'</tt> to use a randomized sampling technique.</li><li><tt>'wiener-hopf'</tt> selects the method to compute Wiener-Hopf   factorizations; can be either <tt>'cr'</tt> (Cyclic Reduction), or <tt>'newton'</tt>   (based on the Newton iteration).</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>value = cqtoption('option')</tt></li><li><tt>cqtoption('option', value)</tt></li></ul></div><h2 id="2">Example</h2><pre class="codeinput">cqtoption(<span class="string">'threshold'</span>)
+</pre><pre class="codeoutput">
+ans =
+
+   1.0000e-12
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Global options for the QT toolbox 
+%
+% A few options can be set globally in the QT toolbox through the
+% |cqtoption| command. 
+%
+% The supported options are the following:
+%
+% * |'threshold'|: The truncation threshold in the operations. This is
+%   indicative of the accuracy that will be attained by the methods. The
+%   default value is |1e-12|.
+% * |'inversion'|: Method used for the inversion of the symbol (and
+%   therefore of QT matrices); can be either |'cr'| (for Cyclic Reduction) or
+%   |'fft'| (Fast Fourier Transform). 
+% * |'sqrt'|: Method used to compute the matrix square root. Can be either
+%   |'db'| (Denman-Beavers) or |'cr'| (Cyclic Reduction).
+% * |'compression'|: The compression algorithm for the compact correction;
+%   can be either |'lanczos'| for the Golub-Kahan-Lanczos algorithm for the
+%   SVD, or |'random'| to use a randomized sampling technique. 
+% * |'wiener-hopf'| selects the method to compute Wiener-Hopf
+%   factorizations; can be either |'cr'| (Cyclic Reduction), or |'newton'|
+%   (based on the Newton iteration).
+
+%% Syntax
+% * |value = cqtoption('option')|
+% * |cqtoption('option', value)|
+
+%% Example
+%
+
+cqtoption('threshold')
+##### SOURCE END #####
+--></body></html>

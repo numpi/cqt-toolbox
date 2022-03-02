@@ -1,0 +1,57 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Inverse of a QT matrix</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Inverse of a QT matrix</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The command <tt>inv</tt> returns the inverse of a QT matrix, represented in the QT format. To compute the inverse, it is necessary that the symbol $a(z)$ defining the Toeplitz part needs to be invertible, i.e., it needs to never vanish over the unit circle.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>iA = inv(A)</tt></li></ul></div><h2 id="2">Example</h2><p>We choose a well-conditioned Toeplitz matrix, that can be inverted easily.</p><pre class="codeinput">A = cqt([ 3 1 ], [ 3  1 ]);
+iA = inv(A);
+cqtinfo(iA)
+</pre><pre class="codeoutput">
+ CQT matrix of size Inf x Inf
+  - Rank of the correction: 1
+  - Length of positive / negative symbol: 28 / 28
+
+</pre><p>We can then test the accuracy of the computed inverse by testing that the inverse times the original matrix is close to the identity; we expect this number to be close to the truncatio threshold, that can be set with the <a href="cmd_cqtoption.html">cqtoption</a> command.</p><pre class="codeinput">res = norm( A * iA - eye(size(A), <span class="string">'like'</span>, cqt), <span class="string">'cqt'</span>)
+</pre><pre class="codeoutput">
+res =
+
+   1.2064e-11
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Inverse of a QT matrix
+%
+% The command |inv| returns the inverse of a QT matrix, represented in the
+% QT format. To compute the inverse, it is necessary that the symbol $a(z)$
+% defining the Toeplitz part needs to be invertible, i.e., it needs to
+% never vanish over the unit circle. 
+
+%% Syntax
+% * |iA = inv(A)|
+
+%% Example
+%
+% We choose a well-conditioned Toeplitz matrix, that can be inverted
+% easily. 
+
+A = cqt([ 3 1 ], [ 3  1 ]);
+iA = inv(A);
+cqtinfo(iA)
+
+%%
+% We can then test the accuracy of the computed inverse by testing that the
+% inverse times the original matrix is close to the identity; we expect
+% this number to be close to the truncatio threshold, that can be set with
+% the <cmd_cqtoption.html cqtoption> command. 
+
+res = norm( A * iA - eye(size(A), 'like', cqt), 'cqt')
+##### SOURCE END #####
+--></body></html>

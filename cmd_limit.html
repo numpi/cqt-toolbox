@@ -1,0 +1,42 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Limit of the columns</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Limit of the columns</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>For Extended QT matrices, it is of interest to compute the limit for $i \to \infty$ of $A_{ij}$, for a fixed $j$.</p><p>While for standard QT matrices $A = T(a) + E$ this is always zero, for matrices that also have a correction of the form $ev^T$ this is equal to the vector v.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>v = limit(A)</tt></li></ul></div><h2 id="2">Example</h2><p>To obtain some interesting data, we need to use extended QT matrices.</p><pre class="codeinput">A = cqt(<span class="string">'extended'</span>, [1 2], [1 2], 1, [1 2 3 4 5 6]);
+limit(A)
+</pre><pre class="codeoutput">
+ans =
+
+     1     2     3     4     5     6
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Limit of the columns
+%
+% For Extended QT matrices, it is of interest to compute the limit for $i
+% \to \infty$ of $A_{ij}$, for a fixed $j$. 
+%
+% While for standard QT matrices $A = T(a) + E$ this is always zero, for
+% matrices that also have a correction of the form $ev^T$ this is equal to
+% the vector v. 
+
+%% Syntax
+% * |v = limit(A)|
+
+%% Example
+%
+% To obtain some interesting data, we need to use extended QT matrices. 
+
+A = cqt('extended', [1 2], [1 2], 1, [1 2 3 4 5 6]);
+limit(A)
+##### SOURCE END #####
+--></body></html>

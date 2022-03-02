@@ -1,0 +1,67 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Construction QT matrices</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Construction QT matrices</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The <tt>cqt</tt> command can be used to construct QT matrices from several input data. Different syntaxes are supported.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>T = cqt(neg, pos, E)</tt> creates the semi-infinite cqt-matrix with      the symbol defined by the coefficients in <tt>neg</tt> and <tt>pos</tt>, which are      expected to contain negative and positive powers of the Laurent polynomial,      respectively. For consistency, it is checked that <tt>neg(1) == pos(1)</tt>.      An optional finite correction <tt>E</tt> can be specified.</li><li><tt>T = cqt(neg, pos, U, V)</tt> creates the semi-infinite cqt-matrix with      the specified symbol (as above) and finite correction <tt>U * V.'</tt>.</li><li><tt>T = cqt(neg, pos, A, B, m, n)</tt> creates the $m \times  n$ QT matrix with   the specified symbol, top-left correction $A$ and bottom-right   correction $B$. If one between <tt>m</tt> and <tt>n</tt> is <tt>inf</tt> then $B$ is ignored.</li><li><tt>T = cqt(neg, pos, U, V, W, Z, m, n)</tt> creates the $m \times n$   QT matrix with the specified symbol and finite corrections <tt>A = U * V.'</tt>   and <tt>B = W * Z.'</tt>. If one between $m$ and $n$ is <tt>inf</tt> then $B$ is ignored.</li><li><tt>T = cqt(neg, pos)</tt> creates the semi-infinite QT matrix with the   specified symbol and an empty finite correction.</li><li><tt>T = cqt(A)</tt> creates the semi-infinite cqt-matrix with a symbol   equal to $0$ and finite correction equal to $A$.</li><li>All the constructors can be called using the syntax:   <tt>T = cqt('extended', arg1, ..., argk, v)</tt>,   which is equivalent to the commands   <tt>T = cqt(arg1, ..., argk)</tt> and <tt>T = extend(T, v)</tt>,   which constructs a quasi-Toeplitz matrix plus a rank $1$ correction   of the form $ev^T$, where $e$ is the vector of all ones.</li><li><tt>T = cqt('hankel', f)</tt> constructs the Hankel matrix with symbol   given by <tt>f</tt>.</li></ul></div><h2 id="2">Example</h2><pre class="codeinput">A = cqt([ 1 2 3], [1 4 5 6], -ones(2));
+A(1:8, 1:8)
+</pre><pre class="codeoutput">
+ans =
+
+     0     3     5     6     0     0     0     0
+     1     0     4     5     6     0     0     0
+     3     2     1     4     5     6     0     0
+     0     3     2     1     4     5     6     0
+     0     0     3     2     1     4     5     6
+     0     0     0     3     2     1     4     5
+     0     0     0     0     3     2     1     4
+     0     0     0     0     0     3     2     1
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Construction QT matrices
+%
+% The |cqt| command can be used to construct QT matrices from several input
+% data. Different syntaxes are supported. 
+
+%% Syntax
+% * |T = cqt(neg, pos, E)| creates the semi-infinite cqt-matrix with
+%      the symbol defined by the coefficients in |neg| and |pos|, which are 
+%      expected to contain negative and positive powers of the Laurent polynomial, 
+%      respectively. For consistency, it is checked that |neg(1) == pos(1)|. 
+%      An optional finite correction |E| can be specified. 
+% * |T = cqt(neg, pos, U, V)| creates the semi-infinite cqt-matrix with
+%      the specified symbol (as above) and finite correction |U * V.'|. 
+% * |T = cqt(neg, pos, A, B, m, n)| creates the $m \times  n$ QT matrix with
+%   the specified symbol, top-left correction $A$ and bottom-right 
+%   correction $B$. If one between |m| and |n| is |inf| then $B$ is ignored.
+% * |T = cqt(neg, pos, U, V, W, Z, m, n)| creates the $m \times n$ 
+%   QT matrix with the specified symbol and finite corrections |A = U * V.'|
+%   and |B = W * Z.'|. If one between $m$ and $n$ is |inf| then $B$ is ignored.
+% * |T = cqt(neg, pos)| creates the semi-infinite QT matrix with the 
+%   specified symbol and an empty finite correction.
+% * |T = cqt(A)| creates the semi-infinite cqt-matrix with a symbol 
+%   equal to $0$ and finite correction equal to $A$. 
+% * All the constructors can be called using the syntax:
+%   |T = cqt('extended', arg1, ..., argk, v)|, 
+%   which is equivalent to the commands
+%   |T = cqt(arg1, ..., argk)| and |T = extend(T, v)|, 
+%   which constructs a quasi-Toeplitz matrix plus a rank $1$ correction
+%   of the form $ev^T$, where $e$ is the vector of all ones. 
+% * |T = cqt('hankel', f)| constructs the Hankel matrix with symbol
+%   given by |f|.
+
+%% Example
+%
+A = cqt([ 1 2 3], [1 4 5 6], -ones(2));
+A(1:8, 1:8)
+##### SOURCE END #####
+--></body></html>

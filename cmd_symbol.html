@@ -1,0 +1,48 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Symbol of a QT matrix</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Symbol of a QT matrix</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The command <tt>symbol</tt> returns the coefficients of the Laurent polynomial that approximates the symbol of a QT matrix.</p><p>The correction part can be obtained with the <a href="cmd_correction.html">correction</a> command.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>[am, ap] = symbol(A)</tt></li></ul></div><h2 id="2">Example</h2><p>The two vectors returned by the <tt>symbol</tt> command contain the negative and positive coefficients of the Laurent polynomial for the Toeplitz part of $A$.</p><pre class="codeinput">A = cqt([ 1 2 3 ], [ 1 4 5 ]);
+[am, ap] = symbol(A)
+</pre><pre class="codeoutput">
+am =
+
+     1     2     3
+
+
+ap =
+
+     1     4     5
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Symbol of a QT matrix
+%
+% The command |symbol| returns the coefficients of the Laurent polynomial
+% that approximates the symbol of a QT matrix. 
+%
+% The correction part can be obtained with the <cmd_correction.html
+% correction> command. 
+
+%% Syntax
+% * |[am, ap] = symbol(A)|
+
+%% Example
+%
+% The two vectors returned by the |symbol| command contain the negative and
+% positive coefficients of the Laurent polynomial for the Toeplitz part of
+% $A$. 
+
+A = cqt([ 1 2 3 ], [ 1 4 5 ]);
+[am, ap] = symbol(A)
+##### SOURCE END #####
+--></body></html>

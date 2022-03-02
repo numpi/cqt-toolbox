@@ -1,0 +1,42 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Constructing and identity in QT format</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Constructing and identity in QT format</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The command <tt>eye</tt> constructs an identity represented in the QT format.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>I = eye(inf, 'like', cqt)</tt></li><li><tt>I = eye(n, 'like', cqt)</tt></li></ul></div><h2 id="2">Example</h2><p>We can use the command to build the identity for both finite and infinite matrices, as follows:</p><pre class="codeinput">I = eye(inf, <span class="string">'like'</span>, cqt);
+I(1:4, 1:4)
+</pre><pre class="codeoutput">
+ans =
+
+     1     0     0     0
+     0     1     0     0
+     0     0     1     0
+     0     0     0     1
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Constructing and identity in QT format
+%
+% The command |eye| constructs an identity represented in the QT format. 
+
+%% Syntax
+% * |I = eye(inf, 'like', cqt)|
+% * |I = eye(n, 'like', cqt)|
+
+%% Example
+%
+% We can use the command to build the identity for both finite and infinite
+% matrices, as follows:
+
+I = eye(inf, 'like', cqt);
+I(1:4, 1:4)
+##### SOURCE END #####
+--></body></html>

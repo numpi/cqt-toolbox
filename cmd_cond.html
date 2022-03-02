@@ -1,0 +1,47 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Condition number</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Condition number</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The <tt>cond</tt> command computes the condition number $\| A \| \cdot \| A^{-1} \|$ of a QT matrix.</p><p>The default is to compute the condition number with respect to the spectral norm for finite matrices, and with respect to the QT norm for infinite ones.</p><p>Another choice of norm can be given using the syntax <tt>cond(A, nrm_type)</tt>, where <tt>nrm_type</tt> is some norm supported by the <a href="norm.html">norm</a> command.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>c = cond(A)</tt></li><li><tt>c = cond(A, nrm_type)</tt></li></ul></div><h2 id="2">Example</h2><p>The Toeplitz matrix with symbol $a(z) = z^{-1} + 3 + z$ is always well conditioned, since $a(z)$ is far from zero on the unit circle.</p><pre class="codeinput">A = cqt([3 1], [3 1]);
+cond(A)
+</pre><pre class="codeoutput">
+ans =
+
+   13.7082
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Condition number
+%
+% The |cond| command computes the condition number
+% $\| A \| \cdot \| A^{-1} \|$ of a QT matrix.
+%
+% The default is to compute 
+% the condition number with respect to the spectral norm for finite 
+% matrices, and with respect to the QT norm for infinite ones. 
+%
+% Another choice of norm can be given using the syntax |cond(A, nrm_type)|,
+% where |nrm_type| is some norm supported by the <norm.html norm> command. 
+
+%% Syntax
+% * |c = cond(A)|
+% * |c = cond(A, nrm_type)|
+
+%% Example
+%
+% The Toeplitz matrix with symbol $a(z) = z^{-1} + 3 + z$ is always well
+% conditioned, since $a(z)$ is far from zero on the unit circle. 
+
+A = cqt([3 1], [3 1]);
+cond(A)
+##### SOURCE END #####
+--></body></html>

@@ -1,0 +1,47 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Diagonal extraction from QT matrices</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Diagonal extraction from QT matrices</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>Given a QT matrix $A$ with finite or infinite size, the command <tt>diag</tt> extracts another QT matrix that only contains diagonal entries. Thanks to the Toeplitz structure, this vector will be almost constant, with the only exception of the top and bottom entries due to the compact correction.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>d = diag(A)</tt></li></ul></div><h2 id="2">Example</h2><p>We build a $6 \times 6$ QT matrix with corrections only in the entries in position $(1,1)$ and $(6,6)$, extract the diagonal part and convert it to a full matrix using the <a href="cmd_full.html">full</a> command.</p><pre class="codeinput">A = cqt([1 2], [1 2], -1, -2, 6, 6);
+d = full(diag(A))
+</pre><pre class="codeoutput">
+d =
+
+     0     0     0     0     0     0
+     0     1     0     0     0     0
+     0     0     1     0     0     0
+     0     0     0     1     0     0
+     0     0     0     0     1     0
+     0     0     0     0     0    -1
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Diagonal extraction from QT matrices
+%
+% Given a QT matrix $A$ with finite or infinite size, the command |diag| 
+% extracts another QT matrix that only contains diagonal entries. Thanks to
+% the Toeplitz structure, this vector will be almost constant, with the 
+% only exception of the top and bottom entries due to the compact correction. 
+
+%% Syntax
+% * |d = diag(A)|
+
+%% Example
+%
+% We build a $6 \times 6$ QT matrix with corrections only in the entries in
+% position $(1,1)$ and $(6,6)$, extract the diagonal part and convert it to
+% a full matrix using the <cmd_full.html full> command. 
+
+A = cqt([1 2], [1 2], -1, -2, 6, 6);
+d = full(diag(A))
+##### SOURCE END #####
+--></body></html>

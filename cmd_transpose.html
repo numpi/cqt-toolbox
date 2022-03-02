@@ -1,0 +1,44 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Tranpose of a QT matrix</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Tranpose of a QT matrix</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The <tt>transpose</tt> command, which can be accessed using the syntax <tt>A.'</tt>, constructs a representation of the transpose of the matrix <tt>A</tt> (without any complex conjugation).</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>B = A.'</tt></li><li><tt>B = transpose(A)</tt></li></ul></div><h2 id="2">Example</h2><pre class="codeinput">A = cqt([1, 2+1i], 1);
+A.'
+</pre><pre class="codeoutput">
+ans = 
+
+CQT Matrix of size Inf x Inf
+
+
+ - Toeplitz part (leading 3 x 4 block): 
+   1.0000 + 0.0000i   2.0000 + 1.0000i   0.0000 + 0.0000i   0.0000 + 0.0000i
+   0.0000 + 0.0000i   1.0000 + 0.0000i   2.0000 + 1.0000i   0.0000 + 0.0000i
+   0.0000 + 0.0000i   0.0000 + 0.0000i   1.0000 + 0.0000i   2.0000 + 1.0000i
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Tranpose of a QT matrix
+%
+% The |transpose| command, which can be accessed using the syntax |A.'|,
+% constructs a representation of the transpose of the matrix |A| (without
+% any complex conjugation). 
+
+%% Syntax
+% * |B = A.'|
+% * |B = transpose(A)|
+
+%% Example
+
+A = cqt([1, 2+1i], 1);
+A.'
+##### SOURCE END #####
+--></body></html>

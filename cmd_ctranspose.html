@@ -1,0 +1,44 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Complex Conjugate Tranpose</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Complex Conjugate Tranpose</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The syntax <tt>B = A'</tt>, which can also be called as <tt>B = ctranspose(A)</tt>, returns the complex conjugate transpose of the QT matrix.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>B = A'</tt></li><li><tt>B = ctranspose(A)</tt></li></ul></div><h2 id="2">Example</h2><pre class="codeinput">A = cqt([1 2], 1);
+A'
+</pre><pre class="codeoutput">
+ans = 
+
+CQT Matrix of size Inf x Inf
+
+
+ - Toeplitz part (leading 3 x 4 block): 
+     1     2     0     0
+     0     1     2     0
+     0     0     1     2
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Complex Conjugate Tranpose
+%
+% The syntax |B = A'|, which can also be called as |B = ctranspose(A)|,
+% returns the complex conjugate transpose of the QT matrix. 
+
+%% Syntax
+% * |B = A'|
+% * |B = ctranspose(A)|
+
+%% Example
+%
+
+A = cqt([1 2], 1);
+A'
+##### SOURCE END #####
+--></body></html>

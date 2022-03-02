@@ -1,0 +1,38 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Size of a QT matrix</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Size of a QT matrix</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The command <tt>size</tt> returns the number of rows and columns of a QT matrix. Note that these can be infinity.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>sz = size(A)</tt></li><li><tt>sz = size(A, dim)</tt></li></ul></div><h2 id="2">Example</h2><pre class="codeinput">A = cqt(1, 1);
+szA = size(A)
+</pre><pre class="codeoutput">
+szA =
+
+   Inf   Inf
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Size of a QT matrix
+%
+% The command |size| returns the number of rows and columns of a QT matrix.
+% Note that these can be infinity. 
+
+%% Syntax
+% * |sz = size(A)|
+% * |sz = size(A, dim)|
+
+%% Example
+%
+
+A = cqt(1, 1); 
+szA = size(A)
+##### SOURCE END #####
+--></body></html>

@@ -1,0 +1,51 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Norm estimation</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Norm estimation</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The matrix-vector product by a QT matrix $A$ can be computed cheaply, and therefore the norm of $QT$ matrices is amenable to be computed by a power iteration.</p><p>The estimate norm is the spectral norm, and should be used to get rough estimates. Note that in general <a href="cmd_norm.html">norm</a> is relatively cheap for QT matrices, and can be a much more accurate alternative.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>nrm = normest(A)</tt></li></ul></div><h2 id="2">Example</h2><p>We use normest, and compare the result with the "exact" norm compute by the <a href="cmd_norm.html">norm</a> command.</p><pre class="codeinput">A = cqt([3 2 1], [3 1]);
+nrmA = norm(A, 2)
+nrmEst = normest(A)
+</pre><pre class="codeoutput">
+nrmA =
+
+    6.9144
+
+
+nrmEst =
+
+    6.9079
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Norm estimation
+%
+% The matrix-vector product by a QT matrix $A$ can be computed cheaply, and
+% therefore the norm of $QT$ matrices is amenable to be computed by a power
+% iteration. 
+%
+% The estimate norm is the spectral norm, and should be used to get rough
+% estimates. Note that in general <cmd_norm.html norm> is relatively cheap
+% for QT matrices, and can be a much more accurate alternative. 
+
+%% Syntax
+% * |nrm = normest(A)|
+
+%% Example
+%
+% We use normest, and compare the result with the "exact" norm compute by
+% the <cmd_norm.html norm> command. 
+
+A = cqt([3 2 1], [3 1]);
+nrmA = norm(A, 2)
+nrmEst = normest(A)
+##### SOURCE END #####
+--></body></html>

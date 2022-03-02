@@ -1,0 +1,83 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Correction extraction</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Correction extraction</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>QT matrices are defined as $A = T(a(z)) + E_a$, where $E_a$ is a compact correction approximated by a low-rank matrix with finite support.</p><p>This correction can be extracted, either as a full matrix or in factored form (the latter is usually much better from the efficiency viewpoint).</p><p>The symbol can be accessed using the <a href="cmd_symbol.html">symbol</a> command.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>E = correction(A)</tt></li><li><tt>[U, V] = correction(A)</tt></li></ul></div><h2 id="2">Example</h2><p>A simple way to generate matrices with a correction is taking the inverse of a Toeplitz matrix which is not triangular.</p><pre class="codeinput">A = cqt([3 1], [3 1]);
+iA = inv(A);
+</pre><p>The correction can be extracted in full form</p><pre class="codeinput">EA = correction(iA);
+support = size(EA)
+EA(1:4, 1:4)
+</pre><pre class="codeoutput">
+support =
+
+    27    26
+
+
+ans =
+
+   -0.0652    0.0249   -0.0095    0.0036
+    0.0249   -0.0095    0.0036   -0.0014
+   -0.0095    0.0036   -0.0014    0.0005
+    0.0036   -0.0014    0.0005   -0.0002
+
+</pre><p>... or in factored form, which requires much less storage (notice how in this case the correction has rank equal to $1$).</p><pre class="codeinput">[UA, VA] = correction(iA);
+supportU = size(UA)
+supportV = size(VA)
+</pre><pre class="codeoutput">
+supportU =
+
+    27     1
+
+
+supportV =
+
+    26     1
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Correction extraction
+%
+% QT matrices are defined as $A = T(a(z)) + E_a$, where $E_a$ is a compact
+% correction approximated by a low-rank matrix with finite support. 
+%
+% This correction can be extracted, either as a full matrix or in factored
+% form (the latter is usually much better from the efficiency viewpoint). 
+%
+% The symbol can be accessed using the <cmd_symbol.html symbol> command. 
+
+%% Syntax
+% * |E = correction(A)| 
+% * |[U, V] = correction(A)|
+
+%% Example
+%
+% A simple way to generate matrices with a correction is taking the inverse
+% of a Toeplitz matrix which is not triangular. 
+
+A = cqt([3 1], [3 1]);
+iA = inv(A);
+
+%%
+% The correction can be extracted in full form
+
+EA = correction(iA); 
+support = size(EA)
+EA(1:4, 1:4)
+
+%%
+% ... or in factored form, which requires much less storage (notice how in
+% this case the correction has rank equal to $1$). 
+[UA, VA] = correction(iA);
+supportU = size(UA)
+supportV = size(VA)
+##### SOURCE END #####
+--></body></html>

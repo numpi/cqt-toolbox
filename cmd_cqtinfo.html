@@ -1,0 +1,40 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>cqtinfo</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1><tt>cqtinfo</tt></h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The <tt>cqtinfo</tt> commands prints brief information on a QT object, such as the length of the symbol, and the support and rank of the correction.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>cqtinfo(A)</tt></li></ul></div><h2 id="2">Example</h2><p>We test the command on a infinite Toeplitz matrix with a random correction of rank $2$.</p><pre class="codeinput">A = cqt([1 2], 1, rand(12, 2), rand(8, 2));
+cqtinfo(A)
+</pre><pre class="codeoutput">
+ CQT matrix of size Inf x Inf
+  - Rank of the correction: 2
+  - Length of positive / negative symbol: 1 / 2
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% |cqtinfo|
+%
+% The |cqtinfo| commands prints brief information on a QT object, such as
+% the length of the symbol, and the support and rank of the correction. 
+
+%% Syntax
+% * |cqtinfo(A)|
+
+%% Example
+%
+% We test the command on a infinite Toeplitz matrix with a random 
+% correction of rank $2$. 
+
+A = cqt([1 2], 1, rand(12, 2), rand(8, 2));
+cqtinfo(A)
+
+##### SOURCE END #####
+--></body></html>

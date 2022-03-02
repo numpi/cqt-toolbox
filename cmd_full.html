@@ -1,0 +1,44 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Converting finite QT matrices to dense matrices</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Converting finite QT matrices to dense matrices</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The command <tt>full</tt> returns a dense representation of a QT matrix, similarly to what the MATLAB command does for sparse matrices. Clearly, this only makes sense for matrices of finite size.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>F = full(A)</tt></li></ul></div><h2 id="2">Example</h2><pre class="codeinput">A = cqt([1 2 3], [1 4], rand(2), rand(3), 7, 7);
+full(A)
+</pre><pre class="codeoutput">
+ans =
+
+    1.0814    4.7875         0         0         0         0         0
+    2.1744    1.7200    4.0000         0         0         0         0
+    3.0000    2.0000    1.0000    4.0000         0         0         0
+         0    3.0000    2.0000    1.0000    4.0000         0         0
+         0         0    3.0000    2.0000    1.2320    4.2071    0.2161
+         0         0         0    3.0000    2.9767    1.3818    4.6353
+         0         0         0         0    3.0466    2.2321    1.8748
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Converting finite QT matrices to dense matrices
+%
+% The command |full| returns a dense representation of a QT matrix,
+% similarly to what the MATLAB command does for sparse matrices. Clearly,
+% this only makes sense for matrices of finite size. 
+
+%% Syntax
+% * |F = full(A)|
+
+%% Example
+%
+
+A = cqt([1 2 3], [1 4], rand(2), rand(3), 7, 7);
+full(A)
+##### SOURCE END #####
+--></body></html>
