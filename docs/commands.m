@@ -66,7 +66,7 @@
 %
 % * <cmd_cqtlyap.html cqtlyap> solves Lyapunov equations $AX + XA + C = 0$
 %   and Sylvester equations $AX + XB + C = 0$. 
-% * <cmd_cqtstein.html cqtsteain> solves the Stein equation $AXA + X = C$. 
+% * <cmd_cqtstein.html cqtstein> solves the Stein equation $AXA + X = C$. 
 % * <cmd_expm.html expm> computes the matrix exponential of $A$. 
 % * <cmd_funm.html funm> evaluates a generic matrix function by means of a
 %   contour integral. 
