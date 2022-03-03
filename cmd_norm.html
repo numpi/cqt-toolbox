@@ -1,0 +1,71 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Computation of norms of QT matrices</title><link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet"><link rel="stylesheet" href="numpi.css" type="text/css"><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>
+      MathJax.Hub.Config({
+       	  tex2jax: {
+		inlineMath: [[ '$', '$' ]],
+          },
+          jax: ["input/TeX", "output/HTML-CSS"],
+          displayAlign: "center",
+     });
+   </script></head><body><div class="content"><h1>Computation of norms of QT matrices</h1><!--introduction--><p>Go to: <a href="javascript:window.history.back();">Back</a> / <a href="./index.html">Home Page</a></p><p>The <tt>norm</tt> command can be used to evaluate the norm of a QT matrix. Several norms are available, and can be selected with the second optional argument to the command. The default is to use the QT norm for infinite matrices, and the spectral norm for finite ones.</p><p>The implemented norms, selected by the <tt>nrm_type</tt> parameter, should be one of <tt>'cqt'</tt>, <tt>'eqt'</tt> (for extended matrices) or <tt>p</tt>, where <tt>p = 1, 2, inf</tt>.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li></ul></div><h2 id="1">Syntax</h2><div><ul><li><tt>nrm = norm(A)</tt></li><li><tt>nrm = norm(A, nrm_type)</tt></li></ul></div><h2 id="2">Example</h2><pre class="codeinput">A = cqt([ 3 1 ], [ 3 2 ])
+
+nrmCQT = norm(A, <span class="string">'cqt'</span>)
+nrmInf = norm(A, inf)
+nrm1 = norm(A, 1)
+</pre><pre class="codeoutput">
+A = 
+
+CQT Matrix of size Inf x Inf
+
+
+ - Toeplitz part (leading 4 x 4 block): 
+     3     2     0     0
+     1     3     2     0
+     0     1     3     2
+     0     0     1     3
+
+
+nrmCQT =
+
+    9.7082
+
+
+nrmInf =
+
+     6
+
+
+nrm1 =
+
+     6
+
+</pre></div><!--
+##### SOURCE BEGIN #####
+%% Computation of norms of QT matrices
+%
+% The |norm| command can be used to evaluate the norm of a QT matrix.
+% Several norms are available, and can be selected with the second optional
+% argument to the command. The default is to use the QT norm for infinite
+% matrices, and the spectral norm for finite ones. 
+%
+% The implemented norms, selected by the |nrm_type| parameter, should be
+% one of |'cqt'|, |'eqt'| (for extended matrices) or |p|, where |p = 1, 2, inf|. 
+
+%% Syntax
+% * |nrm = norm(A)|
+% * |nrm = norm(A, nrm_type)|
+
+%% Example
+%
+A = cqt([ 3 1 ], [ 3 2 ])
+
+nrmCQT = norm(A, 'cqt')
+nrmInf = norm(A, inf)
+nrm1 = norm(A, 1)
+
+##### SOURCE END #####
+--></body></html>
