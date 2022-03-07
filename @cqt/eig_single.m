@@ -92,7 +92,7 @@ end
   warning off; 		% warning on;
   
   [am, ap] = symbol(A);
-  E = correction(A);
+  E = correction(A);  
 
 % adjust the input size
   if size(am,2)~=1
@@ -105,15 +105,38 @@ end
       fprintf('WARNING: am(1) and ap(1) have inconsistent values\n')
       return
   end
-  
+
+% check for trailing zeros in am, ap
+  nm = length(am); np = length(ap);
+  k= 0;
+  for i=nm:-1:1
+    if am(i)~=0
+      break
+    else
+      k = k+1;
+    end
+  end
+  nm = nm-k; m = nm-1;  
+  k= 0;
+  for i=np:-1:1
+    if ap(i)~=0
+      break
+    else
+      k = k+1;
+    end
+  end
+  np = np-k; n = np-1;  
+  am = am(1:nm); ap = ap(1:np); A = cqt(am,ap,E);
+
  if advpx
     mp.Digits(digits);
     am = mp(am);
     ap = mp(ap);
     E = mp(E);
+    A = cqt(am,ap,E);
  end
  
-% create the polynomial a(z) and check sizes
+% create the polynomial a(z) and check sizes   % March 7 2022
   a = [ap(end:-1:1);am(2:end)];
   np = length(ap);
   nm = length(am);  m = nm-1;
@@ -126,7 +149,6 @@ end
      end
      h1 = m;
   end
-  
 % compute an upper  bound to the moduli of the eigenvalues
   norm1 = norm(a,1);
   mxval = norm1 + norm(E,inf);
@@ -155,8 +177,12 @@ end
      e1 = zeros(m,1); 
      W = zeros(q,m+h2);
   end 
-  e1(1) = am(m+1); B = toeplitz(e1,am(m+1:-1:2));
-
+  e1(1) = am(m+1); 
+  if length(e1)>1    %%%%%%%%%%%%%%% March 7 2021
+     B = toeplitz(e1,am(m+1:-1:2));
+  else
+     B = e1;
+  end
   W(1:m,1:m) = -B;
   W(1:m,m+1:m+h2) = E(1:m,:); 
   if r2>0
@@ -237,7 +263,7 @@ end
         case 1
            [corr,r] = nc_V(S,am,ap,r,x0,0,advpx);
         case 2
-           [corr,G] = nc_F(S,am,ap,G,x0,0,advpx);     
+           [corr,G] = nc_F(S,am,ap,G,x0,0,advpx); 
         case 3
            [corr,r] = nc_V(S,am,ap,r,x0,1,advpx); 
         case 4

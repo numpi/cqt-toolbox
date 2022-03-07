@@ -32,7 +32,7 @@ function [x, xcont, res, it, ei] = eig_all(AA, varargin)
 % ei: vector with the eigenvalues of the finite section A_N
 
 
-% By D.A. Bini, L. Robol, January 28, 2022
+% By D.A. Bini, L. Robol, March,4 , 2022
 
 p = inputParser;
 addOptional(p, 'algo', 1);
@@ -64,8 +64,6 @@ if isempty(epsi)
         epsi = 1e3 * eps;
     end
 end
-
-
 [am, ap] = symbol(AA);
 E = correction(AA);
 
@@ -77,12 +75,36 @@ E = correction(AA);
      ap = ap.';
   end
 
-  n = max([length(am), length(ap),size(E,1),size(E,2)]);
+% check for trailing zeros in am, ap
+  nm = length(am); np = length(ap);
+  k= 0;
+  for i=nm:-1:1
+    if am(i)~=0
+      break
+    else
+      k = k+1;
+    end
+  end
+  nm = nm-k; m = nm-1;  
+  k= 0;
+  for i=np:-1:1
+    if ap(i)~=0
+      break
+    else
+      k = k+1;
+    end
+  end
+  np = np-k; n = np-1;  
+  am = am(1:nm); ap = ap(1:np); AA = cqt(am,ap,E);
+
+
+% compute initial approximations
+  n = max([length(am) + length(ap),size(E,1),size(E,2)]); %%% 4/3/22
   n = n*fact;
   if verbose
       fprintf('Computing the eigenvalues of the truncated matrix of size %d\n',n);
   end
-  A=single(toepl(am,ap,E,n));%%%%%%%%%%%%%%%%%%%%%%
+  A=single(toepl(am,ap,E,n));
   tic;  ei = eig(A);  teig = toc;
   ei = double(ei);
   if advpx
@@ -137,10 +159,10 @@ E = correction(AA);
 % plot figures
   if plotfig
      figure; 
-     plot(complex(ei), 'ro');  hold on;
-     plot(complex(x),'b.', 'markersize',10);
+     plot(ei, 'ro');  hold on;
+     plot(x+1.e-200*1i,'b.', 'markersize',10);
      ax = gca; ax.FontSize = 16;
-     plot(complex(xcont), '.c');
+     plot(xcont+1.e-20*1i, '.c');
      range(AA);
      drawnow;
      hold off;
@@ -189,7 +211,7 @@ function a = toepl(am,ap,E,n)
 % function a = toepl(am,ap,E,n)
 % The nxn matrix a = CQT(am,ap,E) is computed
 nm = length(am); np = length(ap);
-n = max(n,(nm+np)*2);
+%n = max(n,(nm+np)*2);  
 a = am(1)*eye(n);
 for j=2:nm
   a = a+am(j)*diag(ones(n-j+1,1),-j+1);
