@@ -26,9 +26,7 @@ function G = factorG(am,ap,p,x,advpx)
  %    G = -L\U;  % Barnett identity
      F = diag(ones(p-1,1),1);
      F(p,:) = -g(1:p).';
-     G = F^p;
-    
-     
+     G = F^p; 
   else
      G = mycr(a,p,advpx);
   end

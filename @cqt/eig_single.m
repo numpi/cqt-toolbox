@@ -127,6 +127,17 @@ end
   end
   np = np-k; n = np-1;  
   am = am(1:nm); ap = ap(1:np); A = cqt(am,ap,E);
+  
+  if m==0
+    fprintf('The matrix is block upper triangular, use eig_all instead\n');
+    x1 = [];
+    return
+  end
+  if n==0
+    fprintf('The matrix is block lower triangular, use eig_all instead\n');
+    x1 = [];
+    return
+  end
 
  if advpx
     mp.Digits(digits);

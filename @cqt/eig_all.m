@@ -98,6 +98,32 @@ E = correction(AA);
   am = am(1:nm); ap = ap(1:np); AA = cqt(am,ap,E);
 
 
+% Case of upper block triangular matrix
+  if m==0
+    h1 = size(E,1);
+    A = toepl(am,ap,E,h1+1);
+    if advpx
+       mp.Digits(digits);
+       A = mp(A);
+    end
+    x = eig(A);
+    xcont = []; res = []; it = 0; ei = x;
+    return
+  end
+
+% Case of lower block triangular matrix
+  if n==0
+    h2 = size(E,2);
+    A = toepl(am,ap,E,h2+1);
+    if advpx
+       mp.Digits(digits);
+       A = mp(A);
+    end
+    x = eig(A);
+    xcont = []; res = []; it = 0; ei = x;
+    return
+  end
+
 % compute initial approximations
   n = max([length(am) + length(ap),size(E,1),size(E,2)]); %%% 4/3/22
   n = n*fact;
