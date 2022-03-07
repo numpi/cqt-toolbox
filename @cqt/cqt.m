@@ -112,7 +112,7 @@ classdef cqt
                     
                     if size(varargin{1}, 1) <= size(varargin{1}, 2)
                         obj.U = eye(size(varargin{1}, 1));
-                        obj.V = varargin{1}';
+                        obj.V = varargin{1}.';
                     else                    
                         obj.U = varargin{1};
                         obj.V = eye(size(varargin{1}, 2));
@@ -141,7 +141,7 @@ classdef cqt
                     
                     if size(varargin{3}, 1) <= size(varargin{3}, 2)
                         obj.U = eye(size(varargin{3}, 1));
-                        obj.V = varargin{3}';
+                        obj.V = varargin{3}.';
                     else                    
                         obj.U = varargin{3};
                         obj.V = eye(size(varargin{3}, 2));
