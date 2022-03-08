@@ -6,7 +6,7 @@ function [sd,ud,u] = deriv(m,a,s,advpx)
 % with respect to lambda
 % advpx: if true the toolbox Advanpix is used for high precision computation
 
-% By D.A. Bini, March 3, 2021
+% By D.A. Bini, March 5, 2021
 
 % compute u 
   na = length(a); ns = length(s);
@@ -28,7 +28,6 @@ function [sd,ud,u] = deriv(m,a,s,advpx)
 % compute sd, ud
 % Form matrices U and S, then the Sylvester resultant R
   M = nu+ns-1;
-  
   if advpx
     eu1 = zeros(ns,1,'mp');eu1(1)=u(1);
     es1 = zeros(nu,1,'mp');es1(1)=s(1);
@@ -41,23 +40,23 @@ function [sd,ud,u] = deriv(m,a,s,advpx)
     s1 = [s;zeros(M-ns,1)];
   end
   U = toeplitz(u1,eu1);
-  S = toeplitz(s1,es1);
-  
+  if nu>1
+     S = toeplitz(s1,es1);
 % restrict the matrices S and U
-  U = U(1:end-1,1:end-1);
-  S = S(1:end-1,1:end-1);  
-  
+     U = U(1:end-1,1:end-1);
+     S = S(1:end-1,1:end-1);    
 % form the Sylvester resultant matrix R
-  R = [U,S];
+     R = [U,S];
+  else
+      R=U(1:end-1,1:end-1);
+  end
   
 % solve the system
   b = zeros(M-1,1);
   if advpx
-    b(m+1)=-mp('1'); % nov 21
-%    b(ns)=-mp('1');
+    b(m+1)=-mp('1'); 
   else
-    b(m+1)=-1;       % nov 21
-%    b(ns)=-1';
+    b(m+1)=-1;      
   end
   
   der = R\b;

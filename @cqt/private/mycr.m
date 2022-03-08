@@ -9,7 +9,7 @@ function G = mycr(a,p,advpx)
 % k = j+max(p,length(a)-p-1), j=0,1,....,2*p
 % advpx: if true, the Advanpix toolbox is used for high precision arithmetic
 
-% Dario Bini December 27, 2021.
+% Dario Bini March 6, 2021.
 
   N = length(a); debug = true; debug = false;
   epsi = 1.e-16; max_it = 20;
@@ -18,21 +18,30 @@ function G = mycr(a,p,advpx)
   end
   k = max(p+1,N-p+1);
 % find the size with the best cond
-  am = double(a(p:-1:1));
-  ap = double(a(p:end));
+  am = double(a(p+1:-1:1));
+  ap = double(a(p+1:end));
   bm =zeros(k+p,1);
   bp=bm;
-  bm(1:p)=am;
-  bp(1:length(ap))=ap;
+  bm(1:p+1)=am;
+  bp(1:length(ap))=ap; 
   T = toeplitz(bm,bp);
   c = zeros(p,1);
   for i=0:p
-     ni = k+i;
+     ni = k+i-1;
      A= T(1:ni,1:ni);  %toeplitz(bm(1:ni),bp(1:ni));
      c(i+1)=1/rcond(A); %cond(A);
+     if c(i+1)<1.e2
+       break
+     end
   end
+  c=c(1:i+1);
   mc = min(c); im = find(c==mc);
   k = k+im(1)-1;
+  
+  %%%%%%%%%%%%%%%% 6/3/22
+  k=k-1;
+  %%%%%%%%%%%%%%%
+  
   if advpx
      aa = zeros(3*k,1,'mp');
      e1 = zeros(k,1,'mp');
