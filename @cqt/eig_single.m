@@ -52,9 +52,7 @@ function [x1, U, y, info] = eig_single(A, x0, varargin)
 % By D.A. Bini, L. Robol, January 28, 2022
 
 info = struct;
-
 p = inputParser;
-
 addOptional(p, 'algo', 1);
 addOptional(p, 'maxit', 20);
 addOptional(p, 'epsilon', []);
@@ -68,7 +66,6 @@ addOptional(p, 'digits', 34);
 addOptional(p, 'eigenvector', 0);
 
 parse(p, varargin{:});
-
 algo = p.Results.algo;
 maxit = p.Results.maxit;
 epsil = p.Results.epsilon;
@@ -78,7 +75,6 @@ advpx = p.Results.advpx;
 digits = p.Results.digits;
 eigenvector = p.Results.eigenvector;
 
-
 if isempty(epsil)
     if advpx
         epsil = mp(10)^(-digits+3);
@@ -87,12 +83,14 @@ if isempty(epsil)
     end
 end
 
-
 % Parameters
   warning off; 		% warning on;
-  
   [am, ap] = symbol(A);
   E = correction(A);  
+  if advpx
+      am = mp(am); ap = mp(ap); E = mp(E);
+      x0 = mp(x0);
+  end
 
 % adjust the input size
   if size(am,2)~=1

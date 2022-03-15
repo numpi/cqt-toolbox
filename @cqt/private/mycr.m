@@ -12,7 +12,7 @@ function G = mycr(a,p,advpx)
 % Dario Bini March 6, 2021.
 
   N = length(a); debug = true; debug = false;
-  epsi = 1.e-16; max_it = 20;
+  epsi = 1.e-16; max_it = 30;
   if advpx
      epsi = 10^(-mp.Digits);
   end
@@ -56,7 +56,7 @@ function G = mycr(a,p,advpx)
   Am1 = S(:,1:k); 
   A0 = S(:,k+1:k+k); 
   A1 = S(:,2*k+1:3*k);
-
+ 
 % Start CR
   hA0 = A0; AAm = Am1;
   for it=1:max_it
@@ -79,8 +79,8 @@ function G = mycr(a,p,advpx)
         break
      end   
   end
-  if i==max_it
-     warning('CR: maximum number of iterations reached!')
+  if it==max_it
+      disp('CR: maximum number of iterations reached!')
   end
   G = - hA0 \ AAm;
   G = G(1:p,end-p+1:end);

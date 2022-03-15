@@ -5,10 +5,11 @@ function G = factorG(am,ap,p,x,advpx)
 % by means of solving a matrix equation using the U-based method
 % advpx: if true, the toolbox Advanpix is used for high precision computation
 
-% By D.A. Bini, December, 2021 
+% By D.A. Bini, December, 2021 March 13 2022
 
 %  nwtwh = strcmp(cqtoption('wiener-hopf'), 'newton');
    nwtwh = false;
+   
  % adjust the input size
   if size(am,2)~=1
      am = am.';
@@ -16,10 +17,24 @@ function G = factorG(am,ap,p,x,advpx)
   if size(ap,2)~=1
      ap = ap.';
   end
+  
+  
+% Check if p is 1 
+if p==1
+     a = [am(end:-1:1);ap(2:end)];
+    nm = length(am);
+    a(nm) = a(nm)-x;
+    r = roots(a);
+    [val,ind] = min(abs(r));
+    G = r(ind);
+   return
+end
+
   % apply cr-qbd 
   a = [am(end:-1:1);ap(2:end)];
   nm = length(am);
   a(nm) = a(nm)-x;
+
   if nwtwh
      [g,~] = newton_WH(a,p,advpx);
  %    U = triu(toeplitz(g(1:p))); L = tril(toeplitz(g(p+1:-1:2)));

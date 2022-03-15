@@ -46,7 +46,6 @@ addOptional(p, 'advpx', false);
 addOptional(p, 'digits', 34);
 
 parse(p, varargin{:});
-
 algo = p.Results.algo;
 maxit = p.Results.maxit;
 epsi = p.Results.epsilon;
@@ -95,17 +94,18 @@ E = correction(AA);
     end
   end
   np = np-k; n = np-1;  
-  am = am(1:nm); ap = ap(1:np); AA = cqt(am,ap,E);
+  am = am(1:nm); ap = ap(1:np);
+  if advpx 
+      mp.Digits(digits);
+      am = mp(am); ap = mp(ap); E = mp(E);
+  end
+  AA = cqt(am,ap,E);
 
 
 % Case of upper block triangular matrix
   if m==0
     h1 = size(E,1);
     A = toepl(am,ap,E,h1+1);
-    if advpx
-       mp.Digits(digits);
-       A = mp(A);
-    end
     x = eig(A);
     xcont = []; res = []; it = 0; ei = x;
     return
@@ -115,10 +115,6 @@ E = correction(AA);
   if n==0
     h2 = size(E,2);
     A = toepl(am,ap,E,h2+1);
-    if advpx
-       mp.Digits(digits);
-       A = mp(A);
-    end
     x = eig(A);
     xcont = []; res = []; it = 0; ei = x;
     return
@@ -134,9 +130,7 @@ E = correction(AA);
   tic;  ei = eig(A);  teig = toc;
   ei = double(ei);
   if advpx
-     mp.Digits(digits);
      ei = mp(ei);
-     am = mp(am); ap = mp(ap);
   end
 
   tic;
@@ -152,7 +146,7 @@ E = correction(AA);
 
   for j=1:n
      w = wind(am,ap,ei(j),advpx);
-     if w>=0  %%%%%%%%    
+     if w>=0
          [z,~,~,info]=eig_single(AA, ei(j), 'algo', algo, 'maxit', maxit, ...
                 'epsilon', epsi, 'verbose', verbose, ...
                 'residual', false, 'advpx', advpx, 'digits', digits);
