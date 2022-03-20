@@ -38,7 +38,7 @@ A1 = cqt(a1n, a1p, a1n(2), a1p(2));
 Am1 = cqt(am1n, am1p, am1n(2), am1p(2));
 </pre><p>We now solve the quadratic equation $A_{-1} + A_0 G + A_1 G^2 = G$ using cyclic reduction (which can be called using the CR function in the toolbox), and we verify the solution.</p><p>Note that the function CR actually solves $A_{-1} + A_0 G + A_1 G^2 = 0$, so we need to shift the middle coefficient with the identity.</p><pre class="codeinput">tic; G = cr(Am1, A0 - cqt(1, 1), A1); toc
 norm(Am1 + A0 *G + A1 * G^2 - G)
-</pre><pre class="codeoutput">Elapsed time is 0.438890 seconds.
+</pre><pre class="codeoutput">Elapsed time is 0.388431 seconds.
 
 ans =
 
@@ -46,7 +46,7 @@ ans =
 
 </pre><h2 id="5">Using Newton iteration</h2><p>The same problem can be solved using the Newton iteration, which is implemented in the function QUADNEWT.</p><pre class="codeinput">tic; G = quadnewt(Am1, A0 - cqt(1, 1), A1); toc
 norm(Am1 + A0 *G + A1 * G^2 - G)
-</pre><pre class="codeoutput">Elapsed time is 2.553151 seconds.
+</pre><pre class="codeoutput">Elapsed time is 2.680471 seconds.
 
 ans =
 
