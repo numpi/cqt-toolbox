@@ -343,29 +343,25 @@ figure; image([x0,x1],[y0,y1],F1); title(<span class="string">' Algorithm 1 '</s
 figure; image([x0,x1],[y0,y1],F2);  title(<span class="string">' Algorithm 2 '</span>); colormap(MP);
 figure; image([x0,x1],[y0,y1],F3);  title(<span class="string">' Algorithm 3 '</span>); colormap(MP);
 figure; image([x0,x1],[y0,y1],F4);  title(<span class="string">' Algorithm 4 '</span>); colormap(MP);
-</pre><img vspace="5" hspace="5" src="doc_eig_05.png" alt=""> <img vspace="5" hspace="5" src="doc_eig_06.png" alt=""> <img vspace="5" hspace="5" src="doc_eig_07.png" alt=""> <img vspace="5" hspace="5" src="doc_eig_08.png" alt=""> <h2 id="19">The function distances</h2><p>For each eigenvalue x of the QT matrix A, this function computes the distance of x from the closest eigenvalue of the truncated matrix A_N, for different values of N. The syntax is</p><pre class="codeinput"><span class="comment">% [Dist, x] = distances(A, algo, N0, nsamp, advpx, dig)</span>
+</pre><img vspace="5" hspace="5" src="doc_eig_05.png" alt=""> <img vspace="5" hspace="5" src="doc_eig_06.png" alt=""> <img vspace="5" hspace="5" src="doc_eig_07.png" alt=""> <img vspace="5" hspace="5" src="doc_eig_08.png" alt=""> <h2 id="19">The function distances</h2><p>For each eigenvalue x of the QT matrix A, this function computes the distance of x from the closest eigenvalue of the truncated matrix A_N, for different values of N. The syntax is</p><pre class="codeinput"><span class="comment">% [Dist, x] = distances(A, xf, algo, N0, nsamp, advpx, dig)</span>
 <span class="comment">%</span>
 <span class="comment">% This function computes all the eigenvalues of A by means of the algorithm algo</span>
 <span class="comment">% together with the distances of each eigenvalue from the closest eigenvalue of</span>
-<span class="comment">% the truncated matrix A_N for N = 2^k N0, k = 0,1,2,...,nsamp-1</span>
+<span class="comment">% the truncated matrix A_N for N = 2^k N0, k = 0,1,2,...,nsamp-1. The vector xf</span>
+<span class="comment">% should contain the eigenvalues of A, as computed by eig_all.</span>
 <span class="comment">% On Output</span>
 <span class="comment">% The first line of the matrix Dist contains the truncation values N0,</span>
 <span class="comment">% 2*N0,...</span>
 <span class="comment">% The remaining lines are such that Dist(i,j) is the  distance of</span>
 <span class="comment">% eigenvalue i-1 of A from the closest value of A_N for N= N0*2^(j-1)</span>
-</pre><h2 id="20">Example</h2><pre class="codeinput">D = distances(A, 1, 25, 5, false, 34);
+</pre><h2 id="20">Example</h2><pre class="codeinput">D = distances(A, xf, 1, 25, 5, false, 34);
 format <span class="string">short</span> <span class="string">e</span>;
 D
-</pre><pre class="codeoutput">
-D =
+</pre><pre class="codeoutput error">Error using cqt/distances
+Too many input arguments.
 
-   2.5000e+01   5.0000e+01   1.0000e+02   2.0000e+02   4.0000e+02
-   7.5844e-01   1.6052e-02   1.7850e-04   3.2819e-07   1.2956e-13
-   2.7271e-01   7.7273e-03   1.9634e-04   8.8716e-08   1.6939e-13
-   3.8595e-02   1.1208e-03   4.9457e-07   5.7248e-14            0
-   2.6531e-02   9.7195e-04   1.7372e-07   3.2975e-14            0
-   1.9835e-02   8.5097e-04   1.3665e-07   4.2836e-14            0
-
+Error in doc_eig (line 275)
+D = distances(A, xf, 1, 25, 5, false, 34);
 </pre></div><!--
 ##### SOURCE BEGIN #####
 %% Computing eigenvalues of a QT matrix
@@ -629,11 +625,12 @@ figure; image([x0,x1],[y0,y1],F4);  title(' Algorithm 4 '); colormap(MP);
 % distance of x from the closest eigenvalue of the truncated matrix A_N,
 % for different values of N. The syntax is
 
-% [Dist, x] = distances(A, algo, N0, nsamp, advpx, dig)
+% [Dist, x] = distances(A, xf, algo, N0, nsamp, advpx, dig)
 %
 % This function computes all the eigenvalues of A by means of the algorithm algo
 % together with the distances of each eigenvalue from the closest eigenvalue of
-% the truncated matrix A_N for N = 2^k N0, k = 0,1,2,...,nsamp-1
+% the truncated matrix A_N for N = 2^k N0, k = 0,1,2,...,nsamp-1. The vector xf 
+% should contain the eigenvalues of A, as computed by eig_all. 
 % On Output
 % The first line of the matrix Dist contains the truncation values N0,
 % 2*N0,...
@@ -641,8 +638,9 @@ figure; image([x0,x1],[y0,y1],F4);  title(' Algorithm 4 '); colormap(MP);
 % eigenvalue i-1 of A from the closest value of A_N for N= N0*2^(j-1)
 
 %% Example
-D = distances(A, 1, 25, 5, false, 34);
+D = distances(A, xf, 1, 25, 5, false, 34);
 format short e;
 D
+
 ##### SOURCE END #####
 --></body></html>
