@@ -1,14 +1,14 @@
-function [Dist,x] = distances(A,algo,N0,nsamp,advpx,dig)
-% function [Dist,x] = distances(A,algo,N0,nsamp,advpx,dig)
-% This function computes all the eigenvalues of A by means of the algorithm algo
-% together with the distances of each eigenvalue from the closest eigenvalue of
-% the truncated matrix A_N for N = 2^k N0, k = 0,1,2,...,nsamp-1
+function Dist = distances(A,x,N0,nsamp,advpx,dig)
+% function Dist = distances(A,x,N0,nsamp,advpx,dig)
+% This function computes the distances of each eigenvalue x(i) of the CQT matrix A
+% from the closest eigenvalue of the truncated matrix A_N for N = 2^k N0, 
+% k = 0,1,2,...,nsamp-1
 % On Output
 % The first line of the matrix Dist contains the truncation values N0,2*N0,...
 % The remaining lines are such that Dist(i,j) is the  distance of
 % eigenvalue i-1 of A from the closest value of A_N for N= N0*2^(j-1)
 
-% D.A. Bini, February 2022
+% D.A. Bini, March 2022
 
   [am, ap] = symbol(A);
   E = correction(A);
@@ -21,7 +21,6 @@ function [Dist,x] = distances(A,algo,N0,nsamp,advpx,dig)
      tol =1.e-12;
   end
   
-  x = eig_all(A, 'algo', algo, 'advpx',advpx, 'digits', dig);
   nz = length(x);
   if advpx
      Dist = zeros(nz,nsamp,'mp');

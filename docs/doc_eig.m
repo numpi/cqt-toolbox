@@ -259,11 +259,12 @@ figure; image([x0,x1],[y0,y1],F4);  title(' Algorithm 4 '); colormap(MP);
 % distance of x from the closest eigenvalue of the truncated matrix A_N,
 % for different values of N. The syntax is
 
-% [Dist, x] = distances(A, algo, N0, nsamp, advpx, dig)
+% [Dist, x] = distances(A, xf, algo, N0, nsamp, advpx, dig)
 %
 % This function computes all the eigenvalues of A by means of the algorithm algo
 % together with the distances of each eigenvalue from the closest eigenvalue of
-% the truncated matrix A_N for N = 2^k N0, k = 0,1,2,...,nsamp-1
+% the truncated matrix A_N for N = 2^k N0, k = 0,1,2,...,nsamp-1. The vector xf 
+% should contain the eigenvalues of A, as computed by eig_all. 
 % On Output
 % The first line of the matrix Dist contains the truncation values N0,
 % 2*N0,...
@@ -271,6 +272,6 @@ figure; image([x0,x1],[y0,y1],F4);  title(' Algorithm 4 '); colormap(MP);
 % eigenvalue i-1 of A from the closest value of A_N for N= N0*2^(j-1)
 
 %% Example
-D = distances(A, 1, 25, 5, false, 34);
+D = distances(A, xf, 1, 25, 5, false, 34);
 format short e;
 D
