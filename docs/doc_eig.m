@@ -128,7 +128,7 @@ x = eig_single(A, x0, 'verbose', true);
 % 'maxit', m, where m is the maximum number of iterations, default m=20
 % 'epsilon', ep, where ep is the relative precision for the halt criterion,
 %      default ep=1.e3*eps
-% 'fact', f, the value f determines the size N=f*(max input size) of the matrix, default f=3
+% 'fact', f, the value f determines the size N=f*(max input size) of the matrix
 %      A_N whose eigenvalues are the initial points of the iterations, default 3
 % 'verbose', ver, if ver=true, some information is printed at run time,
 %      default ver=false
