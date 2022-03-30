@@ -129,15 +129,16 @@ E = correction(AA);
   A=single(toepl(am,ap,E,n));
   tic;  ei = eig(A);  teig = toc;
   ei = double(ei);
+  
   if advpx
      ei = mp(ei);
   end
 
   tic;
-  c1 = 1; c2 = 1; 
+  c1 = 1; c2 = 1;
   x = []; xcont = []; res=[]; it=[];
   if advpx
-     x = mp(x); xcont = mp(xcont); res = mp(res);
+     x = mp(x); xcont = mp(xcont); res = mp(res); 
   end
   if am(1)~=ap(1)
       fprintf('WARNING: am(1) and ap(1) have inconsistent values\n')
@@ -179,11 +180,11 @@ E = correction(AA);
 % plot figures
   if plotfig
      figure; 
-     plot(ei, 'ro');  hold on;
-     plot(x+1.e-200*1i,'b.', 'markersize',10);
+     range(AA);  hold on;         %March 29
+     plot(complex(ei), 'ro','markersize',10);  
+     plot(complex(x),'b.', 'markersize',10);
      ax = gca; ax.FontSize = 16;
-     plot(xcont+1.e-20*1i, '.c');
-     range(AA);
+     plot(complex(xcont), '.g','markersize',10);
      drawnow;
      hold off;
   end

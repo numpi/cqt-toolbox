@@ -5,14 +5,19 @@ function w = wind(am,ap,x,advpx)
 % the winding number is evaluated by counting the roots 
 % of modulus less than 1 by means of Graeffe's method
 % advpx: if true, the toolbox advanpix is used for high precision computation
-% By D.A. Bini, March 14, 2022
+% By D.A. Bini, March 30, 2022
 
-  gsteps = 18;
+  gsteps = 18;  verbose = false; %verbose = true;
   am(1) = am(1)-x;
   ap(1) = ap(1)-x;
   m = length(am);
   n = length(ap);
   d = m+n-1;
+  if advpx
+      epsi = mp(10^(-mp.Digits+3));
+  else
+      epsi = eps*10^3;    
+  end
 % preliminaries
   s = (-1).^(1:d)';
   s = s*sign(s(m));
@@ -48,15 +53,22 @@ function w = wind(am,ap,x,advpx)
               return
          end
   end
-  fprintf('Warning: in wind, max number of Graeffe steps reached\n');
- % [~,vind] = max(abs(a)); ind = min(vind);
- % nz = length(a)-ind;
- % m = length(am)-1;
- % w = nz-m;
+  if verbose
+      fprintf('Warning: in wind, max number of Graeffe steps reached\n');
+  end
+  
+% filtering coefficients to avoid malfunctioning of roots 
+  b=abs(a)>1.e-60;
+  a = a.*b;
   absr = abs(roots(a));
-  nz = sum(absr<1);
+  if advpx
+      chk = mp('1')-absr;
+  else
+      chk =1-absr;
+  end
+  nz = sum(chk>epsi*2^18); % numerical correction 
   m = length(am)-1;
-  w = nz-m;
+  w = nz-m;   
   return
 end
 

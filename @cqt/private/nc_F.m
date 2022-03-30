@@ -1,5 +1,5 @@
-function [nc, G] = nc_F(W, am, ap, G, x, variant,advpx)
-% function [nc, G] = nc_F(W, am, ap, G, x, variant)
+function [nc, G, exc] = nc_F(W, am, ap, G, x, variant,advpx)
+  % function [nc, G, exc] = nc_F(W, am, ap, G, x, variant)
 % Compute the Newton correction nc = det(A)/det'(A)
 % for A = WV, if variant = 0     (Algorithm  2)
 %     A = WV-xV if variant = 1   (Algorithm  4)
@@ -16,12 +16,13 @@ function [nc, G] = nc_F(W, am, ap, G, x, variant,advpx)
 %    corr: correction such that y=x-corr is the new iteration
 %    G: such that G=F^p, F Frobenius matrix associated with 
 %       the factor of a(z)-y with roots of modulus <1
+%    exc: true if exceeded the max number of cyclic reduction iterations
 
 % By D.A. Bini, August 2, 2021
 
 % Preliminaries
 
-
+  exc = false;
   m = length(am)-1; 
   [h1,h2] = size(W);
   
@@ -104,7 +105,7 @@ function [nc, G] = nc_F(W, am, ap, G, x, variant,advpx)
   x = x-nc;
   p = m+wind(am,ap,x,advpx);
   % wi=wind(am,ap,x,advpx);
-  G = factorG(am,ap,p,x,advpx);
+  [G, exc] = factorG(am,ap,p,x,advpx);
 
 end
 

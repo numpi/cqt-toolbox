@@ -1,9 +1,11 @@
-function G = factorG(am,ap,p,x,advpx)
-% function G = factorG(am,ap,p,x,advpx)
+function [G, exc] = factorG(am,ap,p,x,advpx)
+% function [G, exc] = factorG(am,ap,p,x,advpx)
 % Compute G = F^p where F is the Frobenius matrix associated with the
 % roots of the Laurent polynomial a(z) of modulus less than 1
 % by means of solving a matrix equation using the U-based method
 % advpx: if true, the toolbox Advanpix is used for high precision computation
+% If the factor cannot be computed since Cyclic Reduction does not converge
+% then exc = true
 
 % By D.A. Bini, December, 2021 March 13 2022
 
@@ -43,7 +45,7 @@ end
      F(p,:) = -g(1:p).';
      G = F^p; 
   else
-     G = mycr(a,p,advpx);
+     [G, exc] = mycr(a,p,advpx);
   end
     
  

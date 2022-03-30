@@ -43,6 +43,7 @@ function [x1, U, y, info] = eig_single(A, x0, varargin)
 %            5 p<q x1 is outside the connected component containing x0
 %            6 diverging sequence
 %            7 exceeded the max number of iterations
+%            8 approximation numerically on the boundary 
 % info.res :  residual error in the first q components of the equation Av-x1 v=0
 % info.vres : vector with the residual errors per step 
 % info.vresest : vector with the residual errors per step estimated by the SVD 
@@ -227,7 +228,12 @@ end
         end
      end
 %    Compute G
-     G = factorG(am,ap,p,x0,advpx);
+     [G,exc] = factorG(am,ap,p,x0,advpx); %% March 29
+     if exc
+        info.flg = 8;
+        x1 = x0;
+        return
+     end
   end     
 
 % Start the iterations 
@@ -270,13 +276,18 @@ end
 %-2  select the algorithm 
      switch algo	
         case 1
-           [corr,r] = nc_V(S,am,ap,r,x0,0,advpx);
+           [corr, r] = nc_V(S,am,ap,r,x0,0,advpx);
         case 2
-           [corr,G] = nc_F(S,am,ap,G,x0,0,advpx); 
+           [corr, G, exc] = nc_F(S,am,ap,G,x0,0,advpx); 
         case 3
-           [corr,r] = nc_V(S,am,ap,r,x0,1,advpx); 
+           [corr, r] = nc_V(S,am,ap,r,x0,1,advpx); 
         case 4
-           [corr,G] = nc_F(S,am,ap,G,x0,1,advpx); 
+           [corr, G, exc] = nc_F(S,am,ap,G,x0,1,advpx);
+           if exc
+              x1 = x0
+              info.flg = 8;
+              return
+           end 
         otherwise
            fprintf('Wrong algorithm selection\n')
            if verbose

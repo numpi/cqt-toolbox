@@ -1,5 +1,5 @@
-function G = mycr(a,p,advpx)
-% function mycr(a,p,advpx)
+function [G, exc] = mycr(a,p,advpx)
+% function [G, exc] = mycr(a,p,advpx)
 % Applies Cyclic Reduction to compute the minimal solution G
 % of the equation Am1 + A0 X + A1 x^2 +...+ AM x^{M-1} = 0
 % Am1=toeplitz([a_0,0,...,0],[a_0,....a_{p-1}],
@@ -8,9 +8,10 @@ function G = mycr(a,p,advpx)
 % the most convenient size partitioning kxk is chosen, over the set
 % k = j+max(p,length(a)-p-1), j=0,1,....,2*p
 % advpx: if true, the Advanpix toolbox is used for high precision arithmetic
+% In output: exc is true if the maximum number of iterations has been reached
 
 % Dario Bini March 6, 2021.
-
+  exc = false;
   N = length(a); debug = true; debug = false;
   epsi = 1.e-16; max_it = 30;
   if advpx
@@ -59,6 +60,7 @@ function G = mycr(a,p,advpx)
  
 % Start CR
   hA0 = A0; AAm = Am1;
+  
   for it=1:max_it
      AA0 = A0 \ [ A1, Am1 ];
      temp1 = AA0(:, 1:k);
@@ -81,6 +83,7 @@ function G = mycr(a,p,advpx)
   end
   if it==max_it
       disp('CR: maximum number of iterations reached!')
+      exc = true;
   end
   G = - hA0 \ AAm;
   G = G(1:p,end-p+1:end);
