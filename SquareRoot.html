@@ -22,7 +22,7 @@ V = randn(corr_size, 3);
 
 A = cqt(am, ap, U, V);
 tic; B = sqrtm(A); toc;
-</pre><pre class="codeoutput">Elapsed time is 0.401167 seconds.
+</pre><pre class="codeoutput">Elapsed time is 0.424679 seconds.
 </pre><p>And finally, we check if the result is correct (up to some threshold).</p><pre class="codeinput">norm(A - B^2) / norm(A)
 </pre><pre class="codeoutput">
 ans =
