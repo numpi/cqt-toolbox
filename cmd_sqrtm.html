@@ -17,7 +17,7 @@ res = norm(sA^2 - A) / norm(A)
 </pre><pre class="codeoutput">
 res =
 
-   7.0808e-12
+   7.0816e-12
 
 </pre><p>We may consider a matrix closer to singularity, and compare the accuracy of Denman-Beavers vs the Cyclic Reduction.</p><pre class="codeinput">A = cqt([ 2 .99 ], [ 2 .99 ]);
 cqtoption(<span class="string">'sqrt'</span>, <span class="string">'db'</span>);
