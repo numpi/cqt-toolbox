@@ -1,11 +1,22 @@
 function r = norm(T, p)
 %NORM CQT-norm of a CQT-matrix
 %
-% R = NORM(T) computes the CQT-norm of a CQT-matrix
+% R = NORM(T) computes the infinity norm of a CQT matrix. 
+%
+% Other norms may be computed by providing a second parameter:
+%
+% R = NORM(T, P) computes the P-norm, where P may be one of 
+% the following:
+%
+%  - inf: Infinity norm (default)
+%  - 'cqt': CQT norm (only for infinite matrices)
+%  - 'eqt': Extended-QT norm (only for infinite matrices)
+%  - 1: 1 norm
+%  - 2: spectral norm
 
 if max(T.sz) == inf
     if ~exist('p', 'var')
-        p = 'cqt';
+        p = inf;
     end
     
     switch p
@@ -20,8 +31,7 @@ if max(T.sz) == inf
         case 2
             r = qt_norm2(T);
         otherwise
-            error([ 'Only CQT / EQT norms are supported' ...
-                'for infinite matrices' ]);
+            error([ 'Unsupported norm selected' ]);
     end
 else
     if max(T.sz) == inf
@@ -41,7 +51,7 @@ else
         end
     else
         if ~exist('p', 'var')
-            p = 'cqt';
+            p = inf;
         end
         
         switch p
@@ -54,7 +64,7 @@ else
             case 'cqt'
                 r = qt_norm(T.n, T.p, T.U, T.V) + qt_norm(0, 0, T.W, T.Z);
             otherwise
-                error('Unsupported norm');
+                error('Unsupported norm selected');
         end
     end
     
