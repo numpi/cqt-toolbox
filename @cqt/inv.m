@@ -11,6 +11,13 @@ if T.sz(2) == inf && T.sz(1) == T.sz(2)
     
     if ~isempty(T.c)
         ciT = correction(cqt(T.c) * iT);
+
+        % The above correction may given an output with two or more rows
+        % due to rounding effects; since the above should be a row vector,
+        % we ignore any other data
+        if ~isempty(ciT)
+            ciT = ciT(1, :);
+        end
         
         S = extend(cqt([]), ciT);
         S = iT * S / (1 + sum(ciT));
