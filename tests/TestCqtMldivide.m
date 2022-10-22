@@ -6,10 +6,9 @@ epsi = cqtoption('threshold');
 A = cqt([ 4 -1 ], [4 1], rand(4,2), rand(3,2));
 B = cqt(0, 0, rand(4,1), rand(6,1));
 
-C = inv(A) * B;
 D = A \ B;
 
-CheckTestResult(norm(C - D), '<', 1e3 * epsi * norm(B) * norm(inv(A)), ...
+CheckTestResult(norm(A*D - B), '<', 1e1 * epsi * norm(B) * norm(inv(A)), ...
     'mldivide on CQT and finite matrix');
 
 x = rand;
